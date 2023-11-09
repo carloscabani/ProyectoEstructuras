@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CreacionContactosController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="462.0">
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+         <children>
+            <Button fx:id="btback" mnemonicParsing="false" onAction="#ventanaContactos" text="&lt; Back" />
+         </children>
+      </HBox>
+      <Label layoutX="33.0" layoutY="111.0" text="Nombre:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txnombre" layoutX="136.0" layoutY="109.0" />
+      <Label layoutX="36.0" layoutY="262.0" prefHeight="18.0" prefWidth="53.0" text="Email:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="149.0" text="Apellido:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="224.0" text="Telefono:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="188.0" text="Direccion:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtelefono" layoutX="136.0" layoutY="222.0" />
+      <TextField fx:id="txdireccion" layoutX="136.0" layoutY="186.0" />
+      <TextField fx:id="txapellido" layoutX="136.0" layoutY="147.0" />
+      <TextField fx:id="txemail" layoutX="136.0" layoutY="260.0" />
+      <Label layoutX="33.0" layoutY="303.0" text="Fecha Pertinente:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="txcalendario" layoutX="156.0" layoutY="301.0" prefHeight="26.0" prefWidth="129.0" />
+      <Label layoutX="105.0" layoutY="47.0" text="Contacto Nuevo">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Button fx:id="btguardar" layoutX="203.0" layoutY="558.0" mnemonicParsing="false" text="Guardar" />
+      <ComboBox fx:id="cbdireccion" layoutX="315.0" layoutY="185.0" prefHeight="26.0" prefWidth="97.0" />
+      <ComboBox fx:id="cbtelefono" layoutX="315.0" layoutY="221.0" prefHeight="26.0" prefWidth="97.0" />
+      <ComboBox fx:id="cbemail" layoutX="315.0" layoutY="259.0" prefHeight="26.0" prefWidth="97.0" />
+      <ComboBox fx:id="cbfecha" layoutX="315.0" layoutY="301.0" prefHeight="26.0" prefWidth="97.0" />
+      <VBox fx:id="vbcamposopcionales" layoutX="21.0" layoutY="406.0" prefHeight="147.0" prefWidth="423.0">
+         <children>
+            <HBox fx:id="hbpercontacto" prefHeight="50.0" prefWidth="423.0" spacing="20.0">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="hbsitioweb" prefHeight="47.0" prefWidth="423.0" spacing="75.0">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="hbempresa" prefHeight="49.0" prefWidth="423.0" spacing="80.0" />
+         </children>
+      </VBox>
+      <Button fx:id="btcampos" centerShape="false" layoutX="42.0" layoutY="352.0" mnemonicParsing="false" text="Mas campos...">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btocultar" layoutX="156.0" layoutY="352.0" mnemonicParsing="false" onAction="#ocultarCampos" text="Ocultar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="fotoPerfil" fitHeight="47.0" fitWidth="66.0" layoutX="331.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="337.0" layoutY="100.0" text="Imagen:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
