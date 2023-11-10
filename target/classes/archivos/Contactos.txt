@@ -1,6 +1,4 @@
 
 
 Leonel,Messi,9999999-Movil,Buenos Aires-casa,@eeeee-Trabajo,PEPE-Hijo,1987-06-24-cumplea�os,Instagram:leo_messi,Banco Guayaquil
-Leonel,Messi,9999999-Movil,Buenos Aires-casa,@eeeee-Trabajo,PEPE-Hijo,1987-06-24-cumplea�os,Instagram:leo_messi,Banco Guayaquil
-Leonel,Messi,9999999-Movil,Buenos Aires-casa,@eeeee-Trabajo,PEPE-Hijo,1987-06-24-cumplea�os,Instagram:leo_messi,Banco Guayaquil
-Joselu,Ibanez,Casa-0978665422,Trabajo-Av Madrid,jose@gmail.com-Trabajo,Amigo-Toni Kross,2023-05-21-Otro,joselu_realMadrid:,Real Madrid FC
+

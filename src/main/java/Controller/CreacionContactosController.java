@@ -119,7 +119,7 @@ public class CreacionContactosController implements Initializable {
             String Empresa= tempresa.getText();
             
             Contacto c= new Contacto(Nombre,Apellido,Tel,di,em,per,fech,web,Empresa);
-            listaContacts.add(c);
+            listaContactos.add(c);
             EscribirArchivo();
             
             txnombre.clear();
@@ -240,8 +240,8 @@ public class CreacionContactosController implements Initializable {
             
 
             ArrayList<Contacto> listaFor = new ArrayList<>();
-            for(int x =0; x<listaContacts.size(); x++){
-                listaFor.add(listaContacts.get(x));
+            for(int x =0; x<listaContactos.size(); x++){
+                listaFor.add(listaContactos.get(x));
             
             }
             

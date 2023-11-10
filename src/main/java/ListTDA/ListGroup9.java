@@ -6,21 +6,23 @@ package ListTDA;
  * @param <E>
  */
 public interface ListGroup9<E> {
-        public int size();
+    public boolean addFirst(E e); // inserta el elemento e al inicio
 
-    public boolean isEmpty();
-
-    public void clear();
-
-    public boolean addFirst(E element); // inserta el elemento element al inicio
-
-    public boolean add(E element); // inserta el elemento element al final
+    public boolean add(E e); // inserta el elemento e al final
 
     public E removeFirst(); // remueve el elemento al inicio de la lista
 
     public E removeLast(); // remueve el elemento al final de la lista
 
-    public boolean add(int index, E element); // inserta element en la posición index
+    public int size();
+
+    public boolean isEmpty();
+
+    public void clear();
+    
+    boolean contains(E Element);  
+    
+    boolean add(E Element, int index); // inserta element en la posición index
 
     public E remove(int index); // remueve y retorna el elemento en la posición index
 
@@ -28,13 +30,7 @@ public interface ListGroup9<E> {
 
     public E set(int index, E element); // setea el element en la posición index
     
-    public boolean remove(Object o);
-    
-    public void reverse();
-    
-    public ListGroup9<E> subList(int from, int to);
-    
-    public boolean removeFirstNElements(int n);
+    int indexOf(E Element);  // retorna el indice donde se encuentra el elemento   
 
     @Override
     public String toString();

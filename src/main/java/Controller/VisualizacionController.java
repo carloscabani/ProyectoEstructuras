@@ -7,6 +7,7 @@ package Controller;
 
 import Clases.Contacto;
 import ListTDA.ArrayListGroup9;
+import ListTDA.NodeList;
 
 
 import java.io.BufferedReader;
@@ -44,13 +45,13 @@ public class VisualizacionController implements Initializable {
     @FXML
     private Label labelEmpresa;
     
-    private ArrayListGroup9<Contacto>.Node<Contacto> nodoActual;
+    private NodeList<Contacto> nodoActual ;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
-        nodoActual = ListaContactosController.listaContacts.getPrimero();    
+        nodoActual = ListaContactosController.listaContactos.getFirst();    
         
         Contacto persona = nodoActual.getContenido();
         String nombre = persona.getNombre();
@@ -83,10 +84,16 @@ public class VisualizacionController implements Initializable {
 
     @FXML
     private void continuarContacto(ActionEvent event){
-        int cont = 1;
-        Contacto persona = ListaContactosController.listaContacts.get(cont);
+//        int cont = 1;
+//        Contacto persona = ListaContactosController.listaContactos.get(cont);
+
+        nodoActual = ListaContactosController.listaContactos.getFirst().getSiguiente();
         
-        if(persona != null){
+        Contacto persona = nodoActual.getContenido();
+
+        
+        
+        if(ListaContactosController.listaContactos != null){
             String nombre = persona.getNombre();
             String apellido= persona.getApellido();
             String telefono = persona.getTlf().getTipoTlf() + ":"+ " "+persona.getTlf().getTlf();
@@ -106,7 +113,7 @@ public class VisualizacionController implements Initializable {
             labelEmpresa.setText("Empresa: "+empresa);
             labelRedes.setText(redSocial);       
             
-            cont++;
+//            cont++;
         }
         
     }

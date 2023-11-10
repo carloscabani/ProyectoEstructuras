@@ -6,10 +6,10 @@ package Controller;
 
 import Clases.*;
 import ListTDA.ArrayListGroup9;
+import ListTDA.NodeList;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,8 +32,8 @@ public class ListaContactosController implements Initializable {
     
     // ArrayList del pauqete de java porque falta hacer el metodo Iterable en la listGroup9
     //public static ArrayList<Contacto> lstcontactos = new ArrayList<>();
-    public static ArrayListGroup9<Contacto> listaContacts = new ArrayListGroup9<>();
-    public static ListView<String> listContactos = new ListView<>();
+    public static ArrayListGroup9<Contacto> listaContactos = new ArrayListGroup9<>();
+    public static ListView<String> listViewContactos = new ListView<>();
     public static VBox contenerdorList = new VBox();
 
     @FXML
@@ -60,11 +60,11 @@ public class ListaContactosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LocalDate fecha = LocalDate.of(1987, 06, 24); 
-        listaContacts.add(new Contacto("Leonel","Messi",new Telefono("Movil","9999999"),new Direccion("casa","Buenos Aires"),new Email("Trabajo","@eeeee"),new PersonaAdiconal("PEPE","Hijo"), new Fecha("cumpleaños", fecha), new RedSocial("Instagram", "leo_messi"),"Banco Guayaquil"));
+        listaContactos.add(new Contacto("Leonel","Messi",new Telefono("Movil","9999999"),new Direccion("casa","Buenos Aires"),new Email("Trabajo","@eeeee"),new PersonaAdiconal("PEPE","Hijo"), new Fecha("cumpleaños", fecha), new RedSocial("Instagram", "leo_messi"),"Banco Guayaquil"));
         //listaContacts.add(new Contacto("Zlatan","Ibrahamovich",new Telefono("Movil","5555555"),new Direccion("casa","Suecia"),new Email("Trabajo","@eeeee"),new PersonaAdiconal("PEPE","Hijo"), new Fecha("cumpleaños",ler),"facebook","Banco Guayaquil"));
 
         
-        System.out.println(listaContacts);
+        System.out.println(listaContactos);
         //lstcontactos.add(new Contacto("messi","55555","Buneos Aires"));
         //lstcontactos.add(new Contacto("Ronaldo","55555","Buneos Aires"));
         contenerdorList.getChildren().clear();
@@ -97,22 +97,38 @@ public class ListaContactosController implements Initializable {
 //        }
 //    }
     public void cargarListView() {
-        if (listContactos != null) {
-            listContactos.getItems().clear();
-            //creacion listaFor para ser usada en el for-each 
-            ArrayList<Contacto> listaFor = new ArrayList<>();
-            for(int x =0; x<listaContacts.size(); x++){
-                listaFor.add(listaContacts.get(x));
+        if (listViewContactos != null) {
+            listViewContactos.getItems().clear();
+            
+            
+//creacion listaFor para ser usada en el for-each 
+            
+            
+//            ArrayList<Contacto> listaFor = new ArrayList<>();
+//            for(int x =0; x<listaContacts.size(); x++){
+//                listaFor.add(listaContactos.get(x));
+//            
+//            }
+//               
+//            for (Contacto c : listaFor) {
+//                
+//                listViewContactos.getItems().add(c.getNombre());
+//            }
+        
+            NodeList<Contacto> nodoActual = listaContactos.getFirst();
+            while(nodoActual!= null){
+                Contacto informacion = nodoActual.getContenido();
+                listViewContactos.getItems().add(informacion.getNombre());
+                nodoActual = nodoActual.getSiguiente();
+                
             
             }
-               
-            for (Contacto c : listaFor) {
-                
-                listContactos.getItems().add(c.getNombre());
-            }
+        
+        
+        
         }
         
-        contenerdorList.getChildren().add(listContactos);
+        contenerdorList.getChildren().add(listViewContactos);
         vblista.getChildren().add(contenerdorList);
         
     }

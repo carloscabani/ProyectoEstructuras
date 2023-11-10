@@ -30,6 +30,8 @@ public class Contacto {
     private RedSocial redSocial;
     
     private String empresa;
+    
+    private String rutaArchivoTxt = "src/main/resources/archivos/Contactos.txt";
 
     public Contacto(String nombre, String apellido, Telefono tlf, Direccion dir, Email email, PersonaAdiconal per, Fecha fecha, RedSocial web, String empresa) {
         this.nombre = nombre;
@@ -45,6 +47,14 @@ public class Contacto {
     
     
     
+    
+    public String getRutaTxt(){
+        return rutaArchivoTxt;
+    }
+    
+    public void setRutaTxt(String ruta) {
+        this.rutaArchivoTxt = ruta;
+    }
     
     
     public PersonaAdiconal getPer() {
