@@ -25,6 +25,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -35,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javax.imageio.ImageIO;
@@ -51,14 +53,16 @@ public class CreacionContactosController implements Initializable {
     public static ArrayList<String> etiqueta2 = new ArrayList<>();
     public static ArrayList<String> etiqueta3 = new ArrayList<>();
     public static ArrayList<String> etiqueta4 = new ArrayList<>();
+    public static ArrayG9<String> etiqueta5 = new ArrayG9<>();
     public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
 
     String ni = null;
 
 
     ComboBox c1 = new ComboBox();
+    ComboBox c2 = new ComboBox();
     Label l1 = new Label("Persona Contacto:");
-    Label l2 = new Label("Sitio Web:");
+    Label l2 = new Label("Red Social:      ");
     Label l3 = new Label("Empresa:");
     TextField tperContacto = new TextField();
     TextField tempresa = new TextField();
@@ -137,7 +141,7 @@ public class CreacionContactosController implements Initializable {
             
             LocalDate fecha = txcalendario.getValue();
             Fecha fech= new Fecha(cbfecha.getValue(),fecha);
-            RedSocial web= new RedSocial(tsitioweb.getText(), "");
+            RedSocial web= new RedSocial((String) c2.getValue(), tsitioweb.getText());
             String Empresa= tempresa.getText();
             
             Contacto c= new Contacto(Nombre,Apellido,Tel,di,em,per,fech,web,Empresa);
@@ -167,6 +171,7 @@ public class CreacionContactosController implements Initializable {
             tempresa.clear();
             tsitioweb.clear();
             c1.setValue("");
+            c2.setValue("");
             cbdireccion.setValue("");
             cbtelefono.setValue("");
             cbemail.setValue("");
@@ -174,9 +179,6 @@ public class CreacionContactosController implements Initializable {
             txcalendario.setValue(null);
 
         });
-        
-        
-        
 
     }
 
@@ -189,13 +191,19 @@ public class CreacionContactosController implements Initializable {
         btcampos.setOnAction((ActionEvent e) -> {
            
 
-            
+            l1.setFont(new Font(15));
+            l2.setFont(new Font(15));
+            l3.setFont(new Font(15));
             hbpercontacto.getChildren().addAll(l1,tperContacto,c1);
             hbpercontacto.setSpacing(20);
-            hbsitioweb.getChildren().addAll(l2,tsitioweb);
-            hbsitioweb.setSpacing(70);
+            hbsitioweb.getChildren().addAll(l2,tsitioweb,c2);
+            hbsitioweb.setSpacing(30);
+            l2.setMaxHeight(27);
+            l2.setMaxWidth(150);
             hbempresa.getChildren().addAll(l3,tempresa);
-            hbempresa.setSpacing(70);
+            hbempresa.setSpacing(75);
+            hbempresa.setPadding(new Insets(10, 0, 0, 10));
+          
             
         });
     }
@@ -223,6 +231,13 @@ public class CreacionContactosController implements Initializable {
         etiqueta4.add("Amigo");
         etiqueta4.add("Jefe");
         etiqueta4.add("Esposa");
+        //llenado de etiqueta5
+        etiqueta5.add("Facebook");
+        etiqueta5.add("Instagram");
+        etiqueta5.add("Tik Tok");
+        etiqueta5.add("Twuiter");
+
+        
         
           
     }
@@ -250,6 +265,11 @@ public class CreacionContactosController implements Initializable {
                 c1.getItems().add(b);
             }
         }
+        if (c2.getItems().isEmpty()) {
+            for (String redes : etiqueta5) {
+                c2.getItems().add(redes);
+            }
+        }
 
     }
 
@@ -263,7 +283,7 @@ public class CreacionContactosController implements Initializable {
     public void EscribirArchivoContactos(){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt"))) {
             //formato:
-            //Nombre,Apellido,Telefono,Direccion,Email,Persona Adiconal,Fecha pertinente,Red social,Empresa
+            //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
             
 
             ArrayList<Contacto> listaFor = new ArrayList<>();
@@ -278,14 +298,13 @@ public class CreacionContactosController implements Initializable {
                 if (tperContacto.getText().equals("") && tsitioweb.getText().equals("") && tempresa.getText().equals("")) {
                     writer.write(c.getNombre() + "," + c.getApellido() + "," + c.getTlf().getTlf() + "-" + c.getTlf().getTipoTlf() + ","
                             + c.getDir().getUbicacion() + "-" + c.getDir().getTipoDireccion() + "," + c.getEmail().getCorreo() + "-"
-                            + c.getEmail().getTipo() + "," + "ninguno" + "," + c.getFecha().getFecha()
-                            + "-" + c.getFecha().getTipoFecha() + "," + "ninguno" + "," + "ninguno");
+                            + c.getEmail().getTipo() + "," + c.getFecha().getFecha() + "-" + c.getFecha().getTipoFecha() + "," + "ninguno-ninguno" + "," + "ninguno-ninguno" + ","
+                            + "ninguno");
                 } else {
                     writer.write(c.getNombre() + "," + c.getApellido() + "," + c.getTlf().getTlf() + "-" + c.getTlf().getTipoTlf() + ","
                             + c.getDir().getUbicacion() + "-" + c.getDir().getTipoDireccion() + "," + c.getEmail().getCorreo() + "-"
-                            + c.getEmail().getTipo() + "," + c.getPer().getPersona() + "-" + c.getPer().getTipoPersona() + "," + c.getFecha().getFecha()
-                            + "-" + c.getFecha().getTipoFecha() + "," + c.getRedSocial() + "," + c.getEmpresa());
-
+                            + c.getEmail().getTipo() + "," + c.getFecha().getFecha() + "-" + c.getFecha().getTipoFecha() + "," + c.getPer().getPersona() + "-" + c.getPer().getTipoPersona() + ","
+                            + c.getRedSocial().getUsername() + "-" + c.getRedSocial().getTipoRedSocial() + "," + c.getEmpresa());
                 }
 
                 writer.newLine();

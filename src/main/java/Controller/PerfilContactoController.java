@@ -17,7 +17,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,12 +85,15 @@ public class PerfilContactoController implements Initializable {
     private ImageView imgvideo;
     @FXML
     private Button bthome;
+    @FXML
+    private ImageView imgGPS;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        RegresarHome();
         cargarListaPerfiles();
         if(!listaContactos.isEmpty()){
             mostrarPersonaActual();
@@ -96,10 +102,6 @@ public class PerfilContactoController implements Initializable {
 
     @FXML
     private void mostrarAnterior(ActionEvent event) {
-//        if (indiceActual > 0) {
-//            indiceActual--;
-//            mostrarPersonaActual();
-//        }
         if (!listaContactos.isEmpty()) {
             if (indiceActual > 0) {
                 indiceActual--;
@@ -112,7 +114,17 @@ public class PerfilContactoController implements Initializable {
 
     @FXML
     private void VentanaInicio(ActionEvent event) throws IOException {
-        App.setRoot("ListaContactos");
+//        App.setRoot("ListaContactos");
+    }
+    
+    public void RegresarHome(){
+        bthome.setOnAction((ActionEvent e) -> {
+            try {
+                App.setRoot("ListaContactos");
+            } catch (IOException ex) {
+                Logger.getLogger(PerfilContactoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     @FXML
@@ -130,7 +142,9 @@ public class PerfilContactoController implements Initializable {
     }
 
     private void mostrarPersonaActual() {
-       
+        // Generar un número aleatorio entre 1 y 20
+        Random random = new Random();
+        int nAleatorio = random.nextInt(20) + 1;
         Contacto persona = listaContactos.get(indiceActual);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechaComoString = persona.getFecha().getFecha().format(formatter);
@@ -142,10 +156,10 @@ public class PerfilContactoController implements Initializable {
             lbcont.setText(persona.getPer().getPersona() + " - " + persona.getPer().getTipoPersona());
         }
         
-        if(persona.getRedSocial().getTipoRedSocial().equals("")){
+        if(persona.getRedSocial().getUsername().equals("")){
             lbpagina.setText("ninguno");
         }else{
-            lbpagina.setText(persona.getRedSocial().getTipoRedSocial());
+            lbpagina.setText(persona.getRedSocial().getTipoRedSocial()+" - "+persona.getRedSocial().getUsername());
         }
         
         if (persona.getEmpresa().equals("")){
@@ -158,7 +172,7 @@ public class PerfilContactoController implements Initializable {
         lbdireccion.setText(persona.getDir().getUbicacion() + " - " + persona.getDir().getTipoDireccion());
         lbfecha.setText(fechaComoString + " - " + persona.getFecha().getTipoFecha());
         lbcorreo.setText(persona.getEmail().getCorreo() + " - " + persona.getEmail().getTipo());
-   
+        seleccionImagen(nAleatorio);
         for (Foto ft : lstfotoPerfiles) {
             if ((ft.getNombre().equals(persona.getNombre())) && (ft.getApellido().equals(persona.getApellido()))) {
                 try (FileInputStream input = new FileInputStream("src/main/resources/pics/" + cargarListaPerfiles(persona.getNombre(), persona.getApellido()))) {
@@ -171,13 +185,17 @@ public class PerfilContactoController implements Initializable {
                 }
             }
         }
+        
+        
+        
+        
 
 
 
     }
     
     
-    // este es un metodo de prueba no est en uso por el momento
+    // este es un metodo de prueba no esta en uso por el momento
     public String cargarListaPerfiles(String n, String ap) {
         String imagenAsociada = null;
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/archivos/FotosPerfil.txt", StandardCharsets.UTF_8))) {
@@ -224,4 +242,16 @@ public class PerfilContactoController implements Initializable {
 
     }
 
+    public void seleccionImagen(int index) {
+        String num= String.valueOf(index);
+        try (FileInputStream input = new FileInputStream("src/main/resources/ubicaciones/" + "ubicacion"+num+".png")) {
+            //System.out.println("src/main/resources/ubicaciones/" + "ubicacion"+num);
+            Image image = new Image(input, 308, 137, true, false); 
+            imgGPS.setImage(image);
+
+        } catch (IOException e) {
+            System.out.println("error");
+        }
+
+    }
 }

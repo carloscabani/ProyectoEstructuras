@@ -1,6 +1,3 @@
 ber,s,letraB.png
-aalexz,cxcv,letraA.jpg
-car,sr,letraC.png
-boioi,hgf,letraB.png
-Carles,Puyol,letraC.png
-Angel,merced,letraA.jpg
+Leonel,Messi,letraM.jpg
+fgfdg,dd,letraI.png

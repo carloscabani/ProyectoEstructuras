@@ -61,8 +61,7 @@ public class ListaContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarListView();
-        //actualizarlistaContactos();   
+        cargarListView();   
     }  
 
 

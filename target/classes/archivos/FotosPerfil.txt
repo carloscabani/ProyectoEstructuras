@@ -1,4 +1,2 @@
 ber,s,letraB.png
-aalexz,cxcv,letraA.jpg
-car,sr,letraC.png
-boioi,hgf,letraB.png
+Leonel,Messi,letraM.jpg

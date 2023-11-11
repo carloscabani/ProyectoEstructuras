@@ -1,2 +1,2 @@
-car,sr,Trabajo-1,Trabajo-srs,cb-Casa,ninguno,2023-11-08-Aniversario,ninguno,ninguno
-boioi,hgf,Movil-73636,Otro-fg,cvbc-Trabajo,ninguno,2023-11-30-Aniversario,ninguno,ninguno
+jose,fdsfd,Movil-5222222,Casa-jkuljilo,hihihui-Casa,2023-11-07-Aniversario,ninguno-ninguno,ninguno-ninguno,ninguno
+vyuiyoiui,iuguyoii,Trabajo-2626222,Otro-ijojoijo,lkknl-Casa,2023-11-08-Cumpleaños,ninguno-ninguno,ninguno-ninguno,ninguno

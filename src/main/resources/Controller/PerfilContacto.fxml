@@ -44,7 +44,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="43.0" layoutY="121.0" prefHeight="27.0" prefWidth="78.0" text="Sitio web:">
+            <Label layoutX="43.0" layoutY="121.0" prefHeight="27.0" prefWidth="88.0" text="Red Social:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -96,7 +96,10 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="paneTrabajoFoto" layoutY="441.0" prefHeight="156.0" prefWidth="462.0" />
+      <Pane fx:id="paneTrabajoFoto" layoutY="441.0" prefHeight="156.0" prefWidth="462.0">
+         <children>
+            <ImageView fx:id="imgGPS" fitHeight="137.0" fitWidth="308.0" layoutX="78.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
       <HBox fx:id="hbicons" alignment="CENTER" layoutY="180.0" prefHeight="53.0" prefWidth="462.0" spacing="50.0">
          <children>
             <ImageView fx:id="imgllamada" fitHeight="56.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">

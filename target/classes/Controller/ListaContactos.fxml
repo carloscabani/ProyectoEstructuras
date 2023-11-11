@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ListaContactosController">
+<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ListaContactosController">
    <children>
       <HBox fx:id="hbCabezera" alignment="CENTER" prefHeight="100.0" prefWidth="462.0" spacing="50.0">
          <children>
@@ -34,7 +34,7 @@
             <Pane prefHeight="70.0" prefWidth="469.0">
                <children>
                   <Button fx:id="visualizarButton" alignment="BOTTOM_LEFT" layoutX="41.0" layoutY="22.0" mnemonicParsing="false" onAction="#visualizarInfo" text="Visualizar " />
-                  <Button fx:id="btagregar" layoutX="324.0" layoutY="17.0" mnemonicParsing="false" onAction="#VentanaCrear" prefHeight="35.0" prefWidth="109.0" text="Anadir contacto" />
+                  <Button fx:id="btagregar" layoutX="324.0" layoutY="17.0" mnemonicParsing="false" onAction="#VentanaCrear" prefHeight="26.0" prefWidth="107.0" text="Anadir contacto" />
                </children>
             </Pane>
          </children>
