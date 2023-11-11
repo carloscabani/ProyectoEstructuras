@@ -5,7 +5,7 @@ package ListTDA;
  * @author Abeni
  * @param <E>
  */
-public interface ListGroup9<E> {
+public interface ListGroup9<E> extends Iterable<E> {
     public boolean addFirst(E e); // inserta el elemento e al inicio
 
     public boolean add(E e); // inserta el elemento e al final

@@ -14,6 +14,9 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static String pathFiles = "src/main/resources/archivos/";
+    public static String pics = "src/main/resources/pics/";
+    public static String icons = "src/main/resources/icons/";
     
 
     @Override
@@ -34,6 +37,22 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+//        Class<?> claseActual = App.class;
+//
+//         Obtener el ClassLoader para cargar recursos
+//        ClassLoader classLoader = claseActual.getClassLoader();
+//
+//         Obtener la ruta del paquete
+//        String nombrePaquete = claseActual.getPackage().getName();
+//        String rutaPaquete = nombrePaquete.replace('.', '/');
+//
+//         Concatenar la ruta del paquete con el nombre del archivo
+//        String nombreArchivo = "archivo.txt";
+//        String rutaCompleta = rutaPaquete + "/" + nombreArchivo;
+//
+//         Imprimir la ruta completa
+//        System.out.println("Ruta del archivo: " + rutaCompleta);
+
     }
 
 }

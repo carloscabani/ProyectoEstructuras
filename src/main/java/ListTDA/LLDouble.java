@@ -4,12 +4,12 @@ package ListTDA;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayListGroup9<E> implements ListGroup9<E>  {
+public class LLDouble<E> implements ListGroup9<E>  {
 
     private NodeList<E> first;
     private NodeList<E> last;
 
-    public ArrayListGroup9() {
+    public LLDouble() {
         this.first = null;
         this.last = null;
     }
@@ -359,7 +359,7 @@ public class ArrayListGroup9<E> implements ListGroup9<E>  {
         }
 
         Iterator<E> itAux = this.iterator();
-        ArrayListGroup9<E> lAux = new ArrayListGroup9<>();
+        LLDouble<E> lAux = new LLDouble<>();
 
         while(itAux.hasNext()){
             lAux.addFirst(itAux.next());

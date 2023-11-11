@@ -6,13 +6,22 @@ package Controller;
 
 import Clases.*;
 import static Controller.ListaContactosController.*;
+import ListTDA.ArrayG9;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,10 +30,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import javax.imageio.ImageIO;
+
 
 /**
  * FXML Controller class
@@ -37,6 +51,10 @@ public class CreacionContactosController implements Initializable {
     public static ArrayList<String> etiqueta2 = new ArrayList<>();
     public static ArrayList<String> etiqueta3 = new ArrayList<>();
     public static ArrayList<String> etiqueta4 = new ArrayList<>();
+    public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
+
+    String ni = null;
+
 
     ComboBox c1 = new ComboBox();
     Label l1 = new Label("Persona Contacto:");
@@ -45,7 +63,7 @@ public class CreacionContactosController implements Initializable {
     TextField tperContacto = new TextField();
     TextField tempresa = new TextField();
     TextField tsitioweb = new TextField();
-    //DatePicker dateTarjeta = new DatePicker();
+    Image img ;
     
     @FXML
     private TextField txnombre;
@@ -98,20 +116,24 @@ public class CreacionContactosController implements Initializable {
         cbtelefono.setValue("");
         
         cargarEtiquetas();
-        guardarDatos();
+
         camposAdicionales();
         
         cargarCombobox();
+       
     }
     
-    public void guardarDatos() {
+    
+    @FXML
+    private void enviarListaContactos(ActionEvent event) {
         btguardar.setOnAction((ActionEvent e) -> {
+            String tipoPersonaContacto = (String) c1.getValue();
             String Nombre = txnombre.getText();
             String Apellido = txapellido.getText();
             Telefono Tel = new Telefono (txtelefono.getText(),cbtelefono.getValue());
             Direccion di = new Direccion(txdireccion.getText(),cbdireccion.getValue());
             Email em= new Email(cbemail.getValue(),txemail.getText());
-            PersonaAdiconal per=new PersonaAdiconal((String) c1.getValue(),tperContacto.getText());
+            PersonaAdiconal per=new PersonaAdiconal(tipoPersonaContacto,tperContacto.getText());
             
             LocalDate fecha = txcalendario.getValue();
             Fecha fech= new Fecha(cbfecha.getValue(),fecha);
@@ -120,8 +142,22 @@ public class CreacionContactosController implements Initializable {
             
             Contacto c= new Contacto(Nombre,Apellido,Tel,di,em,per,fech,web,Empresa);
             listaContactos.add(c);
-            EscribirArchivo();
-            
+            EscribirArchivoContactos();
+
+            // esto es para obtener el nombre de la imagen que el usuario selecciono para asociarla 
+            // con ese contacto
+          
+            escribirArchivosImagenes(ni);
+
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/logoAgregarImagen.png" )) {
+
+                Image image = new Image(input, 90, 100, true, false);
+                fotoPerfil.setImage(image);
+
+            } catch (IOException exep) {
+                System.out.println("error");
+            }
+
             txnombre.clear();
             txapellido.clear();
             txtelefono.clear();
@@ -135,27 +171,18 @@ public class CreacionContactosController implements Initializable {
             cbtelefono.setValue("");
             cbemail.setValue("");
             cbfecha.setValue("");
-//            cbdireccion.getItems().clear();
-//            cbtelefono.getItems().clear();
-//            cbemail.getItems().clear();
-//            cbfecha.getItems().clear();
-//            c1.getItems().clear();
+            txcalendario.setValue(null);
 
         });
-    }
-    
-    public void regresar() {
-        btback.setOnAction((ActionEvent e) -> {
-            
-        });
+        
+        
+        
 
     }
 
     @FXML
     private void ventanaContactos(ActionEvent event) throws IOException {
-        
         App.setRoot("ListaContactos");
-        
     }
     
     public void camposAdicionales() {
@@ -233,8 +260,8 @@ public class CreacionContactosController implements Initializable {
         hbempresa.getChildren().clear();
     }
     
-    public void EscribirArchivo(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt",true))) {
+    public void EscribirArchivoContactos(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt"))) {
             //formato:
             //Nombre,Apellido,Telefono,Direccion,Email,Persona Adiconal,Fecha pertinente,Red social,Empresa
             
@@ -268,7 +295,75 @@ public class CreacionContactosController implements Initializable {
         }
     }
 
+    public void escribirArchivosImagenes(String i) {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
+            writer.write(txnombre.getText()+","+txapellido.getText()+","+i);
+            writer.newLine();
+            
+            System.out.println("Registro EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+
+
+    private void changeImage(File newImageFile) {
+        
+        ni = newImageFile.getName();
+        try {
+            // Cargar la nueva imagen usando ImageIO
+            FileInputStream inputStream = new FileInputStream(newImageFile);
+            Image newImage = new Image(inputStream);
+
+            // Actualizar la ImageView con la nueva imagen
+            fotoPerfil.setImage(newImage);
+
+            // Puedes guardar la ruta de la nueva imagen en una variable si es necesario
+            // String newPath = newImageFile.getAbsolutePath();
+            // ...
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    @FXML
+    private void elegirImagen(MouseEvent event) {
+        String nameFoto = null;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar nueva imagen");
+        
+        File initialDirectory = new File("src/main/resources/pics");
+        fileChooser.setInitialDirectory(initialDirectory);
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de imagen", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        Window stage = null;
+
+        
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            
+            changeImage(selectedFile);
+
+        }
+    }
+
+
+
+}    
+    
+    
+
+    
+
     
  
     
-}
+

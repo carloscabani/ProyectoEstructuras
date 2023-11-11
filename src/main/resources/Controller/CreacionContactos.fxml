@@ -6,13 +6,14 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CreacionContactosController">
+<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CreacionContactosController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="462.0">
          <padding>
@@ -63,7 +64,7 @@
             <Font size="35.0" />
          </font>
       </Label>
-      <Button fx:id="btguardar" layoutX="203.0" layoutY="558.0" mnemonicParsing="false" text="Guardar" />
+      <Button fx:id="btguardar" layoutX="203.0" layoutY="558.0" mnemonicParsing="false" onAction="#enviarListaContactos" text="Guardar" />
       <ComboBox fx:id="cbdireccion" layoutX="315.0" layoutY="185.0" prefHeight="26.0" prefWidth="97.0" />
       <ComboBox fx:id="cbtelefono" layoutX="315.0" layoutY="221.0" prefHeight="26.0" prefWidth="97.0" />
       <ComboBox fx:id="cbemail" layoutX="315.0" layoutY="259.0" prefHeight="26.0" prefWidth="97.0" />
@@ -93,11 +94,9 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ImageView fx:id="fotoPerfil" fitHeight="47.0" fitWidth="66.0" layoutX="331.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="337.0" layoutY="100.0" text="Imagen:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+      <ImageView fx:id="fotoPerfil" fitHeight="67.0" fitWidth="59.0" layoutX="334.0" layoutY="105.0" onMouseClicked="#elegirImagen" pickOnBounds="true" preserveRatio="true" styleClass="circular-image">
+         <image>
+            <Image url="@../icons/logoAgregarImagen.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>

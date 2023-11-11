@@ -135,8 +135,7 @@ public class Contacto {
 
     @Override
     public String toString() {
-        return nombre +" "+ apellido + " "+ tlf + " "+ dir + " "
-                + email+  " "+ per + " "+ fecha+ " "+ redSocial + " "+ empresa;
+        return nombre +" "+ apellido;
     }
     
     

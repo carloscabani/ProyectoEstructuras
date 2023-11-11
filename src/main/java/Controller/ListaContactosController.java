@@ -5,12 +5,16 @@
 package Controller;
 
 import Clases.*;
-import ListTDA.ArrayListGroup9;
+import ListTDA.LLDouble;
 import ListTDA.NodeList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,12 +33,10 @@ import javafx.scene.layout.VBox;
  */
 public class ListaContactosController implements Initializable {
     
-    
-    // ArrayList del pauqete de java porque falta hacer el metodo Iterable en la listGroup9
-    //public static ArrayList<Contacto> lstcontactos = new ArrayList<>();
-    public static ArrayListGroup9<Contacto> listaContactos = new ArrayListGroup9<>();
-    public static ListView<String> listViewContactos = new ListView<>();
+    public static LLDouble<Contacto> listaContactos = new LLDouble<>();
+    public static ListView<Contacto> listViewContactos = new ListView<>();
     public static VBox contenerdorList = new VBox();
+    public static String pathFiles = "archivos/";
 
     @FXML
     private HBox hbCabezera;
@@ -59,81 +61,28 @@ public class ListaContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        LocalDate fecha = LocalDate.of(1987, 06, 24); 
-        listaContactos.add(new Contacto("Leonel","Messi",new Telefono("Movil","9999999"),new Direccion("casa","Buenos Aires"),new Email("Trabajo","@eeeee"),new PersonaAdiconal("PEPE","Hijo"), new Fecha("cumpleaños", fecha), new RedSocial("Instagram", "leo_messi"),"Banco Guayaquil"));
-        //listaContacts.add(new Contacto("Zlatan","Ibrahamovich",new Telefono("Movil","5555555"),new Direccion("casa","Suecia"),new Email("Trabajo","@eeeee"),new PersonaAdiconal("PEPE","Hijo"), new Fecha("cumpleaños",ler),"facebook","Banco Guayaquil"));
-
-        
-        System.out.println(listaContactos);
-        //lstcontactos.add(new Contacto("messi","55555","Buneos Aires"));
-        //lstcontactos.add(new Contacto("Ronaldo","55555","Buneos Aires"));
-        contenerdorList.getChildren().clear();
-        //cargarContactos();
-        
         cargarListView();
-        
-        
-        
+        //actualizarlistaContactos();   
     }  
-    
-//    public void cargarContactos(){
-//        try(BufferedReader br = new BufferedReader(new FileReader(App.pathFiles+"Contactos.txt",StandardCharsets.UTF_8))){
-//            String linea= br.readLine();
-//            while (linea != null) {
-//                String p[]=linea.split(",");
-//                String nombre = p[0];
-//                String Telefono = p[1];
-//                String direccion = p[2];
-//                
-//                lstcontactos.add(new Contacto(nombre,Telefono,direccion));
-//                linea= br.readLine();
-//            }
-//        }
-//        catch(FileNotFoundException ex){
-//            System.out.println("No se pudo encontrar el archivo");
-//        }
-//        catch(IOException e){
-//            System.out.println("ERROOOORRR.......");
-//        }
-//    }
+
+
     public void cargarListView() {
         if (listViewContactos != null) {
             listViewContactos.getItems().clear();
-            
-            
-//creacion listaFor para ser usada en el for-each 
-            
-            
-//            ArrayList<Contacto> listaFor = new ArrayList<>();
-//            for(int x =0; x<listaContacts.size(); x++){
-//                listaFor.add(listaContactos.get(x));
-//            
-//            }
-//               
-//            for (Contacto c : listaFor) {
-//                
-//                listViewContactos.getItems().add(c.getNombre());
-//            }
-        
             NodeList<Contacto> nodoActual = listaContactos.getFirst();
             while(nodoActual!= null){
                 Contacto informacion = nodoActual.getContenido();
-                listViewContactos.getItems().add(informacion.getNombre());
-                nodoActual = nodoActual.getSiguiente();
-                
-            
-            }
-        
-        
-        
+                //listViewContactos.getItems().add(informacion.getNombre());
+                listViewContactos.getItems().add(informacion);
+                nodoActual = nodoActual.getSiguiente();    
+            }      
         }
         
         contenerdorList.getChildren().add(listViewContactos);
         vblista.getChildren().add(contenerdorList);
         
     }
-    
-  
+
 
     @FXML
     private void VentanaCrear(ActionEvent event) throws IOException {
@@ -150,7 +99,32 @@ public class ListaContactosController implements Initializable {
 
     @FXML
     private void visualizarInfo(ActionEvent event) throws IOException{
-        App.setRoot("Visualizacion");
+        App.setRoot("PerfilContacto");
+    }
+    
+    public void actualizarlistaContactos(){
+        
+        Thread backgroundthread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                        System.out.println("Hola");
+                        Platform.runLater(() -> {                         
+                            contenerdorList.getChildren().clear();
+                            cargarListView();
+                        });   
+                    } 
+                    catch (InterruptedException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }   
+            }
+        });
+        backgroundthread.setDaemon(true);
+        backgroundthread.start();
     }
 }
     

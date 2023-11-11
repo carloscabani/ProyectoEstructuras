@@ -1,4 +1,2 @@
-
-
-Leonel,Messi,9999999-Movil,Buenos Aires-casa,@eeeee-Trabajo,PEPE-Hijo,1987-06-24-cumplea�os,Instagram:leo_messi,Banco Guayaquil
-
+car,sr,Trabajo-1,Trabajo-srs,cb-Casa,ninguno,2023-11-08-Aniversario,ninguno,ninguno
+boioi,hgf,Movil-73636,Otro-fg,cvbc-Trabajo,ninguno,2023-11-30-Aniversario,ninguno,ninguno
