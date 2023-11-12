@@ -21,7 +21,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,8 +82,7 @@ public class PerfilContactoController implements Initializable {
     private ImageView imgSMS;
     @FXML
     private ImageView imgvideo;
-    @FXML
-    private Button bthome;
+    
     @FXML
     private ImageView imgGPS;
 
@@ -93,7 +91,7 @@ public class PerfilContactoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        RegresarHome();
+//        RegresarHome();
         cargarListaPerfiles();
         if(!listaContactos.isEmpty()){
             mostrarPersonaActual();
@@ -114,18 +112,9 @@ public class PerfilContactoController implements Initializable {
 
     @FXML
     private void VentanaInicio(ActionEvent event) throws IOException {
-//        App.setRoot("ListaContactos");
+        App.setRoot("ListaContactos");
     }
     
-    public void RegresarHome(){
-        bthome.setOnAction((ActionEvent e) -> {
-            try {
-                App.setRoot("ListaContactos");
-            } catch (IOException ex) {
-                Logger.getLogger(PerfilContactoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
 
     @FXML
     private void mostrarSiguiente(ActionEvent event) {

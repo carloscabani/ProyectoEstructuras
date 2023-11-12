@@ -35,7 +35,7 @@ public class ListaContactosController implements Initializable {
     
     public static LLDouble<Contacto> listaContactos = new LLDouble<>();
     public static ListView<Contacto> listViewContactos = new ListView<>();
-    public static VBox contenerdorList = new VBox();
+    public static VBox contenedorList = new VBox();
     public static String pathFiles = "archivos/";
 
     @FXML
@@ -66,26 +66,29 @@ public class ListaContactosController implements Initializable {
 
 
     public void cargarListView() {
-        if (listViewContactos != null) {
-            listViewContactos.getItems().clear();
-            NodeList<Contacto> nodoActual = listaContactos.getFirst();
-            while(nodoActual!= null){
-                Contacto informacion = nodoActual.getContenido();
-                //listViewContactos.getItems().add(informacion.getNombre());
-                listViewContactos.getItems().add(informacion);
-                nodoActual = nodoActual.getSiguiente();    
-            }      
-        }
         
-        contenerdorList.getChildren().add(listViewContactos);
-        vblista.getChildren().add(contenerdorList);
-        
+        Platform.runLater(() -> {
+            if (listViewContactos != null) {
+                listViewContactos.getItems().clear();
+                NodeList<Contacto> nodoActual = listaContactos.getFirst();
+                while(nodoActual!= null){
+                    Contacto informacion = nodoActual.getContenido();
+                    //listViewContactos.getItems().add(informacion.getNombre());
+                    listViewContactos.getItems().add(informacion);
+                    nodoActual = nodoActual.getSiguiente();    
+                }
+                }      
+            if(!contenedorList.getChildren().contains(listViewContactos)){
+                contenedorList.getChildren().add(listViewContactos);
+                }
+            vblista.getChildren().add(contenedorList);
+    });
     }
 
 
     @FXML
     private void VentanaCrear(ActionEvent event) throws IOException {
-        contenerdorList.getChildren().clear();
+        contenedorList.getChildren().clear();
         App.setRoot("CreacionContactos");
         
         
@@ -112,7 +115,7 @@ public class ListaContactosController implements Initializable {
                         Thread.sleep(5000);
                         System.out.println("Hola");
                         Platform.runLater(() -> {                         
-                            contenerdorList.getChildren().clear();
+                            contenedorList.getChildren().clear();
                             cargarListView();
                         });   
                     } 

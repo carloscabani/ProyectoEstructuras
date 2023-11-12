@@ -19,7 +19,6 @@ ListTDA\ArrayG9.class
 Controller\ListaContactosController.class
 Controller\PrimaryController.class
 Controller\PerfilContactoController.class
-Controller\VisualizacionController.class
 Clases\Contacto.class
 Clases\Telefono.class
 ListTDA\LLDouble.class

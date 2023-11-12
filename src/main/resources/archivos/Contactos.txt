@@ -1,1 +1,2 @@
-fgfdg,dd,Trabajo-232,Otro-asS,BCV-Casa,2023-11-03-Otro,ninguno-ninguno,ninguno-ninguno,ninguno
+luis,ontaneda,Trabajo-0264987,Casa-Av Quito,luis1@gmail.com-Casa,2023-10-31-Aniversario,ninguno-ninguno,ninguno-ninguno,ninguno
+Mathias,Cabanilla,Trabajo-098989898,Casa-Km 26 Via Duran Tambo,mcabanilla@gmail.com-Casa,2023-10-30-Cumpleaños,ninguno-ninguno,ninguno-ninguno,ninguno

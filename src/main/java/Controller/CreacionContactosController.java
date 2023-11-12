@@ -225,8 +225,9 @@ public class CreacionContactosController implements Initializable {
         etiqueta3.add("Otro");
         //llenado de etiqueta4
         etiqueta4.add("Asistente");
+        etiqueta4.add("Madre");
         etiqueta4.add("Hermano");
-        etiqueta4.add("Hijo");
+        etiqueta4.add("Hijo/a");
         etiqueta4.add("Padre");
         etiqueta4.add("Amigo");
         etiqueta4.add("Jefe");
@@ -235,7 +236,7 @@ public class CreacionContactosController implements Initializable {
         etiqueta5.add("Facebook");
         etiqueta5.add("Instagram");
         etiqueta5.add("Tik Tok");
-        etiqueta5.add("Twuiter");
+        etiqueta5.add("X (Twitter)");
 
         
         
