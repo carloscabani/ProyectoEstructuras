@@ -8,3 +8,4 @@ Luis,Ontaneda,letraL.jpg
 Luis ,Ontaneda,null
 luis,ontaneda,null
 Mathias,Cabanilla,letraM.jpg
+Oscar,Soriano,letraO.png

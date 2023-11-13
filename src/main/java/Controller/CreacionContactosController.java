@@ -117,16 +117,32 @@ public class CreacionContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbtelefono.setValue("");
-        
-        cargarEtiquetas();
+//        cbtelefono.setValue("");
+//        
+//        cargarEtiquetas();
+//
+//        camposAdicionales();
+//        
+//        cargarCombobox();
+        if (etiqueta1.isEmpty() && etiqueta2.isEmpty() && etiqueta3.isEmpty() && etiqueta3.isEmpty() && etiqueta4.isEmpty() && etiqueta5.isEmpty()) {
+            cargarEtiquetas();
+            System.out.println("Etiquetas Cargadas");
+
+        } else {
+            System.out.println("Etiquetas llenas");
+        }
 
         camposAdicionales();
-        
-        cargarCombobox();
-       
+
+        if (cbdireccion.getItems().isEmpty() && cbemail.getItems().isEmpty() && cbtelefono.getItems().isEmpty() && cbfecha.getItems().isEmpty() && c1.getItems().isEmpty() && c2.getItems().isEmpty()) {
+            cargarCombobox();
+            System.out.println("Combo Boxs Cargados");
+        } else {
+            System.out.println("Combo Boxs llenos");
+        }
+
     }
-    
+
     
     @FXML
     private void enviarListaContactos(ActionEvent event) {
