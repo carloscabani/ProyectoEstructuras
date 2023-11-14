@@ -49,10 +49,10 @@ import javax.imageio.ImageIO;
  */
 public class CreacionContactosController implements Initializable {
     
-    public static ArrayList<String> etiqueta1 = new ArrayList<>();
-    public static ArrayList<String> etiqueta2 = new ArrayList<>();
-    public static ArrayList<String> etiqueta3 = new ArrayList<>();
-    public static ArrayList<String> etiqueta4 = new ArrayList<>();
+    public static ArrayG9<String> etiqueta1 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta2 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta3 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta4 = new ArrayG9<>();
     public static ArrayG9<String> etiqueta5 = new ArrayG9<>();
     public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
 
@@ -117,13 +117,6 @@ public class CreacionContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        cbtelefono.setValue("");
-//        
-//        cargarEtiquetas();
-//
-//        camposAdicionales();
-//        
-//        cargarCombobox();
         if (etiqueta1.isEmpty() && etiqueta2.isEmpty() && etiqueta3.isEmpty() && etiqueta3.isEmpty() && etiqueta4.isEmpty() && etiqueta5.isEmpty()) {
             cargarEtiquetas();
             System.out.println("Etiquetas Cargadas");
@@ -160,9 +153,12 @@ public class CreacionContactosController implements Initializable {
             RedSocial web= new RedSocial((String) c2.getValue(), tsitioweb.getText());
             String Empresa= tempresa.getText();
             
-            Contacto c= new Contacto(Nombre,Apellido,Tel,di,em,per,fech,web,Empresa);
-            listaContactos.add(c);
+            Contacto people1= new Contacto(Nombre,Apellido,Tel,di,em,fech);
+            Contacto camposAdicion1= new Contacto(Nombre,Apellido,per,web,Empresa);
+            listaContactos.add(people1);
+            lstCamposAdicionales.add(camposAdicion1);
             EscribirArchivoContactos();
+            EscribirArchivoCamposAdicionales();
 
             // esto es para obtener el nombre de la imagen que el usuario selecciono para asociarla 
             // con ese contacto
@@ -297,35 +293,52 @@ public class CreacionContactosController implements Initializable {
         hbempresa.getChildren().clear();
     }
     
-    public void EscribirArchivoContactos(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt"))) {
+    public void EscribirArchivoContactos() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt",true))) {
             //formato:
             //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
-            
+            String nombre=txnombre.getText();
+            String Apellido=txapellido.getText();
+            String Telefono = cbtelefono.getValue()+"-"+txtelefono.getText();
+            String dir=cbdireccion.getValue()+"-"+txdireccion.getText();
+            String emai= cbemail.getValue()+"-"+txemail.getText();
+            String fechapertinente = cbfecha.getValue()+"-"+txcalendario.getValue();
+            writer.write(nombre+","+Apellido+","+Telefono+","+dir+","+emai+","+fechapertinente);
+            System.out.println("Se escribio un contacto exitosamenteeeeee.......");
+            writer.newLine();
 
-            ArrayList<Contacto> listaFor = new ArrayList<>();
-            for(int x =0; x<listaContactos.size(); x++){
-                listaFor.add(listaContactos.get(x));
-            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void EscribirArchivoCamposAdicionales(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdiconales.txt",true))) {
+            String nombre =txnombre.getText();
+            String apellido = txapellido.getText();
+            String conAdicon = "ninguno";
+            String red = "ninguno";
+            String empresa="ninguno";
+            if (tperContacto.getText().equals("")) {
+                conAdicon = "ninguno-ninguno";
+            } else {
+                conAdicon = tperContacto.getText() + "-" +c1.getValue();
             }
-            
-            
-            // Escribir los datos de los estudiantes
-            for (Contacto c : listaFor) {
-                if (tperContacto.getText().equals("") && tsitioweb.getText().equals("") && tempresa.getText().equals("")) {
-                    writer.write(c.getNombre() + "," + c.getApellido() + "," + c.getTlf().getTlf() + "-" + c.getTlf().getTipoTlf() + ","
-                            + c.getDir().getUbicacion() + "-" + c.getDir().getTipoDireccion() + "," + c.getEmail().getCorreo() + "-"
-                            + c.getEmail().getTipo() + "," + c.getFecha().getFecha() + "-" + c.getFecha().getTipoFecha() + "," + "ninguno-ninguno" + "," + "ninguno-ninguno" + ","
-                            + "ninguno");
-                } else {
-                    writer.write(c.getNombre() + "," + c.getApellido() + "," + c.getTlf().getTlf() + "-" + c.getTlf().getTipoTlf() + ","
-                            + c.getDir().getUbicacion() + "-" + c.getDir().getTipoDireccion() + "," + c.getEmail().getCorreo() + "-"
-                            + c.getEmail().getTipo() + "," + c.getFecha().getFecha() + "-" + c.getFecha().getTipoFecha() + "," + c.getPer().getPersona() + "-" + c.getPer().getTipoPersona() + ","
-                            + c.getRedSocial().getUsername() + "-" + c.getRedSocial().getTipoRedSocial() + "," + c.getEmpresa());
-                }
+            if (tsitioweb.getText().equals("")) {
+                red = "ninguno-ninguno";
+            }else{
+                red = tsitioweb.getText() +"-"+ c2.getValue();
+            }
+            if(tempresa.getText().equals("")){
+                empresa = "ninguno";
+            }else{
+                empresa = tempresa.getText();
+            }
+            writer.write(nombre+","+apellido+","+conAdicon+","+red+","+empresa);
+            System.out.println("Se escribieron campos adicionales exitosamenteeeeee.......");
 
-                writer.newLine();
-            }
+            writer.newLine();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

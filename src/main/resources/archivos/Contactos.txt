@@ -1,1 +1,2 @@
-Oscar,Soriano,Casa-12455555,Otro-Garcia Gollena,Oscar@espol.ec-Casa,2023-11-02-Aniversario,ninguno-ninguno,ninguno-ninguno,ninguno
+Isagui,Yoichi,Casa-142555555,Casa-BlueLock,Trabajo-isagui@yahoo.com,Aniversario-2023-11-07
+Rin,Itoshi,Movil-12555555,Otro-BlueLock Jpon,Trabajo-rin@espol.edu,Aniversario-2023-11-09

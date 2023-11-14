@@ -33,17 +33,24 @@ public class Contacto {
     
     private String rutaArchivoTxt = "src/main/resources/archivos/Contactos.txt";
 
-    public Contacto(String nombre, String apellido, Telefono tlf, Direccion dir, Email email, PersonaAdiconal per, Fecha fecha, RedSocial web, String empresa) {
+    public Contacto(String nombre, String apellido, Telefono tlf, Direccion dir, Email email, Fecha fecha) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tlf = tlf;
         this.dir = dir;
         this.email = email;
-        this.per = per;
         this.fecha = fecha;
-        this.redSocial = web;
+    }
+
+    public Contacto(String n, String ape, PersonaAdiconal per, RedSocial redSocial, String empresa) {
+        this.nombre = n;
+        this.apellido = ape;
+        this.per = per;
+        this.redSocial = redSocial;
         this.empresa = empresa;
     }
+    
+    
     
     
     
@@ -137,10 +144,15 @@ public class Contacto {
     public String toString() {
         return nombre +" "+ apellido;
     }
-    
-    
-    
-    
-    
-    
+//
+//    @Override
+//    public String toString() {
+//        return nombre +" "+apellido +" "+tlf +" "+dir +" "+email ;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return nombre +" "+apellido +" "+per +" "+redSocial +" "+empresa ;
+//    }
+       
 }

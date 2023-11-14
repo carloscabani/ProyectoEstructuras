@@ -139,29 +139,34 @@ public class PerfilContactoController implements Initializable {
         String fechaComoString = persona.getFecha().getFecha().format(formatter);
         lbname.setText(persona.getNombre() + " " + persona.getApellido());
         lbcell.setText(persona.getTlf().getTlf() + " - " + persona.getTlf().getTipoTlf());
-        if(persona.getPer().getTipoPersona().equals("")){
-           lbcont.setText("ninguno");
-        }else{
-            lbcont.setText(persona.getPer().getPersona() + " - " + persona.getPer().getTipoPersona());
-        }
-        
-        if(persona.getRedSocial().getUsername().equals("")){
-            lbpagina.setText("ninguno");
-        }else{
-            lbpagina.setText(persona.getRedSocial().getTipoRedSocial()+" - "+persona.getRedSocial().getUsername());
-        }
-        
-        if (persona.getEmpresa().equals("")){
-            lbempresa.setText("ninguno");
-        } else {
-            lbempresa.setText(persona.getEmpresa());
-        }
-
-
         lbdireccion.setText(persona.getDir().getUbicacion() + " - " + persona.getDir().getTipoDireccion());
         lbfecha.setText(fechaComoString + " - " + persona.getFecha().getTipoFecha());
         lbcorreo.setText(persona.getEmail().getCorreo() + " - " + persona.getEmail().getTipo());
         seleccionImagen(nAleatorio);
+        for (Contacto camp : lstCamposAdicionales) {
+            if (camp.getNombre().equals(persona.getNombre()) && camp.getApellido().equals(persona.getApellido())) {
+                if (camp.getPer().getPersona().equals("ninguno") || camp.getPer() == null) {
+                    lbcont.setText("ninguno");
+                } else {
+                    lbcont.setText(camp.getPer().getPersona() + " - " + camp.getPer().getTipoPersona());
+                }
+
+                if (camp.getRedSocial().getUsername().equals("ninguno") || camp.getRedSocial()==null) {
+                    lbpagina.setText("ninguno");
+                } else {
+                    lbpagina.setText(camp.getRedSocial().getTipoRedSocial() + " - " + camp.getRedSocial().getUsername());
+                }
+
+                if (camp.getEmpresa().equals("ninguno") || camp.getEmpresa()==null) {
+                    lbempresa.setText("ninguno");
+                } else {
+                    lbempresa.setText(camp.getEmpresa());
+                }
+
+            }
+
+        }
+  
         for (Foto ft : lstfotoPerfiles) {
             if ((ft.getNombre().equals(persona.getNombre())) && (ft.getApellido().equals(persona.getApellido()))) {
                 try (FileInputStream input = new FileInputStream("src/main/resources/pics/" + cargarListaPerfiles(persona.getNombre(), persona.getApellido()))) {
