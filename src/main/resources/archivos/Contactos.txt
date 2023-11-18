@@ -1,3 +1,4 @@
 Isagui,Yoichi,Casa-142555555,Casa-BlueLock,Trabajo-isagui@yahoo.com,Aniversario-2023-11-07
-Rin,Itoshi,Movil-12555555,Otro-BlueLock Jpon,Trabajo-rin@espol.edu,Aniversario-2023-11-09
 Xiomara,Avila,Casa-0987639544,Casa-Cuenca,Otro-xiom_1@gmail.com,Otro-2019-11-08
+Rin,Itoshi,Movil-12555555,Otro-BlueLock Jpon,Casa-rin10@gmail.com,Aniversario-2023-11-09
+Alex,Benites,Trabajo-77777777,Trabajo-Guayaquil,Trabajo-Alex154@hmial.ec,Aniversario-2023-11-16

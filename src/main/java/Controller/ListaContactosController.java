@@ -5,6 +5,7 @@
 package Controller;
 
 import Clases.*;
+import static Controller.CreacionContactosController.lstfotoPerfiles;
 import ListTDA.ArrayG9;
 import ListTDA.LLDouble;
 import ListTDA.NodeList;
@@ -16,10 +17,15 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -27,6 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -35,6 +43,15 @@ import javafx.scene.layout.VBox;
  */
 public class ListaContactosController implements Initializable {
     
+    public static Contacto contactoSelected;
+    public static String nombreSelected;
+    public static String apellidoSelected;
+    public static String cadicional;
+    public static String redsoc;
+    public static String empre;
+    public static String typec;
+    public static String typered;
+    public static int selectedIndex;
     public static LLDouble<Contacto> listaContactos = new LLDouble<>();
     public static ArrayG9<Contacto> lstCamposAdicionales = new ArrayG9<>();
     public static ListView<Contacto> listViewContactos = new ListView<>();
@@ -64,6 +81,9 @@ public class ListaContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        listContactosSettings();
+       
         if(listaContactos.isEmpty()){
           cargarListaContactos(); 
           System.out.println("listaContactos cargada");
@@ -77,28 +97,32 @@ public class ListaContactosController implements Initializable {
             cargarlistaCamposAdicionales();
             System.out.println("listaCampoAdicionales cargada");
             System.out.println(lstCamposAdicionales);
-            for(Contacto y: lstCamposAdicionales){
+//            for(Contacto y: lstCamposAdicionales){
 //                System.out.println(y.getPer().getPersona()+"-"+y.getPer().getTipoPersona());
 //                System.out.println(y.getRedSocial().getUsername()+"-"+y.getRedSocial().getTipoRedSocial());
 //                System.out.println(y.getEmpresa());
-                System.out.println(lstCamposAdicionales);
-                System.out.println(y.getPer().getPersona());
-                System.out.println(y.getRedSocial().getUsername());
-                System.out.println(y.getEmpresa());
-            }
+//                System.out.println(lstCamposAdicionales);
+//                System.out.println(y.getPer().getPersona());
+//                System.out.println(y.getRedSocial().getUsername());
+//                System.out.println(y.getEmpresa());
+//            }
         }else{
             System.out.println("listaCampoAdicionales llena");
+        }   
+        
+        if (lstfotoPerfiles.isEmpty()) {
+            cargarfotoPerfiles();
+            System.out.println(lstfotoPerfiles);
+        } else {
+            System.out.println("lstfotoPerfiles ya esta cargada");
         }
 
 
-//        cargarListaContactos();
-//        cargarlistaCamposAdicionales();
+
         listViewContactos.getItems().clear();
         cargarListView();
-//        actualizarlistaContactos();
-//        if (!listViewContactos.getItems().isEmpty()) {
-//            cargarListView();
-//        }
+        
+
     }  
 
 
@@ -256,6 +280,113 @@ public class ListaContactosController implements Initializable {
         });
         backgroundthread.setDaemon(true);
         backgroundthread.start();
+    }
+    
+    public void listContactosSettings(){
+        listViewContactos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                // con esto obtegno el nombre del elemento cuando le hago click pilasssss
+                //System.out.println("Elemento seleccionado: " + listViewContactos.getSelectionModel().getSelectedItem());
+                Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
+                
+                contactoSelected = selectedItem;
+                nombreSelected= listViewContactos.getSelectionModel().getSelectedItem().getNombre();
+                apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
+                selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
+                System.out.println(selectedIndex);
+//                  
+//            // Verificar si se seleccionó un elemento
+//            if (selectedIndex != -1) {
+//                // Eliminar el elemento seleccionado
+//                items.remove(selectedIndex);
+//            }
+//                
+                
+                
+                for(Contacto cf: lstCamposAdicionales){
+                    if(selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())){
+                        cadicional = cf.getPer().getPersona();
+                        redsoc=cf.getRedSocial().getUsername();
+                        empre = cf.getEmpresa();
+                        typered= cf.getRedSocial().getTipoRedSocial();
+                        typec= cf.getPer().getTipoPersona();
+                    }
+                }
+                
+                if (selectedItem != null) {
+                    mostrarVentanaEmergente(selectedItem.getNombre()+" "+selectedItem.getApellido());
+                }
+            }
+        });
+    }
+    
+    private void mostrarVentanaEmergente(String selectedItem) {
+        Stage ventanaEmergente = new Stage();
+        ventanaEmergente.initModality(Modality.APPLICATION_MODAL);
+        ventanaEmergente.setTitle("Opciones de Contacto");
+
+        Label label = new Label("¿Qué deseas hacer con el contacto seleccionado?");
+        Button btnEditar = new Button("Editar");
+        Button btnEliminar = new Button("Eliminar");
+
+
+        btnEditar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try { 
+                    System.out.println("Editar contacto: " + selectedItem);
+                    App.setRoot("EditarContacto");
+                    ventanaEmergente.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ListaContactosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+         
+            }
+        });
+
+        btnEliminar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Lógica para eliminar el contacto
+                System.out.println("Eliminar contacto: " + selectedItem);
+                ventanaEmergente.close();
+            }
+        });
+
+        VBox vcontenedor=new VBox(10);
+        HBox hbox = new HBox(10);
+        HBox h1 = new HBox(10);
+        
+
+        hbox.getChildren().add(label);
+        hbox.setAlignment(Pos.CENTER);
+        h1.getChildren().addAll(btnEliminar,btnEditar);
+        h1.setAlignment(Pos.CENTER);
+        h1.setSpacing(30);
+        vcontenedor.getChildren().addAll(hbox,h1);
+        Scene escena = new Scene(vcontenedor, 300, 150);
+      
+        ventanaEmergente.setScene(escena);
+
+        ventanaEmergente.showAndWait();
+    }
+    
+    public void cargarfotoPerfiles(){
+        try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/FotosPerfil.txt"))) {
+            String datos;
+            while ((datos = archivo.readLine()) != null) {
+                String[] p = datos.split(",");
+                String n= p[0];
+                String ap=p[1];
+                String fotopath=p[2];
+                
+                Foto f = new Foto(n,ap,fotopath);
+                lstfotoPerfiles.add(f);
+           }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
     

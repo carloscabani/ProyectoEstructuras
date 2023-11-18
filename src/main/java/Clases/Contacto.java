@@ -154,5 +154,5 @@ public class Contacto {
 //    public String toString() {
 //        return nombre +" "+apellido +" "+per +" "+redSocial +" "+empresa ;
 //    }
-       
+//       
 }

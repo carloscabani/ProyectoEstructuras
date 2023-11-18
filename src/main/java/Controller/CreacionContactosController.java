@@ -155,6 +155,8 @@ public class CreacionContactosController implements Initializable {
             
             Contacto people1= new Contacto(Nombre,Apellido,Tel,di,em,fech);
             Contacto camposAdicion1= new Contacto(Nombre,Apellido,per,web,Empresa);
+            Foto ft= new Foto(Nombre,Apellido,ni);
+            lstfotoPerfiles.add(ft);
             listaContactos.add(people1);
             lstCamposAdicionales.add(camposAdicion1);
             EscribirArchivoContactos();
@@ -239,7 +241,7 @@ public class CreacionContactosController implements Initializable {
         etiqueta4.add("Asistente");
         etiqueta4.add("Madre");
         etiqueta4.add("Hermano");
-        etiqueta4.add("Hijo/a");
+        etiqueta4.add("Hijo");
         etiqueta4.add("Padre");
         etiqueta4.add("Amigo");
         etiqueta4.add("Jefe");
@@ -248,7 +250,7 @@ public class CreacionContactosController implements Initializable {
         etiqueta5.add("Facebook");
         etiqueta5.add("Instagram");
         etiqueta5.add("Tik Tok");
-        etiqueta5.add("X (Twitter)");
+        etiqueta5.add("Twitter");
 
         
         
@@ -385,7 +387,7 @@ public class CreacionContactosController implements Initializable {
 
     @FXML
     private void elegirImagen(MouseEvent event) {
-        String nameFoto = null;
+        //String nameFoto = null;
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar nueva imagen");
