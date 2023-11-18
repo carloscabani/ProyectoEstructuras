@@ -32,6 +32,8 @@ public interface ListGroup9<E> extends Iterable<E> {
     
     int indexOf(E Element);  // retorna el indice donde se encuentra el elemento   
 
+    public boolean remove(Object o);
+   
     @Override
     public String toString();
     

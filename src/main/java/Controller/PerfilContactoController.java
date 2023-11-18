@@ -10,12 +10,17 @@ import Clases.Foto;
 import static Controller.ListaContactosController.*;
 import ListTDA.ArrayG9;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -24,7 +29,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,6 +92,15 @@ public class PerfilContactoController implements Initializable {
     
     @FXML
     private ImageView imgGPS;
+    
+    private String imagenPersonaActual;
+    
+    private Contacto contactoActual;
+    
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button editButton;
 
     /**
      * Initializes the controller class.
@@ -108,6 +124,8 @@ public class PerfilContactoController implements Initializable {
             }
             mostrarPersonaActual();
         }
+        
+        System.out.println("Datos actuales: "+ contactoActual +", "+ imagenPersonaActual);
     }
 
     @FXML
@@ -127,6 +145,8 @@ public class PerfilContactoController implements Initializable {
             }
             mostrarPersonaActual();
         }
+        
+        System.out.println("Datos actuales: "+ contactoActual +", "+ imagenPersonaActual);
 
     }
 
@@ -145,26 +165,35 @@ public class PerfilContactoController implements Initializable {
         seleccionImagen(nAleatorio);
         for (Contacto camp : lstCamposAdicionales) {
             if (camp.getNombre().equals(persona.getNombre()) && camp.getApellido().equals(persona.getApellido())) {
-                if (camp.getPer().getPersona().equals("ninguno") || camp.getPer() == null) {
+                String personaAdicional = camp.getPer().getPersona();
+                String tipoPersona = camp.getPer().getTipoPersona();
+                String tipoRedSocial = camp.getRedSocial().getTipoRedSocial();
+                String username = camp.getRedSocial().getUsername();
+                String empresa = camp.getEmpresa();
+                
+                if ((camp.getPer() == null) || ("ninguno".equals(camp.getPer().getPersona()))) {
                     lbcont.setText("ninguno");
                 } else {
-                    lbcont.setText(camp.getPer().getPersona() + " - " + camp.getPer().getTipoPersona());
+                    lbcont.setText(personaAdicional + " - " + tipoPersona);
                 }
-
-                if (camp.getRedSocial().getUsername().equals("ninguno") || camp.getRedSocial()==null) {
+                    //camp.getRedSocial().getUsername().equals("ninguno") || camp.getRedSocial()==null
+                if ((camp.getRedSocial()==null) || ("ninguno".equals(camp.getRedSocial().getUsername()))) {
                     lbpagina.setText("ninguno");
                 } else {
-                    lbpagina.setText(camp.getRedSocial().getTipoRedSocial() + " - " + camp.getRedSocial().getUsername());
+                    lbpagina.setText(tipoRedSocial + " - " + username);
                 }
 
-                if (camp.getEmpresa().equals("ninguno") || camp.getEmpresa()==null) {
+                if ((camp.getEmpresa()==null) || ("ninguno".equals(camp.getEmpresa()))) {
                     lbempresa.setText("ninguno");
                 } else {
-                    lbempresa.setText(camp.getEmpresa());
+                    lbempresa.setText(empresa);
                 }
 
             }
-
+            
+        contactoActual = persona;
+        imagenPersonaActual = cargarListaPerfiles(persona.getNombre(), persona.getApellido());
+        
         }
   
         for (Foto ft : lstfotoPerfiles) {
@@ -198,7 +227,7 @@ public class PerfilContactoController implements Initializable {
                 String p[] = linea.split(",");
                 if(n.equals(p[0]) && ap.equals(p[1])){
                     imagenAsociada = p[2];
-                    System.out.println(imagenAsociada);
+                    //System.out.println(imagenAsociada);
                 }
                 linea= br.readLine();
 
@@ -247,5 +276,74 @@ public class PerfilContactoController implements Initializable {
             System.out.println("error");
         }
 
+    }
+    
+    public static void deleteFromFile (String name, String apellido, String archivoTxt){
+        File archivo = new File(archivoTxt);
+        File temporal = new File(archivo.getParent(),"temporal_"+archivo.getName());
+        
+        try(BufferedReader lectura = new BufferedReader(new FileReader(archivo, StandardCharsets.UTF_8));
+            BufferedWriter escritura = new BufferedWriter(new FileWriter(temporal,false ))){
+                
+                String lineaDelete = name+","+apellido;
+                String lineaActual;
+                
+                
+                while((lineaActual=lectura.readLine()) != null){
+                    if( !lineaActual.contains(lineaDelete)){
+                        
+                        escritura.write(lineaActual+ System.getProperty("line.separator"));
+                        
+                        }
+                
+                }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        
+        try{
+            Files.move(temporal.toPath(), archivo.toPath(), StandardCopyOption.REPLACE_EXISTING );
+        
+        }catch(IOException e){e.printStackTrace();}
+        
+    }
+    
+    
+
+    @FXML
+    private void delete(ActionEvent event) throws IOException {
+        
+        System.out.println(listaContactos);
+        String nombre= contactoActual.getNombre();
+        String apellido = contactoActual.getApellido();
+        //eliminar desde listaContactos
+        
+        System.out.println("Lista actualizada: "+ listaContactos);
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Confirmacion de eliminar contacto");
+        alert.setContentText("¿Estas seguro de eliminar a ese contacto?");
+        alert.showAndWait();
+            if(alert.getResult().equals(ButtonType.OK)){
+      
+            listaContactos.remove(contactoActual);
+            //eliminar contacto en Contactos.txt
+            deleteFromFile(nombre, apellido,"src/main/resources/archivos/Contactos.txt");
+            //eliminar contacto en FotosPerfil.txt
+            deleteFromFile(nombre, apellido, "src/main/resources/archivos/FotosPerfil.txt");
+            //eliminar contacto en CamposAdicionales.txt
+            deleteFromFile(nombre, apellido, "src/main/resources/archivos/CamposAdicionales.txt");
+            
+            App.setRoot("ListaContactos");
+            System.out.println("Lista actualizada: "+ listaContactos);
+            
+            
+            }
+            
+    }
+
+    @FXML
+    private void editarInformacion(ActionEvent event) {
     }
 }

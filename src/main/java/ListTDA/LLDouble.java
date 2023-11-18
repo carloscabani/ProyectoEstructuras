@@ -220,13 +220,6 @@ public class LLDouble<E> implements ListGroup9<E>  {
         
         cadena += " ]";
         return cadena;
-//        String s = "";
-//        NodeList<E> n;
-//        for (n = this.getFirst(); n != null; n = n.getSiguiente()) {
-//            s += n.getContenido() + " ";
-//        }
-//        
-//        return s;
     }
 
 
@@ -408,6 +401,39 @@ public class LLDouble<E> implements ListGroup9<E>  {
                 return element;
             }
         };
+    }
+    
+    
+    @Override
+    public boolean remove(Object o){
+        if(isEmpty() || o == null){
+            return false;
+        }
+        
+        if(o.equals(first.getContenido())){
+            removeFirst();
+            return true;
+        }
+        
+        NodeList<E> nodeActual = first;
+        NodeList<E> previo = null;
+        
+        while(nodeActual != null && !o.equals(nodeActual.getContenido())){
+            previo = nodeActual;
+            nodeActual = nodeActual.getSiguiente();
+        }
+        
+        if(nodeActual==null){
+            return false;
+        }
+        previo.setSiguiente(nodeActual.getSiguiente());
+        
+        if(nodeActual.getSiguiente()==null){
+            last = previo;
+        
+        }
+        
+        return true;
     }
 
 

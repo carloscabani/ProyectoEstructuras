@@ -323,4 +323,20 @@ public class ArrayG9<E> implements ListGroup9<E> {
         };
     }
     
+    @Override
+    public boolean remove(Object o){
+        if(o == null || isEmpty()){
+            return false;
+        }
+        
+        for(int x = 0; x<effectiveSize; x++){
+            if(o.equals(elements[x])){
+                remove(x);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
 }

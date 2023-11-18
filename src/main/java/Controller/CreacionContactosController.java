@@ -303,7 +303,8 @@ public class CreacionContactosController implements Initializable {
             String dir=cbdireccion.getValue()+"-"+txdireccion.getText();
             String emai= cbemail.getValue()+"-"+txemail.getText();
             String fechapertinente = cbfecha.getValue()+"-"+txcalendario.getValue();
-            writer.write(nombre+","+Apellido+","+Telefono+","+dir+","+emai+","+fechapertinente);
+            String cadena = nombre+","+Apellido+","+Telefono+","+dir+","+emai+","+fechapertinente;
+            writer.write(cadena);
             System.out.println("Se escribio un contacto exitosamenteeeeee.......");
             writer.newLine();
 
@@ -313,7 +314,7 @@ public class CreacionContactosController implements Initializable {
     }
     
     public void EscribirArchivoCamposAdicionales(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdiconales.txt",true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt",true))) {
             String nombre =txnombre.getText();
             String apellido = txapellido.getText();
             String conAdicon = "ninguno";
@@ -345,9 +346,11 @@ public class CreacionContactosController implements Initializable {
     }
 
     public void escribirArchivosImagenes(String i) {
-
+        String nombre = txnombre.getText();
+        String apellido = txapellido.getText();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
-            writer.write(txnombre.getText()+","+txapellido.getText()+","+i);
+            String cadena = nombre+","+apellido+","+i;
+            writer.write(cadena);
             writer.newLine();
             
             System.out.println("Registro EXITOsoooooooo.......");

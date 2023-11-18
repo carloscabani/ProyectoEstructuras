@@ -177,7 +177,7 @@ public class ListaContactosController implements Initializable {
     }
     
     public void cargarlistaCamposAdicionales(){        
-        try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/CamposAdiconales.txt"))) {
+        try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/CamposAdicionales.txt"))) {
             String datos;
             while ((datos = archivo.readLine()) != null) {
                 String[] p = datos.split(",");
