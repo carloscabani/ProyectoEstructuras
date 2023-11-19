@@ -54,6 +54,16 @@ public class CreacionContactosController implements Initializable {
     public static ArrayG9<String> etiqueta3 = new ArrayG9<>();
     public static ArrayG9<String> etiqueta4 = new ArrayG9<>();
     public static ArrayG9<String> etiqueta5 = new ArrayG9<>();
+    
+    //etiquetas contacto empresa
+    public static ArrayG9<String> etiqueta6 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta7 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta8 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta9 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta10 = new ArrayG9<>();
+    public static ArrayG9<String> etiqueta11= new ArrayG9<>();
+    
+    
     public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
 
     String ni = null;
@@ -109,6 +119,36 @@ public class CreacionContactosController implements Initializable {
     private Button btocultar;
     @FXML
     private ImageView fotoPerfil;
+    @FXML
+    private TextField txtNombreEmpresa;
+    @FXML
+    private TextField txtDireccionEmpresa;
+    @FXML
+    private TextField txtTelefonoEmpresa;
+    @FXML
+    private TextField txtEmailEmpresa;
+    @FXML
+    private DatePicker txtFechaEmpresa;
+    @FXML
+    private TextField txtContactoAsoEmpresa;
+    @FXML
+    private TextField txtWebEmpresa;
+    @FXML
+    private ComboBox<String> comboBoxDir;
+    @FXML
+    private ComboBox<String> comboBoxTlf;
+    @FXML
+    private ComboBox<String> comboBoxEmail;
+    @FXML
+    private ComboBox<String> comboBoxFecha;
+    @FXML
+    private ComboBox<String> comboBoxContAso;
+    @FXML
+    private ComboBox<String> comboBoxWeb;
+    @FXML
+    private ImageView fotoPerfilEmpresa;
+    @FXML
+    private Button buttonSaveB;
 
     /**
      * Initializes the controller class.
@@ -117,7 +157,8 @@ public class CreacionContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (etiqueta1.isEmpty() && etiqueta2.isEmpty() && etiqueta3.isEmpty() && etiqueta3.isEmpty() && etiqueta4.isEmpty() && etiqueta5.isEmpty()) {
+        if (etiqueta1.isEmpty() && etiqueta2.isEmpty() && etiqueta3.isEmpty() && etiqueta3.isEmpty() && etiqueta4.isEmpty() && etiqueta5.isEmpty() && 
+                etiqueta6.isEmpty() && etiqueta7.isEmpty() && etiqueta8.isEmpty() && etiqueta9.isEmpty() && etiqueta10.isEmpty() && etiqueta11.isEmpty()){
             cargarEtiquetas();
             System.out.println("Etiquetas Cargadas");
 
@@ -127,7 +168,10 @@ public class CreacionContactosController implements Initializable {
 
         camposAdicionales();
 
-        if (cbdireccion.getItems().isEmpty() && cbemail.getItems().isEmpty() && cbtelefono.getItems().isEmpty() && cbfecha.getItems().isEmpty() && c1.getItems().isEmpty() && c2.getItems().isEmpty()) {
+        if (cbdireccion.getItems().isEmpty() && cbemail.getItems().isEmpty() && cbtelefono.getItems().isEmpty() && cbfecha.getItems().isEmpty() && c1.getItems().isEmpty() && c2.getItems().isEmpty()
+                && comboBoxDir.getItems().isEmpty() && comboBoxTlf.getItems().isEmpty() && comboBoxEmail.getItems().isEmpty() && comboBoxFecha.getItems().isEmpty()
+                && comboBoxContAso.getItems().isEmpty() && comboBoxWeb.getItems().isEmpty()) {
+            
             cargarCombobox();
             System.out.println("Combo Boxs Cargados");
         } else {
@@ -196,6 +240,66 @@ public class CreacionContactosController implements Initializable {
 
     }
 
+    
+        @FXML
+    private void guardarEmpresa(ActionEvent event) {
+        
+        buttonSaveB.setOnAction((ActionEvent e) -> {
+            String nombre = txtNombreEmpresa.getText();
+            String apellido = "";
+            Telefono Tel = new Telefono (txtTelefonoEmpresa.getText(),comboBoxTlf.getValue());
+            Direccion di = new Direccion(txtDireccionEmpresa.getText(),comboBoxDir.getValue());
+            Email em= new Email(comboBoxEmail.getValue(),txtEmailEmpresa.getText());
+            PersonaAdiconal per=new PersonaAdiconal(txtContactoAsoEmpresa.getText(),comboBoxContAso.getValue());
+            
+            LocalDate fecha = txtFechaEmpresa.getValue();
+            Fecha fech= new Fecha(comboBoxFecha.getValue(),fecha);
+            RedSocial web= new RedSocial(comboBoxWeb.getValue(), txtWebEmpresa.getText());
+            String Empresa= "";
+            
+            Contacto people1= new Contacto(nombre,apellido,Tel,di,em,fech);
+            Contacto camposAdicion1= new Contacto(nombre,apellido, per,web,Empresa);
+            Foto ft= new Foto(nombre,apellido,ni);
+            lstfotoPerfiles.add(ft);
+            listaContactos.add(people1);
+            lstCamposAdicionales.add(camposAdicion1);
+            EscribirEmpresaContactosTxt();
+            EscribirEmpresaCamposAdicionalesTxt();
+
+            // esto es para obtener el nombre de la imagen que el usuario selecciono para asociarla 
+            // con ese contacto
+          
+            escribirEmpresaFotosPerfilTxt(ni);
+
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/logoAgregarImagen.png" )) {
+
+                Image image = new Image(input, 90, 100, true, false);
+                fotoPerfilEmpresa.setImage(image);
+
+            } catch (IOException exep) {
+                System.out.println("error");
+            }
+
+            txtNombreEmpresa.clear();
+            txtTelefonoEmpresa.clear();
+            txtDireccionEmpresa.clear();
+            txtEmailEmpresa.clear();
+            txtFechaEmpresa.setValue(null);
+            txtContactoAsoEmpresa.clear();
+            txtWebEmpresa.clear();
+            comboBoxDir.setValue("");
+            comboBoxTlf.setValue("");
+            comboBoxEmail.setValue("");
+            comboBoxFecha.setValue("");
+            comboBoxWeb.setValue("");
+            comboBoxContAso.setValue("");
+            
+
+        });
+
+        
+    }
+    
     @FXML
     private void ventanaContactos(ActionEvent event) throws IOException {
         App.setRoot("ListaContactos");
@@ -223,6 +327,7 @@ public class CreacionContactosController implements Initializable {
     }
     
     public void cargarEtiquetas() {
+        //Etiquetas contacto persona        
         //llenado de etiqueta1
         etiqueta1.add("Movil");
         etiqueta1.add("Trabajo");
@@ -252,6 +357,14 @@ public class CreacionContactosController implements Initializable {
         etiqueta5.add("Tik Tok");
         etiqueta5.add("Twitter");
 
+        //Etiquetas contacto empresa
+        etiqueta6.add("Sede Central"); etiqueta6.add("Direccion");etiqueta6.add("Sucursal");
+        etiqueta7.add("Telefono Convencional"); etiqueta7.add("Atencion al cliente"); etiqueta7.add("Soporte");
+        etiqueta8.add("Atencion al cliente"); etiqueta8.add("Consultas"); etiqueta8.add("Recursos Humanos");
+        etiqueta9.add("Fundacion"); etiqueta8.add("Ventas especiales");
+        etiqueta10.add("Director"); etiqueta10.add("Ventas"); etiqueta10.add("Coordinacion");
+        etiqueta11.add("Facebook"); etiqueta11.add("Instagram"); etiqueta11.add("Twitter");
+        etiqueta11.add("TikTok"); etiqueta11.add("Web"); 
         
         
           
@@ -285,6 +398,42 @@ public class CreacionContactosController implements Initializable {
                 c2.getItems().add(redes);
             }
         }
+    
+        if (comboBoxDir.getItems().isEmpty()) {
+            for (String dirEmpresa : etiqueta6) {
+                comboBoxDir.getItems().add(dirEmpresa);
+            }
+        }
+        
+        if (comboBoxTlf.getItems().isEmpty()) {
+            for (String tlf : etiqueta7) {
+                comboBoxTlf.getItems().add(tlf);
+            }
+        }
+        
+        if (comboBoxEmail.getItems().isEmpty()) {
+            for (String email : etiqueta8) {
+                comboBoxEmail.getItems().add(email);
+            }
+        }
+        
+        if (comboBoxFecha.getItems().isEmpty()) {
+            for (String fecha : etiqueta9) {
+                comboBoxFecha.getItems().add(fecha);
+            }
+        }
+        
+        if (comboBoxContAso.getItems().isEmpty()) {
+            for (String asociado : etiqueta10) {
+                comboBoxContAso.getItems().add(asociado);
+            }
+        }
+        
+        if (comboBoxWeb.getItems().isEmpty()) {
+            for (String web : etiqueta11) {
+                comboBoxWeb.getItems().add(web);
+            }
+        }
 
     }
 
@@ -306,6 +455,26 @@ public class CreacionContactosController implements Initializable {
             String emai= cbemail.getValue()+"-"+txemail.getText();
             String fechapertinente = cbfecha.getValue()+"-"+txcalendario.getValue();
             String cadena = nombre+","+Apellido+","+Telefono+","+dir+","+emai+","+fechapertinente;
+            writer.write(cadena);
+            System.out.println("Se escribio un contacto exitosamenteeeeee.......");
+            writer.newLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void EscribirEmpresaContactosTxt() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt",true))) {
+            //formato:
+            //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
+            String nombre=txtNombreEmpresa.getText();
+            String Apellido="";
+            String Telefono = comboBoxTlf.getValue()+"-"+txtTelefonoEmpresa.getText();
+            String dir=comboBoxDir.getValue()+"-"+txtDireccionEmpresa.getText();
+            String email= comboBoxEmail.getValue()+"-"+txtEmailEmpresa.getText();
+            String fechapertinente = comboBoxFecha.getValue()+"-"+txtFechaEmpresa.getValue();
+            String cadena = nombre+","+Apellido+","+Telefono+","+dir+","+email+","+fechapertinente;
             writer.write(cadena);
             System.out.println("Se escribio un contacto exitosamenteeeeee.......");
             writer.newLine();
@@ -346,6 +515,25 @@ public class CreacionContactosController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    
+    public void EscribirEmpresaCamposAdicionalesTxt(){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt",true))) {
+            String nombre =txtNombreEmpresa.getText();
+            String apellido = "";
+            String contactoAdicional = txtContactoAsoEmpresa.getText();
+            String web = txtWebEmpresa.getText();
+            String empresa="";
+            
+            writer.write(nombre+","+apellido+","+contactoAdicional+","+web+","+empresa);
+            System.out.println("Se escribieron campos adicionales exitosamenteeeeee.......");
+
+            writer.newLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void escribirArchivosImagenes(String i) {
         String nombre = txnombre.getText();
@@ -362,23 +550,33 @@ public class CreacionContactosController implements Initializable {
         }
     }
     
+    public void escribirEmpresaFotosPerfilTxt(String i) {
+        String nombre = txtNombreEmpresa.getText();
+        String apellido = "";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
+            String cadena = nombre+","+apellido+","+i;
+            writer.write(cadena);
+            writer.newLine();
+            
+            System.out.println("Registro EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-
-    private void changeImage(File newImageFile) {
+    private void changeImage(File newImageFile, ImageView imagen) {
         
         ni = newImageFile.getName();
         try {
-            // Cargar la nueva imagen usando ImageIO
+            // Cargamos la imagen
             FileInputStream inputStream = new FileInputStream(newImageFile);
             Image newImage = new Image(inputStream);
 
-            // Actualizar la ImageView con la nueva imagen
-            fotoPerfil.setImage(newImage);
-
-            // Puedes guardar la ruta de la nueva imagen en una variable si es necesario
-            // String newPath = newImageFile.getAbsolutePath();
-            // ...
+            // Actualizacion
+            imagen.setImage(newImage);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -387,8 +585,37 @@ public class CreacionContactosController implements Initializable {
 
     @FXML
     private void elegirImagen(MouseEvent event) {
-        //String nameFoto = null;
+        elegirImagenPerfil(fotoPerfil);
+    }
 
+    @FXML
+    private void elegirImagenEmpresa(MouseEvent event) {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Seleccionar nueva imagen");
+//        
+//        File initialDirectory = new File("src/main/resources/pics");
+//        fileChooser.setInitialDirectory(initialDirectory);
+//
+//        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de imagen", "*.png", "*.jpg", "*.gif");
+//        fileChooser.getExtensionFilters().add(extFilter);
+//        Window stage = null;
+//
+//        
+//        File selectedFile = fileChooser.showOpenDialog(stage);
+//
+//        if (selectedFile != null) {
+//            
+//            changeImage(selectedFile);
+//
+//        }
+
+        elegirImagenPerfil(fotoPerfilEmpresa);
+
+        
+
+    }
+    
+    private void elegirImagenPerfil(ImageView imagen){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar nueva imagen");
         
@@ -399,17 +626,14 @@ public class CreacionContactosController implements Initializable {
         fileChooser.getExtensionFilters().add(extFilter);
         Window stage = null;
 
-        
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
             
-            changeImage(selectedFile);
+            changeImage(selectedFile, imagen);
 
         }
     }
-
-
 
 }    
     

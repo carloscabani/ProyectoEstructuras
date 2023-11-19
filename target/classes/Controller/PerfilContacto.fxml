@@ -49,12 +49,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="43.0" layoutY="148.0" prefHeight="27.0" prefWidth="78.0" text="Empresa:">
+            <Label fx:id="labelEmpresa" layoutX="43.0" layoutY="175.0" prefHeight="27.0" prefWidth="78.0" text="Empresa:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="43.0" layoutY="175.0" prefHeight="27.0" prefWidth="78.0" text="Direccion:">
+            <Label layoutX="43.0" layoutY="148.0" prefHeight="27.0" prefWidth="78.0" text="Direccion:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -74,12 +74,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="lbempresa" layoutX="140.0" layoutY="148.0" prefHeight="27.0" prefWidth="229.0">
+            <Label fx:id="lbempresa" layoutX="140.0" layoutY="175.0" prefHeight="27.0" prefWidth="229.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="lbdireccion" layoutX="140.0" layoutY="175.0" prefHeight="20.0" prefWidth="229.0">
+            <Label fx:id="lbdireccion" layoutX="140.0" layoutY="148.0" prefHeight="20.0" prefWidth="229.0">
                <font>
                   <Font size="18.0" />
                </font>

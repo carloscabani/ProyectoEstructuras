@@ -1,4 +1,6 @@
 Isagui,Yoichi,Kaiser-Hijo/a,ninguno-ninguno,ninguno
 Xiomara,Avila,Amanda Avila-Madre,xio77_-Facebook,Nicovita
 Rin,Itoshi,Shidou-Amigo,Instagram-Rin10,ninguno
-Alex,Benites,Ricardo-Amigo,Axel10-Instagram,LabFarmac
+Alex,Benites,Sebastian-Amigo,Instagram-Axel10,LabFarmac
+
+Nicovita,,Marcos Elizalde,nicovitaoficial,

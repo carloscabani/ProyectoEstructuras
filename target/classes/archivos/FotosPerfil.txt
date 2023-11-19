@@ -1,6 +1,6 @@
 ber,s,letraB.png
 Isagui,Yoichi,letraI.png
 Xiomara,Avila,letraX.jpg
-Itadori,Juja,letraJ.png
-Alex,Benites,letraA.jpg
 Rin,Itoshi,letraR.jpg
+Alex,Benites,letraA.jpg
+Nicovita,,letraN.jpg

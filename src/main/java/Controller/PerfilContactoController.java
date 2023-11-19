@@ -101,6 +101,8 @@ public class PerfilContactoController implements Initializable {
     private Button deleteButton;
     @FXML
     private Button editButton;
+    @FXML
+    private Label labelEmpresa;
 
     /**
      * Initializes the controller class.

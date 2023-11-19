@@ -114,7 +114,7 @@ public class EditarContactoController implements Initializable {
         System.out.println(newfoto);
     }   
     
-        public void mostrarInfor() {
+    public void mostrarInfor() {
         
         newnombre.setText(contactoSelected.getNombre());
         newapellido.setText(contactoSelected.getApellido());
@@ -135,7 +135,8 @@ public class EditarContactoController implements Initializable {
         bemail.setValue(contactoSelected.getEmail().getTipo());
         ponerimagenAsociada();
     }
-        public void anadirComboBox(){
+    
+    public void anadirComboBox(){
         bcell.getItems().addAll("Movil","Trabajo","Casa","Principal","Fax del Trabajo");
         bdireccion.getItems().addAll("Trabajo","Casa","Otro");
         bemail.getItems().addAll("Trabajo","Casa","Otro");
@@ -261,7 +262,7 @@ public class EditarContactoController implements Initializable {
 
         
         
-        listViewContactos.getItems().remove(4);
+//        listViewContactos.getItems().remove(4);
         
         Contacto people = new Contacto(newnombre.getText(),newapellido.getText(),new Telefono(bcell.getValue(), newtelefono.getText()),new Direccion(bdireccion.getValue(),newdireccion.getText()),
                           new Email(bemail.getValue(),newemail.getText()), new Fecha(bfecha.getValue(), newfecha.getValue()));
@@ -275,8 +276,8 @@ public class EditarContactoController implements Initializable {
         System.out.println(listaContactos);
         String nombre= contactoEditado.getNombre();
         String apellido = contactoEditado.getApellido();
-        String fotoEdit= newfoto;
-        Foto im= new Foto(nombre,apellido,fotoEdit);
+        //String fotoEdit= newfoto;
+        //Foto im= new Foto(nombre,apellido,fotoEdit);
         
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -296,14 +297,19 @@ public class EditarContactoController implements Initializable {
             deleteFromFile(nombre, apellido,"src/main/resources/archivos/Contactos.txt");
             listaContactos.add(contactoEditado);
             EscribirArchivoContactosEditados();
-            //eliminar contacto en FotosPerfil.txt
-            deleteFromFile(nombre, apellido, "src/main/resources/archivos/FotosPerfil.txt");
-            lstfotoPerfiles.add(im);
-            escribirArchivosImagenesPersonEdit(newfoto);
+            
             //eliminar contacto en CamposAdicionales.txt
             deleteFromFile(nombre, apellido, "src/main/resources/archivos/CamposAdicionales.txt");
             lstCamposAdicionales.add(DatosAdicionales);
             EscribirArchivoCamposAdicionalesEditados();
+            
+            if(newfoto != null){  
+                //eliminar contacto en FotosPerfil.txt
+                deleteFromFile(nombre, apellido, "src/main/resources/archivos/FotosPerfil.txt");
+                Foto im= new Foto(nombre, apellido, newfoto);
+                lstfotoPerfiles.add(im);
+                escribirArchivosImagenesPersonEdit(newfoto);
+            }
             
             App.setRoot("ListaContactos");
             System.out.println("Lista actualizada contactos: "+ listaContactos);
