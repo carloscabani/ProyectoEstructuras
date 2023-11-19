@@ -29,7 +29,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,6 +59,13 @@ public class ListaContactosController implements Initializable {
     public static ListView<Contacto> listViewContactos = new ListView<>();
     public static VBox contenedorList = new VBox();
     public static String pathFiles = "archivos/";
+    public static Label ltitleApellido= new Label("Ingrese un apellido:");
+    public static Label ltitleDireccion= new Label("Ingrese una direccion:");
+    public static Label ltitleConAdicional= new Label("Ingrese un contacto asociado:");
+    public static TextField txdatoAbuscar = new TextField();
+    public static VBox ponertexto = new VBox();
+    //public static Button btconfirmar = new Button("Buscar");
+
 
     @FXML
     private HBox hbCabezera;
@@ -73,6 +82,24 @@ public class ListaContactosController implements Initializable {
     private TextField txtBuscador;
     @FXML
     private Button visualizarButton;
+    @FXML
+    private RadioButton rdapellido;
+    @FXML
+    private ToggleGroup option1;
+    @FXML
+    private RadioButton rdireccion;
+    @FXML
+    private RadioButton rdcontactoasociado;
+    @FXML
+    private VBox vbdatosbusqueda;
+    @FXML
+    private Button btocultar;
+    @FXML
+    private VBox vbcontenedorSecundario;
+    @FXML
+    private HBox hbotonesBusqueda;
+    @FXML
+    private Button btbuscar;
 
     /**
      * Initializes the controller class.
@@ -81,6 +108,8 @@ public class ListaContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //mostrarBusquedaAvanzada();
         
         listContactosSettings();
        
@@ -97,15 +126,6 @@ public class ListaContactosController implements Initializable {
             cargarlistaCamposAdicionales();
             System.out.println("listaCampoAdicionales cargada");
             System.out.println(lstCamposAdicionales);
-//            for(Contacto y: lstCamposAdicionales){
-//                System.out.println(y.getPer().getPersona()+"-"+y.getPer().getTipoPersona());
-//                System.out.println(y.getRedSocial().getUsername()+"-"+y.getRedSocial().getTipoRedSocial());
-//                System.out.println(y.getEmpresa());
-//                System.out.println(lstCamposAdicionales);
-//                System.out.println(y.getPer().getPersona());
-//                System.out.println(y.getRedSocial().getUsername());
-//                System.out.println(y.getEmpresa());
-//            }
         }else{
             System.out.println("listaCampoAdicionales llena");
         }   
@@ -117,33 +137,57 @@ public class ListaContactosController implements Initializable {
             System.out.println("lstfotoPerfiles ya esta cargada");
         }
 
-
-
-        listViewContactos.getItems().clear();
         cargarListView();
+        txtBuscador.requestFocus();
+
+
+        txtBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarContactos(newValue);
+        });
         
 
-    }  
-
+    } 
+    
+    public void filtrarContactos(String filtro) {
+        if (filtro == null || filtro.trim().isEmpty()) {
+            // Si el filtro está vacío, muestra todos los contactos
+            vblista.getChildren().clear();
+            cargarListView();
+        } else {
+            // Filtra los contactos según el contenido del TextField
+            Platform.runLater(() -> {
+                listViewContactos.getItems().clear();
+                NodeList<Contacto> nodoActual = listaContactos.getFirst();
+                while (nodoActual != null) {
+                    Contacto informacion = nodoActual.getContenido();
+                    // Si el nombre del contacto contiene el filtro, agrégalo al ListView
+                    if (informacion.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
+                        listViewContactos.getItems().add(informacion);
+                    }
+                    nodoActual = nodoActual.getSiguiente();
+                }
+            });
+        }
+    }
 
     public void cargarListView() {
-        
+
         Platform.runLater(() -> {
             if (listViewContactos != null) {
                 listViewContactos.getItems().clear();
                 NodeList<Contacto> nodoActual = listaContactos.getFirst();
-                while(nodoActual!= null){
+                while (nodoActual != null) {
                     Contacto informacion = nodoActual.getContenido();
                     //listViewContactos.getItems().add(informacion.getNombre());
                     listViewContactos.getItems().add(informacion);
-                    nodoActual = nodoActual.getSiguiente();    
+                    nodoActual = nodoActual.getSiguiente();
                 }
-                }      
-            if(!contenedorList.getChildren().contains(listViewContactos)){
+            }
+            if (!contenedorList.getChildren().contains(listViewContactos)) {
                 contenedorList.getChildren().add(listViewContactos);
-                }
+            }
             vblista.getChildren().add(contenedorList);
-    });
+        });
     }
 
 
@@ -242,14 +286,12 @@ public class ListaContactosController implements Initializable {
                 
                 System.out.println("YA SE CARGO CAMPO Adicional con exito........");
                 lstCamposAdicionales.add(camposCont1);
-                
 
            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    
-        
+
     }
     
     
@@ -266,7 +308,6 @@ public class ListaContactosController implements Initializable {
                         Thread.sleep(5000);
                         System.out.println("Hola");
                         Platform.runLater(() -> {                         
-//                            contenedorList.getChildren().clear();
                                 cargarListView();
                                 listViewContactos.getItems().clear();
 
@@ -286,23 +327,13 @@ public class ListaContactosController implements Initializable {
         listViewContactos.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // con esto obtegno el nombre del elemento cuando le hago click pilasssss
-                //System.out.println("Elemento seleccionado: " + listViewContactos.getSelectionModel().getSelectedItem());
                 Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
                 
                 contactoSelected = selectedItem;
                 nombreSelected= listViewContactos.getSelectionModel().getSelectedItem().getNombre();
                 apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
                 selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
-                System.out.println(selectedIndex);
-//                  
-//            // Verificar si se seleccionó un elemento
-//            if (selectedIndex != -1) {
-//                // Eliminar el elemento seleccionado
-//                items.remove(selectedIndex);
-//            }
-//                
-                
+                System.out.println(selectedIndex);   
                 
                 for(Contacto cf: lstCamposAdicionales){
                     if(selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())){
@@ -321,7 +352,7 @@ public class ListaContactosController implements Initializable {
         });
     }
     
-    private void mostrarVentanaEmergente(String selectedItem) {
+    public void mostrarVentanaEmergente(String selectedItem) {
         Stage ventanaEmergente = new Stage();
         ventanaEmergente.initModality(Modality.APPLICATION_MODAL);
         ventanaEmergente.setTitle("Opciones de Contacto");
@@ -388,7 +419,219 @@ public class ListaContactosController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-}
+
     
+    public void ventanaBusqueda(String selectedItem) {
+        Stage ventanaEmergente = new Stage();
+        ventanaEmergente.initModality(Modality.APPLICATION_MODAL);
+        ventanaEmergente.setTitle("Busqueda Avanzada");
+
+        Label label = new Label("¿Por cual campo desea realizar su busqueda?");
+        Button btnEditar = new Button("Editar");
+        Button btnEliminar = new Button("Eliminar");
+
+        btnEditar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    System.out.println("Editar contacto: " + selectedItem);
+                    App.setRoot("EditarContacto");
+                    ventanaEmergente.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ListaContactosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        });
+
+        btnEliminar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Lógica para eliminar el contacto
+                System.out.println("Eliminar contacto: " + selectedItem);
+                ventanaEmergente.close();
+            }
+        });
+
+        VBox vcontenedor = new VBox(10);
+        HBox hbox = new HBox(10);
+        HBox h1 = new HBox(10);
+
+        hbox.getChildren().add(label);
+        hbox.setAlignment(Pos.CENTER);
+        h1.getChildren().addAll(btnEliminar, btnEditar);
+        h1.setAlignment(Pos.CENTER);
+        h1.setSpacing(30);
+        vcontenedor.getChildren().addAll(hbox, h1);
+        Scene escena = new Scene(vcontenedor, 300, 150);
+
+        ventanaEmergente.setScene(escena);
+
+        ventanaEmergente.showAndWait();
+    }
+    
+
+    @FXML
+    private void buscarPorApellido(ActionEvent event) {
+         if (vbdatosbusqueda.getChildren().isEmpty()) {
+            vbdatosbusqueda.getChildren().addAll(ltitleApellido, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        } else {
+            txdatoAbuscar.clear(); 
+            vbdatosbusqueda.getChildren().clear();
+            vbdatosbusqueda.getChildren().addAll(ltitleApellido, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        }
+
+    }
+
+    @FXML
+    private void buscarPorDireccion(ActionEvent event) {
+         if (vbdatosbusqueda.getChildren().isEmpty()) {
+            vbdatosbusqueda.getChildren().addAll(ltitleDireccion, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        } else {
+            txdatoAbuscar.clear();
+            vbdatosbusqueda.getChildren().clear();
+            vbdatosbusqueda.getChildren().addAll(ltitleDireccion, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        }
+    }
+
+    @FXML
+    private void buscarPorContactoAsociado(ActionEvent event) {
+        
+         if (vbdatosbusqueda.getChildren().isEmpty()) {
+            vbdatosbusqueda.getChildren().addAll(ltitleConAdicional, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        } else {
+            txdatoAbuscar.clear(); 
+            vbdatosbusqueda.getChildren().clear();
+            vbdatosbusqueda.getChildren().addAll(ltitleConAdicional, txdatoAbuscar);
+            vbdatosbusqueda.setSpacing(10);
+        }
+    }
+
+    @FXML
+    private void ocultarBusqueda(ActionEvent event) {
+        vbdatosbusqueda.getChildren().clear();
+        option1.getSelectedToggle().setSelected(false);
+    }
+
+    @FXML
+    private void realizarBusquedaPersonalizada(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) option1.getSelectedToggle();
+        //System.out.println(selectedRadioButton);
+        if (selectedRadioButton != null) {
+            String tipoBusqueda = selectedRadioButton.getId();
+
+            // Obtener el texto del TextField
+            String valorBusqueda = txdatoAbuscar.getText();
+
+            // Filtrar la lista según el tipo de búsqueda
+            switch (tipoBusqueda) {
+                case "rdapellido":
+                    filtrarPorApellido(valorBusqueda);
+                    break;
+                case "rdireccion":
+                    filtrarPorDireccion(valorBusqueda);
+                    break;
+                case "rdcontactoasociado":
+                    filtrarPorContactoAsociado(valorBusqueda);
+                    break;
+                default:
+                    // Manejar otro caso si es necesario
+                    break;
+            }
+        }
+        
+    }
+
+    private void filtrarPorApellido(String apellido) {
+
+        contenedorList.getChildren().clear();
+        vblista.getChildren().clear();
+
+        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+
+        if (viewContactosCopia.getItems().isEmpty()) {
+
+            for (Contacto contc : listaContactos) {
+                if (contc.getApellido().equalsIgnoreCase(apellido)) {
+                    viewContactosCopia.getItems().add(contc);
+                }
+
+            }
+
+        }
+        System.out.println("lista copia despues de haber pasado por el while:");
+        for (Contacto item : viewContactosCopia.getItems()) {
+            System.out.println(item);
+        }
+
+        contenedorList.getChildren().add(viewContactosCopia);
+        vblista.getChildren().add(contenedorList);
+
+    }
+
+
+
+    private void filtrarPorDireccion(String direccion) {
+        contenedorList.getChildren().clear();
+        vblista.getChildren().clear();
+
+        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+
+        if (viewContactosCopia.getItems().isEmpty()) {
+
+            for (Contacto contc : listaContactos) {
+                if (contc.getDir().getUbicacion().equalsIgnoreCase(direccion)) {
+                    viewContactosCopia.getItems().add(contc);
+                }
+
+            }
+
+        }
+        System.out.println("lista copia despues de haber pasado por el while:");
+        for (Contacto item : viewContactosCopia.getItems()) {
+            System.out.println(item);
+        }
+        contenedorList.getChildren().add(viewContactosCopia);
+        vblista.getChildren().add(contenedorList);
+    }
+
+    private void filtrarPorContactoAsociado(String contactoAsociado) {
+
+        contenedorList.getChildren().clear();
+        vblista.getChildren().clear();
+
+        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+
+        if (viewContactosCopia.getItems().isEmpty()) {
+
+            for (Contacto contc : lstCamposAdicionales) {
+                if (contc.getPer().getPersona().equalsIgnoreCase(contactoAsociado)) {
+                    for(Contacto contcoriginal:listaContactos ){
+                        if(contc.getNombre().equals(contcoriginal.getNombre())&&contc.getApellido().equals(contcoriginal.getApellido())){
+                            viewContactosCopia.getItems().add(contc);
+                        }
+                    }
+                    
+                    //viewContactosCopia.getItems().add(contc);
+                }
+
+            }
+
+        }
+        System.out.println("lista copia despues de haber pasado por el while:");
+        for (Contacto item : viewContactosCopia.getItems()) {
+            System.out.println(item);
+        }
+
+        contenedorList.getChildren().add(viewContactosCopia);
+        vblista.getChildren().add(contenedorList);
+
+    }
+}
 
 

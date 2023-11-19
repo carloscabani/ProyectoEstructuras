@@ -3,4 +3,3 @@ Xiomara,Avila,Casa-0987639544,Casa-Cuenca,Otro-xiom_1@gmail.com,Otro-2019-11-08
 Rin,Itoshi,Movil-12555555,Otro-BlueLock Jpon,Casa-rin10@gmail.com,Aniversario-2023-11-09
 Alex,Benites,Trabajo-77777777,Trabajo-Guayaquil,Alex154@hmial.ec-Trabajo,Cumplea?os-2023-11-01
 Nicovita,,Atencion al cliente-(+51) 988704309,Sucursal-Av. De las Am?ricas,Atencion al cliente-nicovitaecuador@vitapro.com.ec,Fundacion-2004-11-05
-Nicovita S.A,,(+51) 988704309-Atencion al cliente,Av. De las Américas-Sucursal,Atencion al cliente-nicovitaecuador@vitapro.com.ec,Fundacion-2004-11-05

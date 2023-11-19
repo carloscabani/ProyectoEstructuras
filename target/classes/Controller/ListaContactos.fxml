@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -22,13 +24,11 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="txtBuscador" onMouseClicked="#limpiarTxtBuscador" prefHeight="26.0" prefWidth="269.0" text="Buscar contacto..." />
          </children>
          <padding>
             <Insets right="10.0" />
          </padding>
       </HBox>
-      <VBox fx:id="vblista" layoutY="100.0" prefHeight="431.0" prefWidth="464.0" />
       <HBox fx:id="hbAnadir" alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="548.0" prefHeight="70.0" prefWidth="464.0">
          <children>
             <Pane prefHeight="70.0" prefWidth="469.0">
@@ -39,5 +39,31 @@
             </Pane>
          </children>
       </HBox>
+      <VBox fx:id="vblista" layoutX="24.0" layoutY="180.0" prefHeight="348.0" prefWidth="262.0" />
+      <TextField fx:id="txtBuscador" layoutX="71.0" layoutY="136.0" onMouseClicked="#limpiarTxtBuscador" prefHeight="26.0" prefWidth="144.0" text="Buscar contacto..." />
+      <Label layoutX="299.0" layoutY="213.0" text="Busqueda avanzada por:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="rdapellido" layoutX="313.0" layoutY="248.0" mnemonicParsing="false" onAction="#buscarPorApellido" prefHeight="18.0" prefWidth="96.0" text="Apellido">
+         <toggleGroup>
+            <ToggleGroup fx:id="option1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="rdireccion" layoutX="310.0" layoutY="282.0" mnemonicParsing="false" onAction="#buscarPorDireccion" prefHeight="18.0" prefWidth="107.0" text="Direccion" toggleGroup="$option1" />
+      <RadioButton fx:id="rdcontactoasociado" layoutX="310.0" layoutY="319.0" mnemonicParsing="false" onAction="#buscarPorContactoAsociado" prefHeight="18.0" prefWidth="136.0" text="Contacto asociado" toggleGroup="$option1" />
+      <VBox fx:id="vbcontenedorSecundario" alignment="TOP_CENTER" layoutX="306.0" layoutY="354.0" prefHeight="152.0" prefWidth="151.0">
+         <children>
+            <VBox fx:id="vbdatosbusqueda" alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="151.0" />
+            <Label />
+            <HBox fx:id="hbotonesBusqueda" alignment="CENTER" prefHeight="53.0" prefWidth="151.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btbuscar" mnemonicParsing="false" onAction="#realizarBusquedaPersonalizada" text="buscar" />
+                  <Button fx:id="btocultar" mnemonicParsing="false" onAction="#ocultarBusqueda" text="ocultar" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

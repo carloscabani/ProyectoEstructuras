@@ -8,6 +8,7 @@ ListTDA\ArrayG9$2.class
 ListTDA\NodeList.class
 Clases\Foto.class
 Controller\ListaContactosController$2.class
+Controller\ListaContactosController$5.class
 ListTDA\LLDouble$2.class
 ListTDA\main.class
 Controller\ListaContactosController$3.class
@@ -17,6 +18,7 @@ Controller\App.class
 Controller\PatronContraseniaController.class
 ListTDA\LLDouble$1.class
 Clases\Direccion.class
+Controller\ListaContactosController$6.class
 ListTDA\ArrayG9.class
 Controller\ListaContactosController.class
 Controller\PrimaryController.class
