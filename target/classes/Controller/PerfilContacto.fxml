@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PerfilContactoController">
+<AnchorPane id="AnchorPane" prefHeight="598.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PerfilContactoController">
    <children>
       <VBox fx:id="vbportada" alignment="CENTER" layoutY="64.0" prefHeight="117.0" prefWidth="462.0">
          <children>
@@ -130,7 +130,6 @@
                </font>
             </Button>
             <Button fx:id="deleteButton" layoutX="297.0" layoutY="24.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
-            <Button fx:id="editButton" layoutX="120.0" layoutY="24.0" mnemonicParsing="false" onAction="#editarInformacion" text="Edit" />
          </children>
       </Pane>
    </children>

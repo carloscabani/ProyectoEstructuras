@@ -3,4 +3,5 @@ Isagui,Yoichi,letraI.png
 Xiomara,Avila,letraX.jpg
 Rin,Itoshi,letraR.jpg
 Alex,Benites,letraA.jpg
-Nicovita,,letraN.jpg
+Cristiano,Ronaldo,letraC.png
+Laarbox,,letraL.jpg

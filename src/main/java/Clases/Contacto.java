@@ -10,7 +10,8 @@ import java.util.List;
  *
  * @author Carlos
  */
-public class Contacto {
+//public class Contacto {
+public class Contacto implements Comparable<Contacto>{
     
     private String nombre;
     
@@ -136,9 +137,11 @@ public class Contacto {
         this.empresa = empresa;
     }
     
+    @Override
+    public int compareTo(Contacto otroContacto) {
+        return this.getNombre().compareTo(otroContacto.getNombre());
+    }
     
-    
-
 
     @Override
     public String toString() {

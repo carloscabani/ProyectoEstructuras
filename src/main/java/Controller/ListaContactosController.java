@@ -10,16 +10,24 @@ import ListTDA.ArrayG9;
 import ListTDA.LLDouble;
 import ListTDA.NodeList;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,14 +35,21 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -45,7 +60,7 @@ import javafx.stage.Stage;
  */
 public class ListaContactosController implements Initializable {
     
-    public static Contacto contactoSelected;
+    public static Contacto contactoSelected; 
     public static String nombreSelected;
     public static String apellidoSelected;
     public static String cadicional;
@@ -53,7 +68,10 @@ public class ListaContactosController implements Initializable {
     public static String empre;
     public static String typec;
     public static String typered;
+//    public static Stage g = new Stage();
     public static int selectedIndex;
+    public static Map<String,String> etiquetasPersonas = new HashMap<>();
+    public static ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
     public static LLDouble<Contacto> listaContactos = new LLDouble<>();
     public static ArrayG9<Contacto> lstCamposAdicionales = new ArrayG9<>();
     public static ListView<Contacto> listViewContactos = new ListView<>();
@@ -62,6 +80,8 @@ public class ListaContactosController implements Initializable {
     public static Label ltitleApellido= new Label("Ingrese un apellido:");
     public static Label ltitleDireccion= new Label("Ingrese una direccion:");
     public static Label ltitleConAdicional= new Label("Ingrese un contacto asociado:");
+    public static Label ltitlEtiquetas= new Label("seleccione una etiqueta:");
+    public static ComboBox<String> cbEContacto= new ComboBox();
     public static TextField txdatoAbuscar = new TextField();
     public static VBox ponertexto = new VBox();
     //public static Button btconfirmar = new Button("Buscar");
@@ -100,6 +120,8 @@ public class ListaContactosController implements Initializable {
     private HBox hbotonesBusqueda;
     @FXML
     private Button btbuscar;
+    @FXML
+    private RadioButton rdEtiquetas;
 
     /**
      * Initializes the controller class.
@@ -111,7 +133,17 @@ public class ListaContactosController implements Initializable {
         
         //mostrarBusquedaAvanzada();
         
-        listContactosSettings();
+        //listContactosSettings();
+        listViewContactos.setOnMouseClicked(this::listContactosSettings);
+        viewContactosCopia.setOnMouseClicked(this::listContactosCopiaSettings);
+        
+        if(etiquetasPersonas.isEmpty()){
+            cargarMapaEtiquetas();
+            System.out.println("Se cargo el mapa exitosamente............");
+        }else{
+            System.out.println("El mapa ya esta cargado..........");
+        }
+        
        
         if(listaContactos.isEmpty()){
           cargarListaContactos(); 
@@ -136,6 +168,7 @@ public class ListaContactosController implements Initializable {
         } else {
             System.out.println("lstfotoPerfiles ya esta cargada");
         }
+        
 
         cargarListView();
         txtBuscador.requestFocus();
@@ -172,22 +205,33 @@ public class ListaContactosController implements Initializable {
 
     public void cargarListView() {
 
-        Platform.runLater(() -> {
-            if (listViewContactos != null) {
-                listViewContactos.getItems().clear();
-                NodeList<Contacto> nodoActual = listaContactos.getFirst();
-                while (nodoActual != null) {
-                    Contacto informacion = nodoActual.getContenido();
-                    //listViewContactos.getItems().add(informacion.getNombre());
-                    listViewContactos.getItems().add(informacion);
-                    nodoActual = nodoActual.getSiguiente();
-                }
+        if (listViewContactos != null) {
+            listViewContactos.getItems().clear();
+            for(Contacto c : listaContactos ){
+                listViewContactos.getItems().add(c);
             }
-            if (!contenedorList.getChildren().contains(listViewContactos)) {
-                contenedorList.getChildren().add(listViewContactos);
-            }
-            vblista.getChildren().add(contenedorList);
-        });
+        }
+        if (!contenedorList.getChildren().contains(listViewContactos)) {
+            contenedorList.getChildren().add(listViewContactos);
+        }
+        vblista.getChildren().add(contenedorList);
+
+//        Platform.runLater(() -> {
+//            if (listViewContactos != null) {
+//                listViewContactos.getItems().clear();
+//                NodeList<Contacto> nodoActual = listaContactos.getFirst();
+//                while (nodoActual != null) {
+//                    Contacto informacion = nodoActual.getContenido();
+//                    //listViewContactos.getItems().add(informacion.getNombre());
+//                    listViewContactos.getItems().add(informacion);
+//                    nodoActual = nodoActual.getSiguiente();
+//                }
+//            }
+//            if (!contenedorList.getChildren().contains(listViewContactos)) {
+//                contenedorList.getChildren().add(listViewContactos);
+//            }
+//            vblista.getChildren().add(contenedorList);
+//        });
     }
 
 
@@ -251,19 +295,22 @@ public class ListaContactosController implements Initializable {
                 String[] p = datos.split(",");
                 String nombre=p[0];
                 String apellido=p[1];
-                String tipoPer=null;
-                String PerContac=null;
-                String userRed=null;
-                String tipoRed =null;
-                String empresa = null;
+                String tipoPer;
+                String PerContac;
+                String userRed;
+                String tipoRed;
+                String empresa;
                 
                 int caracperAdi = p[2].indexOf("-");
+                
                 if (p[2].substring(0,caracperAdi).equals("ninguno")) {
                     tipoPer = "ninguno";
                     PerContac = "ninguno";
                 } else {
                     tipoPer = p[2].substring(caracperAdi+1);
                     PerContac = p[2].substring(0,caracperAdi);
+                    System.out.println("hola entre en el else de que si hay una perosna asociada y es: "+PerContac);
+                    
                 }
                
                 int caracRed = p[3].indexOf("-");
@@ -282,8 +329,9 @@ public class ListaContactosController implements Initializable {
                 }
                 
                 
-                Contacto camposCont1 = new Contacto(nombre,apellido,new PersonaAdiconal(PerContac,tipoPer), new RedSocial(tipoRed,userRed),empresa);
-                
+                Contacto camposCont1 = new Contacto(nombre,apellido,new PersonaAdiconal(PerContac,tipoPer), new RedSocial(userRed,tipoRed),empresa);
+                System.out.println("el contacto que se va a agregar es: "+ camposCont1.getNombre()+ " "+camposCont1.getApellido()+" "+camposCont1.getPer().getPersona()+" "+camposCont1.getEmpresa()+" "
+                +camposCont1.getRedSocial().getUsername());
                 System.out.println("YA SE CARGO CAMPO Adicional con exito........");
                 lstCamposAdicionales.add(camposCont1);
 
@@ -322,35 +370,121 @@ public class ListaContactosController implements Initializable {
         backgroundthread.setDaemon(true);
         backgroundthread.start();
     }
-    
-    public void listContactosSettings(){
-        listViewContactos.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
-                
-                contactoSelected = selectedItem;
-                nombreSelected= listViewContactos.getSelectionModel().getSelectedItem().getNombre();
-                apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
-                selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
-                System.out.println(selectedIndex);   
-                
-                for(Contacto cf: lstCamposAdicionales){
-                    if(selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())){
-                        cadicional = cf.getPer().getPersona();
-                        redsoc=cf.getRedSocial().getUsername();
-                        empre = cf.getEmpresa();
-                        typered= cf.getRedSocial().getTipoRedSocial();
-                        typec= cf.getPer().getTipoPersona();
-                    }
-                }
-                
-                if (selectedItem != null) {
-                    mostrarVentanaEmergente(selectedItem.getNombre()+" "+selectedItem.getApellido());
+
+    public void listContactosSettings(MouseEvent event) {
+        // Verifica si el clic fue con el botón derecho
+        if (event.getButton() == MouseButton.PRIMARY) {
+            Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
+
+            contactoSelected = selectedItem;
+            //System.out.println("este contacto es: "+contactoSelected+" y sus atributos son: "+ contactoSelected.getPer().getPersona()+" "+contactoSelected.getRedSocial().getUsername());
+            nombreSelected = listViewContactos.getSelectionModel().getSelectedItem().getNombre();
+            apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
+            selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
+            //System.out.println(selectedIndex);
+
+            for (Contacto cf : lstCamposAdicionales) {
+                if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
+                    cadicional = cf.getPer().getPersona();
+                    redsoc = cf.getRedSocial().getUsername();
+                    empre = cf.getEmpresa();
+                    typered = cf.getRedSocial().getTipoRedSocial();
+                    typec = cf.getPer().getTipoPersona();
                 }
             }
-        });
+
+            if (selectedItem != null) {
+                mostrarVentanaEmergente(selectedItem.getNombre() + " " + selectedItem.getApellido());
+            }
+
+        } else if (event.getButton() == MouseButton.SECONDARY) {
+            Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
+
+            contactoSelected = selectedItem;
+            System.out.println("este contacto es: " + contactoSelected);
+            nombreSelected = listViewContactos.getSelectionModel().getSelectedItem().getNombre();
+            apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
+            selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
+
+            VentanaEtiquetas(contactoSelected);
+
+        }
     }
+    
+    public void listContactosCopiaSettings(MouseEvent event) {
+//        Contacto selectedItem = viewContactosCopia.getSelectionModel().getSelectedItem();
+        if (event.getButton() == MouseButton.PRIMARY) {
+            // Con esto me jalo el contacto selesccionado en ese click Izquierdo
+            Contacto selectedItem = viewContactosCopia.getSelectionModel().getSelectedItem();
+            // aqui lo guardo en una gruardo en una variable local creada arriba junto con sus respectivos atributos que estan mas
+            //abajo creados tambien en una variable local que esta definidas arriba
+            contactoSelected = selectedItem;
+            System.out.println("este contacto es: "+contactoSelected);
+            nombreSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getNombre();
+            apellidoSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getApellido();
+            selectedIndex = viewContactosCopia.getSelectionModel().getSelectedIndex();
+            //System.out.println(selectedIndex);
+
+            for (Contacto cf : lstCamposAdicionales) {
+                if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
+                    cadicional = cf.getPer().getPersona();
+                    redsoc = cf.getRedSocial().getUsername();
+                    empre = cf.getEmpresa();
+                    typered = cf.getRedSocial().getTipoRedSocial();
+                    typec = cf.getPer().getTipoPersona();
+                }
+            }
+
+            if (selectedItem != null) {
+                mostrarVentanaEmergente(selectedItem.getNombre() + " " + selectedItem.getApellido());
+            }
+
+        } else if (event.getButton() == MouseButton.SECONDARY) {
+            System.out.println("Clic derecho en la ListViewCopia");
+            Contacto selectedItem = viewContactosCopia.getSelectionModel().getSelectedItem();
+
+            contactoSelected = selectedItem;
+            System.out.println("este contacto es: "+contactoSelected);
+            nombreSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getNombre();
+            apellidoSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getApellido();
+            selectedIndex = viewContactosCopia.getSelectionModel().getSelectedIndex();            
+            
+            if (selectedItem != null) {
+                VentanaEtiquetas(contactoSelected);
+            }
+            
+            
+        }
+    }
+    
+//    public void listContactosSettings(){
+//        listViewContactos.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
+//                
+//                contactoSelected = selectedItem;
+//                nombreSelected= listViewContactos.getSelectionModel().getSelectedItem().getNombre();
+//                apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
+//                selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
+//                System.out.println(selectedIndex);   
+//                
+//                for(Contacto cf: lstCamposAdicionales){
+//                    if(selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())){
+//                        cadicional = cf.getPer().getPersona();
+//                        redsoc=cf.getRedSocial().getUsername();
+//                        empre = cf.getEmpresa();
+//                        typered= cf.getRedSocial().getTipoRedSocial();
+//                        typec= cf.getPer().getTipoPersona();
+//                    }
+//                }
+//                
+//                if (selectedItem != null) {
+//                    mostrarVentanaEmergente(selectedItem.getNombre()+" "+selectedItem.getApellido());
+//                }
+//            }
+//        });
+//    }
     
     public void mostrarVentanaEmergente(String selectedItem) {
         Stage ventanaEmergente = new Stage();
@@ -359,7 +493,7 @@ public class ListaContactosController implements Initializable {
 
         Label label = new Label("¿Qué deseas hacer con el contacto seleccionado?");
         Button btnEditar = new Button("Editar");
-        Button btnEliminar = new Button("Eliminar");
+        Button btnverConta = new Button("Ver contacto");
 
 
         btnEditar.setOnAction(new EventHandler<ActionEvent>() {
@@ -376,11 +510,16 @@ public class ListaContactosController implements Initializable {
             }
         });
 
-        btnEliminar.setOnAction(new EventHandler<ActionEvent>() {
+        btnverConta.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Lógica para eliminar el contacto
-                System.out.println("Eliminar contacto: " + selectedItem);
+                try {
+                    // Lógica para eliminar el contacto
+                    App.setRoot("VistaContactoIndividual");
+                } catch (IOException ex) {
+                    Logger.getLogger(ListaContactosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                contenedorList.getChildren().clear();
                 ventanaEmergente.close();
             }
         });
@@ -392,7 +531,7 @@ public class ListaContactosController implements Initializable {
 
         hbox.getChildren().add(label);
         hbox.setAlignment(Pos.CENTER);
-        h1.getChildren().addAll(btnEliminar,btnEditar);
+        h1.getChildren().addAll(btnverConta,btnEditar);
         h1.setAlignment(Pos.CENTER);
         h1.setSpacing(30);
         vcontenedor.getChildren().addAll(hbox,h1);
@@ -511,12 +650,268 @@ public class ListaContactosController implements Initializable {
             vbdatosbusqueda.setSpacing(10);
         }
     }
+    
+    @FXML
+    private void buscarPorEtiquetas(ActionEvent event) {
+        cbEContacto.setValue("");
+        if(cbEContacto.getItems().isEmpty()){
+            cbEContacto.getItems().addAll("Familia","Trabajo","Amigos","Universidad");
+        }
+        
+
+        if (vbdatosbusqueda.getChildren().isEmpty()) {
+            vbdatosbusqueda.getChildren().addAll(ltitlEtiquetas, cbEContacto);
+            vbdatosbusqueda.setSpacing(10);
+        } else {
+            txdatoAbuscar.clear();
+            vbdatosbusqueda.getChildren().clear();
+            vbdatosbusqueda.getChildren().addAll(ltitlEtiquetas, cbEContacto);
+            vbdatosbusqueda.setSpacing(10);
+        }
+
+    }
 
     @FXML
     private void ocultarBusqueda(ActionEvent event) {
+        
         vbdatosbusqueda.getChildren().clear();
         option1.getSelectedToggle().setSelected(false);
+        contenedorList.getChildren().clear(); // pilas con esta linea
+        vblista.getChildren().clear();  // pilas con esta linea
+        
+        cargarListView();
     }
+    
+    public void VentanaEtiquetas(Contacto co) {
+        Stage g = new Stage();
+        //g.initModality(Modality.APPLICATION_MODAL);
+        //g.setTitle("Etiquetas");
+
+        Label label = new Label("Seleccione una etiqueta para: "+co.getNombre()+" "+co.getApellido());
+        Button btguardar = new Button("Aceptar");
+        RadioButton rdfamilia = new RadioButton ("Familia");
+        RadioButton rdTrabajo = new RadioButton ("Trabajo");
+        RadioButton rdAmigos = new RadioButton ("Amigos");
+        RadioButton rdUniversidad = new RadioButton ("Universidad");
+        ImageView imEtiquetas = new ImageView();
+        ToggleGroup EtiquetasContactos = new ToggleGroup();
+        rdfamilia.setToggleGroup(EtiquetasContactos);
+        rdTrabajo.setToggleGroup(EtiquetasContactos);
+        rdAmigos.setToggleGroup(EtiquetasContactos);
+        rdUniversidad.setToggleGroup(EtiquetasContactos);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        rdfamilia.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        rdTrabajo.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        rdAmigos.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        rdUniversidad.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        HBox hcontenedor = new HBox();
+        hcontenedor.getChildren().add(label);
+        hcontenedor.setPrefWidth(500);
+        hcontenedor.setPrefHeight(58);
+        hcontenedor.setAlignment(Pos.CENTER);
+        HBox hradioButtons = new HBox();
+        hradioButtons.getChildren().addAll(rdfamilia,rdTrabajo,rdAmigos,rdUniversidad);
+        hradioButtons.setPrefWidth(500);
+        hradioButtons.setPrefHeight(65);
+        hradioButtons.setAlignment(Pos.CENTER);
+        hradioButtons.setSpacing(25);
+        VBox h1 = new VBox();
+
+        VBox rootNuevo = new VBox();
+        rootNuevo.getChildren().addAll(hcontenedor, hradioButtons, h1);
+
+        rdfamilia.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                if (h1.getChildren().isEmpty()) {
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/familia.gif")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(20);
+                } else {
+                    h1.getChildren().clear();
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/familia.gif")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(10);
+                }
+            }
+
+        });
+        rdTrabajo.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                if (h1.getChildren().isEmpty()) {
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/trabajo.gif")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(20);
+                } else {
+                    h1.getChildren().clear();
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/trabajo.gif")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(10);
+                }
+            }
+
+        });
+        rdAmigos.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                if (h1.getChildren().isEmpty()) {
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/amigos.jpg")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(20);
+                } else {
+                    h1.getChildren().clear();
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/amigos.jpg")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(10);
+                }
+            }
+
+        });
+        rdUniversidad.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                if (h1.getChildren().isEmpty()) {
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/universidad.jpg")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(20);
+                } else {
+                    h1.getChildren().clear();
+                    try (FileInputStream input = new FileInputStream("src/main/resources/icons/universidad.jpg")) {
+                        Image image = new Image(input, 150, 180, true, false);
+                        imEtiquetas.setImage(image);
+                    } catch (IOException exep) {
+                        System.out.println("error");
+                    }
+                    h1.getChildren().addAll(imEtiquetas, btguardar);
+                    h1.setPrefWidth(500);
+                    h1.setPrefHeight(216);
+                    h1.setAlignment(Pos.CENTER);
+                    h1.setSpacing(10);
+                }
+            }
+
+        });        
+        
+        Scene s = new Scene(rootNuevo, 500, 350);
+
+        g.setScene(s);
+        g.setTitle("Pedidos Generados");
+        g.show();
+        
+
+
+        btguardar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(rdfamilia.isSelected()){
+                    etiquetasPersonas.put(co.getNombre()+" "+co.getApellido(), "Familia" );
+                    escribirArchivoEtiquetas(co.getNombre(), co.getApellido(), "Familia");
+                }else if(rdTrabajo.isSelected()){
+                    etiquetasPersonas.put(co.getNombre()+" "+co.getApellido(), "Trabajo" );
+                    escribirArchivoEtiquetas(co.getNombre(), co.getApellido(), "Trabajo");
+                }else if (rdAmigos.isSelected()){
+                    etiquetasPersonas.put(co.getNombre()+" "+co.getApellido(), "Amigos" );
+                    escribirArchivoEtiquetas(co.getNombre(), co.getApellido(), "Amigos");
+                }else{
+                    etiquetasPersonas.put(co.getNombre()+" "+co.getApellido(), "Universidad" );
+                    escribirArchivoEtiquetas(co.getNombre(), co.getApellido(), "Universidad");
+                }
+                
+
+                g.close();
+         
+            }
+        });
+
+    }
+    
+    public void escribirArchivoEtiquetas(String name, String ape, String etique) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Etiquetas.txt", true))) {
+            //formato:
+            //writer.newLine();
+            String cadena= name+","+ape+","+etique;
+            writer.write(cadena);
+            System.out.println("Se escribio la etiqueta del Contacto exitosamenteeeeee.......");
+            writer.newLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+   
+    public void cargarMapaEtiquetas() {
+        try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/Etiquetas.txt"))) {
+            String datos;
+            while ((datos = archivo.readLine()) != null) {
+                String[] p = datos.split(",");
+                String Contacto = p[0]+" "+p[1];
+                String etiqueta = p[2];
+                etiquetasPersonas.put(Contacto, etiqueta);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
 
     @FXML
     private void realizarBusquedaPersonalizada(ActionEvent event) {
@@ -525,8 +920,9 @@ public class ListaContactosController implements Initializable {
         if (selectedRadioButton != null) {
             String tipoBusqueda = selectedRadioButton.getId();
 
-            // Obtener el texto del TextField
+            // Obtener el texto del TextField o ComboBox
             String valorBusqueda = txdatoAbuscar.getText();
+            String etiquetaBox = cbEContacto.getValue();
 
             // Filtrar la lista según el tipo de búsqueda
             switch (tipoBusqueda) {
@@ -539,6 +935,9 @@ public class ListaContactosController implements Initializable {
                 case "rdcontactoasociado":
                     filtrarPorContactoAsociado(valorBusqueda);
                     break;
+                case "rdEtiquetas":
+                    filtrarPorEtiquetas(etiquetaBox);
+                    break;                    
                 default:
                     // Manejar otro caso si es necesario
                     break;
@@ -547,12 +946,13 @@ public class ListaContactosController implements Initializable {
         
     }
 
-    private void filtrarPorApellido(String apellido) {
+    public void filtrarPorApellido(String apellido) {
 
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
 
-        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+        viewContactosCopia.getItems().clear();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 
@@ -576,11 +976,11 @@ public class ListaContactosController implements Initializable {
 
 
 
-    private void filtrarPorDireccion(String direccion) {
+    public void filtrarPorDireccion(String direccion) {
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
-
-        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+        viewContactosCopia.getItems().clear();
+        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 
@@ -598,14 +998,18 @@ public class ListaContactosController implements Initializable {
         }
         contenedorList.getChildren().add(viewContactosCopia);
         vblista.getChildren().add(contenedorList);
+        
+        
+        
+        
     }
 
-    private void filtrarPorContactoAsociado(String contactoAsociado) {
+    public void filtrarPorContactoAsociado(String contactoAsociado) {
 
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
-
-        ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+        viewContactosCopia.getItems().clear();
+        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 
@@ -613,7 +1017,8 @@ public class ListaContactosController implements Initializable {
                 if (contc.getPer().getPersona().equalsIgnoreCase(contactoAsociado)) {
                     for(Contacto contcoriginal:listaContactos ){
                         if(contc.getNombre().equals(contcoriginal.getNombre())&&contc.getApellido().equals(contcoriginal.getApellido())){
-                            viewContactosCopia.getItems().add(contc);
+                            //viewContactosCopia.getItems().add(contc);
+                            viewContactosCopia.getItems().add(contcoriginal);
                         }
                     }
                     
@@ -630,8 +1035,44 @@ public class ListaContactosController implements Initializable {
 
         contenedorList.getChildren().add(viewContactosCopia);
         vblista.getChildren().add(contenedorList);
-
     }
+
+    public void filtrarPorEtiquetas(String etiqueta) {
+        contenedorList.getChildren().clear();
+        vblista.getChildren().clear();
+        viewContactosCopia.getItems().clear();
+        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
+
+        if (viewContactosCopia.getItems().isEmpty()) {
+
+            for (Map.Entry<String, String> entry : etiquetasPersonas.entrySet()) {
+                int indexEspacio = entry.getKey().indexOf(" ");
+                String nombre= entry.getKey().substring(0,indexEspacio);
+                String apellido = entry.getKey().substring(indexEspacio+1);
+                if (etiqueta.equalsIgnoreCase(entry.getValue())) {
+                    for (Contacto contc : listaContactos) {
+                        if (contc.getNombre().equalsIgnoreCase(nombre) && contc.getApellido().equalsIgnoreCase(apellido)) {
+                            viewContactosCopia.getItems().add(contc);
+                        }
+
+                    }
+                }
+            }
+
+        }
+        System.out.println("lista copia despues de haber pasado por el while:");
+        for (Contacto item : viewContactosCopia.getItems()) {
+            System.out.println(item);
+        }
+
+        contenedorList.getChildren().add(viewContactosCopia);
+        vblista.getChildren().add(contenedorList);
+    }
+
+    
+
+
+
 }
 
 

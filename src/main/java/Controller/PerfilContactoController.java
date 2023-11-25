@@ -100,8 +100,6 @@ public class PerfilContactoController implements Initializable {
     @FXML
     private Button deleteButton;
     @FXML
-    private Button editButton;
-    @FXML
     private Label labelEmpresa;
 
     /**
@@ -345,7 +343,4 @@ public class PerfilContactoController implements Initializable {
             
     }
 
-    @FXML
-    private void editarInformacion(ActionEvent event) {
-    }
 }

@@ -4,6 +4,10 @@
  */
 package Controller;
 
+import Clases.Foto;
+import static Controller.CreacionContactosController.lstfotoPerfiles;
+import static Controller.ListaContactosController.*;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -62,7 +67,7 @@ public class VistaContactoIndividualController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        mostrarInfo();
     }    
 
     @FXML
@@ -77,4 +82,35 @@ public class VistaContactoIndividualController implements Initializable {
         }
     }
     
+    public void mostrarInfo(){
+        lbna.setText(contactoSelected.getNombre()+" "+contactoSelected.getApellido());
+        lce.setText(contactoSelected.getTlf().getTlf() + " - " + contactoSelected);
+        lcorre.setText(contactoSelected.getEmail().getCorreo() + " - " + contactoSelected.getEmail().getTipo());
+        lbfe.setText(contactoSelected.getFecha().getTipoFecha() + " - " + contactoSelected.getFecha().getFecha());
+        System.out.println(cadicional);
+        
+//        if(cadicional == null){
+//          lper.setText("ninguno");
+//        }else{
+//          lper.setText(cadicional+" - "+ typec);
+//        }
+        lper.setText(cadicional+" - "+ typec);
+        lred.setText(redsoc+" - "+typered);
+        lbem.setText(empre);
+
+        lbdir.setText(contactoSelected.getDir().getUbicacion() + " - " + contactoSelected.getDir().getTipoDireccion());
+
+        for (Foto f : lstfotoPerfiles) {
+            if (f.getNombre().equals(contactoSelected.getNombre()) && f.getApellido().equals(contactoSelected.getApellido())) {
+                try (FileInputStream input = new FileInputStream("src/main/resources/pics/"+f.getImagen())) {
+
+                    Image image = new Image(input, 90, 100, true, false);
+                    photoIndividual.setImage(image);
+
+                } catch (IOException exep) {
+                    System.out.println("error");
+                }
+            }
+        }
+    }
 }
