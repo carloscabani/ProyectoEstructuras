@@ -174,9 +174,7 @@ public class PerfilContactoController implements Initializable {
         labelEmpresa.setVisible(false);
 
         for (Contacto camp : lstCamposAdicionales) {
-            if (camp.getNombre().equals(persona.getNombre()) || 
-            (persona.getApellido() == null || persona.getApellido().length() == 0 || 
-                    camp.getApellido().equals(persona.getApellido()))) {
+            if (camp.equals(persona)) {
                 System.out.println("-------------------------");
                 System.out.println("Dentro del for esta: "+ camp);
                 

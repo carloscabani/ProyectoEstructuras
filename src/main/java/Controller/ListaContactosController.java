@@ -296,17 +296,17 @@ public class ListaContactosController implements Initializable {
 
         while ((datos = archivo.readLine()) != null) {
             System.out.println("Datos leídos: " + datos);
-
+            datos+=" ";
             String[] p = datos.split(",");
 
             // Aseguramos que haya suficientes elementos antes de acceder a ellos
             if (p.length >= 5) {
                 String nombre = p[0].trim();
                 String apellido = p[1].trim();
-                String tipoPer = obtenerDato(p[2], 1);
-                String PerContac = obtenerDato(p[2], 0);
-                String tipoRed = obtenerDato(p[3], 1);
-                String userRed = obtenerDato(p[3], 0);
+                String tipoPer = obtenerDato(p[2], 1).trim();
+                String PerContac = obtenerDato(p[2], 0).trim();
+                String tipoRed = obtenerDato(p[3], 1).trim();
+                String userRed = obtenerDato(p[3], 0).trim();
                 String empresa = p[4].trim();
 
                 System.out.println("Persona adicional: " + tipoPer + " " + PerContac);

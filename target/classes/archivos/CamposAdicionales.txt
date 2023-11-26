@@ -1,5 +1,5 @@
 Isagui,Yoichi,Kaiser-Hijo/a,ninguno-ninguno,ninguno
 Rin,Itoshi,Shidou-Amigo,Rin10-Instagram,ninguno
 Alex,Benites,Sebastian-Amigo,Axel10-Instagram,LabFarmac
-Luke,Rodman,Rebeca Martins-Madre,dRodman-Twitter,Nike
 Nike,,Nike-Ventas,amazon-Instagram,
+Dennis,Rodman,Rebeca Martins-Madre,dRodman-Twitter,Nike

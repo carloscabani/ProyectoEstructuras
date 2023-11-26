@@ -147,6 +147,23 @@ public class Contacto implements Comparable<Contacto>{
     public String toString() {
         return nombre +" "+ apellido;
     }
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Contacto otroContacto = (Contacto) obj;
+        if (apellido == null) {
+            return nombre.equals(otroContacto.nombre);
+        } else {
+            return nombre.equals(otroContacto.nombre) && apellido.equals(otroContacto.apellido);
+        }
+    }
 //
 //    @Override
 //    public String toString() {
