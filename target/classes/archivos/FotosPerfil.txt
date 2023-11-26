@@ -1,7 +1,6 @@
 ber,s,letraB.png
 Isagui,Yoichi,letraI.png
-Xiomara,Avila,letraX.jpg
 Rin,Itoshi,letraR.jpg
 Alex,Benites,letraA.jpg
-Cristiano,Ronaldo,letraC.png
-Laarbox,,letraL.jpg
+Luke,Rodman,letraL.jpg
+Nike,,letraN.jpg

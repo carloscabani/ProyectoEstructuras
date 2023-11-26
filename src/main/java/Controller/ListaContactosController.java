@@ -289,59 +289,58 @@ public class ListaContactosController implements Initializable {
     }
     
     public void cargarlistaCamposAdicionales(){        
-        try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/CamposAdicionales.txt"))) {
-            String datos;
-            while ((datos = archivo.readLine()) != null) {
-                String[] p = datos.split(",");
-                String nombre=p[0];
-                String apellido=p[1];
-                String tipoPer;
-                String PerContac;
-                String userRed;
-                String tipoRed;
-                String empresa;
-                
-                int caracperAdi = p[2].indexOf("-");
-                
-                if (p[2].substring(0,caracperAdi).equals("ninguno")) {
-                    tipoPer = "ninguno";
-                    PerContac = "ninguno";
-                } else {
-                    tipoPer = p[2].substring(caracperAdi+1);
-                    PerContac = p[2].substring(0,caracperAdi);
-                    System.out.println("hola entre en el else de que si hay una perosna asociada y es: "+PerContac);
-                    
-                }
-               
-                int caracRed = p[3].indexOf("-");
-                if (p[3].substring(caracperAdi).equals("ninguno")) {
-                    userRed = "ninguno";
-                    tipoRed = "ninguno";
-                } else {
-                    userRed = p[3].substring(caracRed+1);
-                    tipoRed = p[3].substring(0,caracRed);
-                }
-                
-                if(p[4].equals("ninguno")){
-                    empresa = "ninguno";
-                }else{
-                    empresa = p[4];
-                }
-                
-                
-                Contacto camposCont1 = new Contacto(nombre,apellido,new PersonaAdiconal(PerContac,tipoPer), new RedSocial(userRed,tipoRed),empresa);
-                System.out.println("el contacto que se va a agregar es: "+ camposCont1.getNombre()+ " "+camposCont1.getApellido()+" "+camposCont1.getPer().getPersona()+" "+camposCont1.getEmpresa()+" "
-                +camposCont1.getRedSocial().getUsername());
+        System.out.println("------------------------------------------------------------");
+
+    try (BufferedReader archivo = new BufferedReader(new FileReader("src/main/resources/archivos/CamposAdicionales.txt"))) {
+        String datos;
+
+        while ((datos = archivo.readLine()) != null) {
+            System.out.println("Datos leídos: " + datos);
+
+            String[] p = datos.split(",");
+
+            // Aseguramos que haya suficientes elementos antes de acceder a ellos
+            if (p.length >= 5) {
+                String nombre = p[0].trim();
+                String apellido = p[1].trim();
+                String tipoPer = obtenerDato(p[2], 1);
+                String PerContac = obtenerDato(p[2], 0);
+                String tipoRed = obtenerDato(p[3], 1);
+                String userRed = obtenerDato(p[3], 0);
+                String empresa = p[4].trim();
+
+                System.out.println("Persona adicional: " + tipoPer + " " + PerContac);
+                System.out.println("RRSS: " + tipoRed + " " + userRed);
+                System.out.println("Empresa: " + empresa);
+                System.out.println("////////////");
+
+                Contacto camposCont1 = new Contacto(nombre, apellido, new PersonaAdiconal(PerContac, tipoPer), new RedSocial(tipoRed, userRed), empresa);
+
                 System.out.println("YA SE CARGO CAMPO Adicional con exito........");
                 lstCamposAdicionales.add(camposCont1);
-
-           }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+                System.out.println("Datos guardados: " + nombre+", "+ apellido+", "+ 
+                        tipoPer+" "+PerContac+", "+ tipoRed+" "+userRed+", "+ empresa );
+                System.out.println("------------------------------------------------------------");
+            } else {
+                System.out.println("Formato incorrecto en la línea: " + datos);
+            }
         }
+
+        System.out.println("listaCampoAdicionales cargada");
+        System.out.println(lstCamposAdicionales);
+        
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
 
     }
     
+    
+    // Método para conseguir los datos de la cadena que se esta leyendo
+    private String obtenerDato(String cadena, int indice) {
+        String[] datos = cadena.split("-");
+        return (datos.length > indice) ? datos[indice].trim() : "ninguno";
+    }
     
     
     
@@ -501,7 +500,19 @@ public class ListaContactosController implements Initializable {
             public void handle(ActionEvent event) {
                 try { 
                     System.out.println("Editar contacto: " + selectedItem);
-                    App.setRoot("EditarContacto");
+                    String[] palabras = selectedItem.split("\\s+");
+                    //App.setRoot("EditarContacto");
+                    
+                    if (palabras.length == 1) {
+                        System.out.println("Es una empresa: " + selectedItem);
+                        // Lógica para editar empresa
+                        App.setRoot("EditarEmpresa");
+                    } else {
+                        System.out.println("Es una persona: " + selectedItem);
+                        // Lógica para editar contacto
+                        App.setRoot("EditarContacto");
+                    }
+                    
                     ventanaEmergente.close();
                 } catch (IOException ex) {
                     Logger.getLogger(ListaContactosController.class.getName()).log(Level.SEVERE, null, ex);

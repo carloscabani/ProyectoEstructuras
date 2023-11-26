@@ -13,10 +13,16 @@ import Clases.PersonaAdiconal;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
-import static Controller.ListaContactosController.*;
+import static Controller.EditarContactoController.contactoEditado;
+import static Controller.ListaContactosController.apellidoSelected;
+import static Controller.ListaContactosController.cadicional;
 import static Controller.ListaContactosController.contactoSelected;
-import static Controller.ListaContactosController.empre;
+import static Controller.ListaContactosController.listaContactos;
+import static Controller.ListaContactosController.lstCamposAdicionales;
+import static Controller.ListaContactosController.nombreSelected;
 import static Controller.ListaContactosController.redsoc;
+import static Controller.ListaContactosController.typec;
+import static Controller.ListaContactosController.typered;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,18 +34,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,125 +51,122 @@ import javafx.stage.Window;
 /**
  * FXML Controller class
  *
- * @author Abeni
+ * @author Carlos
  */
-public class EditarContactoController implements Initializable {
+public class EditarEmpresaController implements Initializable {
     
-    public static Contacto contactoEditado;
-    public static String imagenContactoEditado;
-    public static Contacto DatosAdicionales;
-    public static String newfoto;
+    public static Contacto empresaEditada;
+    public static String imagenEmpresaEditada;
+    public static Contacto DatosAdicionalesEmpresa;
+    public static String newFotoEmpresa;
 
     @FXML
-    private Label lbtitulo;
+    private TextField labelNombreEmpresa;
     @FXML
-    private TextField newnombre;
+    private TextField labelTlfEmpresa;
     @FXML
-    private TextField newapellido;
+    private TextField labelContactoEmpresa;
     @FXML
-    private ImageView imgfActual;
+    private TextField labelAddressEmpresa;
     @FXML
-    private TextField newtelefono;
+    private TextField labelRedSocialEmpresa;
     @FXML
-    private ComboBox<String> bcell;
+    private TextField labelEmailEmpresa;
     @FXML
-    private DatePicker newfecha;
+    private DatePicker labelDateEmpresa;
     @FXML
-    private ComboBox<String> bfecha;
+    private ImageView imagenEmpresa;
     @FXML
-    private TextField newcontacto;
+    private ComboBox<String> comboBoxTlfEmpresa;
     @FXML
-    private ComboBox<String> badicional;
+    private ComboBox<String> comboBoxFechaEmpresa;
     @FXML
-    private TextField newdireccion;
+    private ComboBox<String> comboBoxContactoAd;
     @FXML
-    private ComboBox<String> bdireccion;
+    private ComboBox<String> comboBoxDireccionEmpresa;
     @FXML
-    private TextField newred;
+    private ComboBox<String> comboBoxRedSocialEmpresa;
     @FXML
-    private TextField newempresa;
-    @FXML
-    private TextField newemail;
-    @FXML
-    private ComboBox<String> bred;
-    @FXML
-    private ComboBox<String> bemail;
-    @FXML
-    private Button bteditarCon;
+    private ComboBox<String> comboBoxEmailEmpresa;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        ponerimagenAsociada();
-        
-        if(bdireccion.getItems().isEmpty() && bfecha.getItems().isEmpty() && bcell.getItems().isEmpty() && badicional.getItems().isEmpty() && bred.getItems().isEmpty()){
-            anadirComboBox();
+        // TODO
+        ponerimagenAsociadaEmpresa(); 
+        if(comboBoxDireccionEmpresa.getItems().isEmpty() && comboBoxFechaEmpresa.getItems().isEmpty() && comboBoxTlfEmpresa.getItems().isEmpty() &&
+            comboBoxContactoAd.getItems().isEmpty() && comboBoxRedSocialEmpresa.getItems().isEmpty()){
+            llenarComboBox();
         }
         
-        mostrarInfor();
-        System.out.println("Datos actuales: "+ contactoEditado +", "+ imagenContactoEditado);
-        System.out.println(newfoto);
-    }   
+        mostrarInformacion();
+        System.out.println("Datos actuales: "+ empresaEditada +", "+ imagenEmpresaEditada);
+        System.out.println(newFotoEmpresa);
+    }    
+
     
-    public void mostrarInfor() {
-        
-        newnombre.setText(contactoSelected.getNombre());
-        newapellido.setText(contactoSelected.getApellido());
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        //String fechaComoString = contactoSelected.getFecha().getFecha().format(formatter);
-        newfecha.setValue(contactoSelected.getFecha().getFecha());
-        newdireccion.setText(contactoSelected.getDir().getUbicacion());
-        newtelefono.setText(contactoSelected.getTlf().getTlf());
-        newcontacto.setText(cadicional);
-        newred.setText(redsoc);
-        newempresa.setText(empre);
-        newemail.setText(contactoSelected.getEmail().getTipo());
-        bcell.setValue(contactoSelected.getTlf().getTipoTlf());
-        bdireccion.setValue(contactoSelected.getDir().getTipoDireccion());
-        bfecha.setValue(contactoSelected.getFecha().getTipoFecha());
-        badicional.setValue(typec);
-        bred.setValue(typered);
-        bemail.setValue(contactoSelected.getEmail().getCorreo());
-        ponerimagenAsociada();
-    }
-    
-    public void anadirComboBox(){
-        bcell.getItems().addAll("Movil","Trabajo","Casa","Principal","Fax del Trabajo");
-        bdireccion.getItems().addAll("Trabajo","Casa","Otro");
-        bemail.getItems().addAll("Trabajo","Casa","Otro");
-        bfecha.getItems().addAll("Cumpleaños","Aniversario","Otro");
-        badicional.getItems().addAll("Asistente","Madre","Hermano","Hijo","Padre","Amigo","Jefe","Esposa");
-        bred.getItems().addAll("Facebook","Instagram","Tik Tok","Twitter");
-    }
-    
-    public void ponerimagenAsociada(){
+    public void ponerimagenAsociadaEmpresa(){
         for(Foto f : lstfotoPerfiles){
-            if(contactoSelected.getNombre().equals(f.getNombre())&& contactoSelected.getApellido().equals(f.getApellido())){
+            if(contactoSelected.getNombre().equals(f.getNombre())){
                 try (FileInputStream input = new FileInputStream("src/main/resources/pics/"+f.getImagen() )) {
 
                     Image image = new Image(input, 90, 100, true, false);
-                    imgfActual.setImage(image);
+                    imagenEmpresa.setImage(image);
 
                 } catch (IOException e) {
                     System.out.println("error al conseguir la imagen asociada");
                 }
             }
         }
+    
+    
     }
+    
+    
+    public void mostrarInformacion() {
+        
+        labelNombreEmpresa.setText(contactoSelected.getNombre());
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        //String fechaComoString = contactoSelected.getFecha().getFecha().format(formatter);
+        labelDateEmpresa.setValue(contactoSelected.getFecha().getFecha());
+        labelAddressEmpresa.setText(contactoSelected.getDir().getUbicacion());
+        labelTlfEmpresa.setText(contactoSelected.getTlf().getTlf());
+        labelContactoEmpresa.setText(cadicional);
+        labelRedSocialEmpresa.setText(redsoc);
+        
+        labelEmailEmpresa.setText(contactoSelected.getEmail().getTipo());
+        comboBoxTlfEmpresa.setValue(contactoSelected.getTlf().getTipoTlf());
+        comboBoxDireccionEmpresa.setValue(contactoSelected.getDir().getTipoDireccion());
+        comboBoxFechaEmpresa.setValue(contactoSelected.getFecha().getTipoFecha());
+        comboBoxContactoAd.setValue(typec);
+        comboBoxRedSocialEmpresa.setValue(typered);
+        comboBoxEmailEmpresa.setValue(contactoSelected.getEmail().getCorreo());
+        ponerimagenAsociadaEmpresa();
+    }
+    
+    
+    public void llenarComboBox(){
+        comboBoxTlfEmpresa.getItems().addAll("Telefono Convencional","Atencion al cliente","Soporte");
+        comboBoxDireccionEmpresa.getItems().addAll("Sede Central","Direccion","Sucursal");
+        comboBoxEmailEmpresa.getItems().addAll("Atencion al cliente","Consultas","Recursos Humanos");
+        comboBoxFechaEmpresa.getItems().addAll("Fundacion","Aniversario Empresarial");
+        comboBoxContactoAd.getItems().addAll("Director","Ventas","Coordinacion");
+        comboBoxRedSocialEmpresa.getItems().addAll("Facebook","Instagram","Tik Tok","Twitter", "Web");
+    }
+    
+    
+    public void changeImageEmpresa(File newImageFile) {
 
-    public void changeImage(File newImageFile) {
-
-        newfoto = newImageFile.getName();
+        newFotoEmpresa = newImageFile.getName();
         try {
             // Cargar la nueva imagen usando ImageIO
             FileInputStream inputStream = new FileInputStream(newImageFile);
             Image newImage = new Image(inputStream);
 
             // Actualizar la ImageView con la nueva imagen
-            imgfActual.setImage(newImage);
+            imagenEmpresa.setImage(newImage);
 
             // Puedes guardar la ruta de la nueva imagen en una variable si es necesario
             // String newPath = newImageFile.getAbsolutePath();
@@ -178,8 +176,9 @@ public class EditarContactoController implements Initializable {
         }
     }
     
+    
     @FXML
-    private void CambiarImagen(MouseEvent event) {
+    private void cambiarImagenEmpresa(MouseEvent event) {
         String nameFoto = null;
 
         FileChooser fileChooser = new FileChooser();
@@ -197,24 +196,23 @@ public class EditarContactoController implements Initializable {
 
         if (selectedFile != null) {
             
-            changeImage(selectedFile);
+            changeImageEmpresa(selectedFile);
 
         }
         
+        
+        
     }
-
-//    @FXML
-//    private void guardarNewCambios(ActionEvent event) {
-//        
-//    }    
-    public static void deleteFromFileEditContact (String name, String apellido, String archivoTxt){
+    
+    
+    public static void deleteInfoFromFile (String name, String apellido, String archivoTxt){
         File archivo = new File(archivoTxt);
         File temporal = new File(archivo.getParent(),"temporal_"+archivo.getName());
         
         try(BufferedReader lectura = new BufferedReader(new FileReader(archivo, StandardCharsets.UTF_8));
             BufferedWriter escritura = new BufferedWriter(new FileWriter(temporal,false ))){
                 
-                String lineaDelete = name+","+apellido;
+                String lineaDelete = name+","+"";
                 String lineaActual;
                 
                 
@@ -237,10 +235,14 @@ public class EditarContactoController implements Initializable {
         
     }
     
-    
 
     @FXML
-    private void guardarNewCambios(ActionEvent event) throws IOException {
+    private void volverHome(MouseEvent event) throws IOException {
+        App.setRoot("ListaContactos");
+    }
+
+    @FXML
+    private void guararEmpresaEditada(MouseEvent event) throws IOException{
         for (Contacto cte: listaContactos){
             if(cte.getNombre().equals(nombreSelected) && cte.getApellido().equals(apellidoSelected)){
                 listaContactos.remove(cte);
@@ -265,13 +267,13 @@ public class EditarContactoController implements Initializable {
 
 //        listViewContactos.getItems().remove(4);
         
-        Contacto people = new Contacto(newnombre.getText(),newapellido.getText(),new Telefono(bcell.getValue(), newtelefono.getText()),new Direccion(bdireccion.getValue(),newdireccion.getText()),
-                          new Email(bemail.getValue(),newemail.getText()), new Fecha(bfecha.getValue(), newfecha.getValue()));
-        Contacto dateperson= new Contacto(newnombre.getText(),newapellido.getText(),new PersonaAdiconal(newcontacto.getText(), badicional.getValue()), new RedSocial(bred.getValue(), newred.getText()), newempresa.getText());
+        Contacto people = new Contacto(labelNombreEmpresa.getText(),"",new Telefono(comboBoxTlfEmpresa.getValue(), labelTlfEmpresa.getText()),new Direccion(comboBoxDireccionEmpresa.getValue(),labelAddressEmpresa.getText()),
+                          new Email(comboBoxEmailEmpresa.getValue(),labelEmailEmpresa.getText()), new Fecha(comboBoxFechaEmpresa.getValue(), labelDateEmpresa.getValue()));
+        Contacto dateperson= new Contacto(labelNombreEmpresa.getText(),"",new PersonaAdiconal(labelContactoEmpresa.getText(), comboBoxContactoAd.getValue()), new RedSocial(comboBoxRedSocialEmpresa.getValue(), labelRedSocialEmpresa.getText()), "");
         
         
         contactoEditado = people;
-        DatosAdicionales = dateperson;
+        DatosAdicionalesEmpresa = dateperson;
         
         System.out.println("Esta es la lista contactos:");
         System.out.println(listaContactos);
@@ -295,25 +297,25 @@ public class EditarContactoController implements Initializable {
          
             System.out.println("Entra para eliminar en CONTACTOS.TXT");
             //eliminar contacto en Contactos.txt
-            deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado,"src/main/resources/archivos/Contactos.txt");
+            deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado,"src/main/resources/archivos/Contactos.txt");
             listaContactos.add(contactoEditado);
-            EscribirArchivoContactosEditados();
+            escribirArchivoContactosEditado();
             
             System.out.println("Entra para eliminar en CamposAdicionales.TXT");
             //eliminar contacto en CamposAdicionales.txt
-            deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/CamposAdicionales.txt");
-            lstCamposAdicionales.add(DatosAdicionales);
-            EscribirArchivoCamposAdicionalesEditados();
+            deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/CamposAdicionales.txt");
+            lstCamposAdicionales.add(DatosAdicionalesEmpresa);
+            EscribirArchivoCamposAdEditados();
             
             
-            deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/FotosPerfil.txt");
+            deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/FotosPerfil.txt");
             
-            if(newfoto != null){  
+            if(newFotoEmpresa != null){  
                 //eliminar contacto en FotosPerfil.txt
                 System.out.println("Entra para eliminar en Fotos.TXT");
-                Foto im= new Foto(nombre, apellido, newfoto);
+                Foto im= new Foto(nombre, apellido, newFotoEmpresa);
                 lstfotoPerfiles.add(im);
-                escribirArchivosImagenesPersonEdit(newfoto);
+                escribirArchivosImagenesPersonaEditada(newFotoEmpresa);
             }
             
             App.setRoot("ListaContactos");
@@ -323,15 +325,15 @@ public class EditarContactoController implements Initializable {
             
             
             }
-            
     }
     
-    public void EscribirArchivoContactosEditados() {
+    
+    public void escribirArchivoContactosEditado() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt", true))) {
             //formato:
             //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
             String nombre = contactoEditado.getNombre();
-            String Apellido = contactoEditado.getApellido();
+            String Apellido = "";
             String Telefono = contactoEditado.getTlf().getTipoTlf() + "-" + contactoEditado.getTlf().getTlf();
             String dir = contactoEditado.getDir().getTipoDireccion() + "-" + contactoEditado.getDir().getUbicacion();
             String emai = contactoEditado.getEmail().getTipo() + "-" + contactoEditado.getEmail().getCorreo();
@@ -345,29 +347,26 @@ public class EditarContactoController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public void EscribirArchivoCamposAdicionalesEditados() {
+    
+    
+    public void EscribirArchivoCamposAdEditados() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt", true))) {
-            String nombre = DatosAdicionales.getNombre();
-            String apellido = DatosAdicionales.getApellido();
+            String nombre = DatosAdicionalesEmpresa.getNombre();
+            String apellido = "";
             String conAdicon = "ninguno";
             String red = "ninguno";
-            String empresa = "ninguno";
-            if (DatosAdicionales.getPer().getPersona().equals("")) {
+            String empresa = "";
+            if (DatosAdicionalesEmpresa.getPer().getPersona().equals("")) {
                 conAdicon = "ninguno-ninguno";
             } else {
-                conAdicon = DatosAdicionales.getPer().getPersona() + "-" + DatosAdicionales.getPer().getTipoPersona();
+                conAdicon = DatosAdicionalesEmpresa.getPer().getPersona() + "-" + DatosAdicionalesEmpresa.getPer().getTipoPersona();
             }
-            if (DatosAdicionales.getRedSocial().getUsername().equals("")) {
+            if (DatosAdicionalesEmpresa.getRedSocial().getUsername().equals("")) {
                 red = "ninguno-ninguno";
             } else {
-                red = DatosAdicionales.getRedSocial().getUsername() + "-" + DatosAdicionales.getRedSocial().getTipoRedSocial();
+                red = DatosAdicionalesEmpresa.getRedSocial().getUsername() + "-" + DatosAdicionalesEmpresa.getRedSocial().getTipoRedSocial();
             }
-            if (DatosAdicionales.getEmpresa().equals("")) {
-                empresa = "ninguno";
-            } else {
-                empresa = DatosAdicionales.getEmpresa();
-            }
+            
             writer.write(nombre + "," + apellido + "," + conAdicon + "," + red + "," + empresa);
             System.out.println("Se escribieron campos adicionales del contacto Editado exitosamenteeeeee.......");
 
@@ -378,9 +377,10 @@ public class EditarContactoController implements Initializable {
         }
     }
     
-    public void escribirArchivosImagenesPersonEdit(String i) {
-        String nombre = DatosAdicionales.getNombre();
-        String apellido = DatosAdicionales.getApellido();
+    
+    public void escribirArchivosImagenesPersonaEditada(String i) {
+        String nombre = DatosAdicionalesEmpresa.getNombre();
+        String apellido = "";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
             String cadena = nombre+","+apellido+","+i;
             writer.write(cadena);
@@ -392,11 +392,4 @@ public class EditarContactoController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void volver(MouseEvent event) throws IOException {
-        App.setRoot("ListaContactos");
-    }
-    
-
 }

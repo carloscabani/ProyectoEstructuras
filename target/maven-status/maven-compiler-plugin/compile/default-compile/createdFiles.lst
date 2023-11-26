@@ -26,6 +26,7 @@ ListTDA\LLDouble$2.class
 Controller\CreacionContactosController.class
 Clases\Email.class
 Controller\App.class
+Controller\EditarEmpresaController.class
 Controller\PatronContraseniaController.class
 ListTDA\LLDouble$1.class
 Controller\ListaContactosController$6.class

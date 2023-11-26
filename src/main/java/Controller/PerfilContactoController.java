@@ -154,47 +154,65 @@ public class PerfilContactoController implements Initializable {
         // Generar un número aleatorio entre 1 y 20
         Random random = new Random();
         int nAleatorio = random.nextInt(20) + 1;
+
         Contacto persona = listaContactos.get(indiceActual);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechaComoString = persona.getFecha().getFecha().format(formatter);
-        lbname.setText(persona.getNombre() + " " + persona.getApellido());
+
+        lbname.setText(persona.getNombre() + " " + (persona.getApellido() != null ? persona.getApellido() : ""));
         lbcell.setText(persona.getTlf().getTlf() + " - " + persona.getTlf().getTipoTlf());
         lbdireccion.setText(persona.getDir().getUbicacion() + " - " + persona.getDir().getTipoDireccion());
         lbfecha.setText(fechaComoString + " - " + persona.getFecha().getTipoFecha());
         lbcorreo.setText(persona.getEmail().getCorreo() + " - " + persona.getEmail().getTipo());
         seleccionImagen(nAleatorio);
+
+        // Restablecer los valores predeterminados
+        lbcont.setText("");
+        lbpagina.setText("");
+        lbempresa.setText("");
+        lbempresa.setVisible(false);
+        labelEmpresa.setVisible(false);
+
         for (Contacto camp : lstCamposAdicionales) {
-            if (camp.getNombre().equals(persona.getNombre()) && camp.getApellido().equals(persona.getApellido())) {
+            if (camp.getNombre().equals(persona.getNombre()) || 
+            (persona.getApellido() == null || persona.getApellido().length() == 0 || 
+                    camp.getApellido().equals(persona.getApellido()))) {
+                System.out.println("-------------------------");
+                System.out.println("Dentro del for esta: "+ camp);
+                
+                System.out.println(camp.getNombre());
+
                 String personaAdicional = camp.getPer().getPersona();
                 String tipoPersona = camp.getPer().getTipoPersona();
                 String tipoRedSocial = camp.getRedSocial().getTipoRedSocial();
                 String username = camp.getRedSocial().getUsername();
                 String empresa = camp.getEmpresa();
-                
-                if ((camp.getPer() == null) || ("ninguno".equals(camp.getPer().getPersona()))) {
-                    lbcont.setText("ninguno");
-                } else {
-                    lbcont.setText(personaAdicional + " - " + tipoPersona);
-                }
-                    //camp.getRedSocial().getUsername().equals("ninguno") || camp.getRedSocial()==null
-                if ((camp.getRedSocial()==null) || ("ninguno".equals(camp.getRedSocial().getUsername()))) {
-                    lbpagina.setText("ninguno");
-                } else {
-                    lbpagina.setText(tipoRedSocial + " - " + username);
-                }
 
-                if ((camp.getEmpresa()==null) || ("ninguno".equals(camp.getEmpresa()))) {
-                    lbempresa.setText("ninguno");
-                } else {
+                lbcont.setText(personaAdicional + " - " + tipoPersona);
+                lbpagina.setText(tipoRedSocial + " - " + username);
+                System.out.println("Acaba de enviar el contenido a los labels");
+
+                if (!"".equals(persona.getApellido()) && !"".equals(empresa)) {
                     lbempresa.setText(empresa);
+                    lbempresa.setVisible(true);
+                    labelEmpresa.setVisible(true);
+                    System.out.println("Entro aqui 2");
+
                 }
 
+                System.out.println("Elementos adicionales: "+ personaAdicional+", "+ username+ ", "+ empresa );
+                break; 
             }
-            
+        
+        
+        
+    }
+    
+        
         contactoActual = persona;
         imagenPersonaActual = cargarListaPerfiles(persona.getNombre(), persona.getApellido());
         
-        }
+        
   
         for (Foto ft : lstfotoPerfiles) {
             if ((ft.getNombre().equals(persona.getNombre())) && (ft.getApellido().equals(persona.getApellido()))) {
@@ -209,12 +227,6 @@ public class PerfilContactoController implements Initializable {
             }
         }
         
-        
-        
-        
-
-
-
     }
     
     

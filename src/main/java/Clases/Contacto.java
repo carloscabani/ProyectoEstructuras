@@ -43,10 +43,10 @@ public class Contacto implements Comparable<Contacto>{
         this.fecha = fecha;
     }
 
-    public Contacto(String n, String ape, PersonaAdiconal per, RedSocial redSocial, String empresa) {
+    public Contacto(String n, String ape, PersonaAdiconal personaAd, RedSocial redSocial, String empresa) {
         this.nombre = n;
         this.apellido = ape;
-        this.per = per;
+        this.per = personaAd;
         this.redSocial = redSocial;
         this.empresa = empresa;
     }

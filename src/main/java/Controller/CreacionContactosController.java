@@ -67,8 +67,6 @@ public class CreacionContactosController implements Initializable {
     public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
 
     String ni = null;
-
-
     ComboBox c1 = new ComboBox();
     ComboBox c2 = new ComboBox();
     Label l1 = new Label("Persona Contacto:");
@@ -244,9 +242,11 @@ public class CreacionContactosController implements Initializable {
         @FXML
     private void guardarEmpresa(ActionEvent event) {
         
+
         buttonSaveB.setOnAction((ActionEvent e) -> {
             String nombre = txtNombreEmpresa.getText();
             String apellido = "";
+            String Empresa= "";
             Telefono Tel = new Telefono (txtTelefonoEmpresa.getText(),comboBoxTlf.getValue());
             Direccion di = new Direccion(txtDireccionEmpresa.getText(),comboBoxDir.getValue());
             Email em= new Email(comboBoxEmail.getValue(),txtEmailEmpresa.getText());
@@ -255,14 +255,14 @@ public class CreacionContactosController implements Initializable {
             LocalDate fecha = txtFechaEmpresa.getValue();
             Fecha fech= new Fecha(comboBoxFecha.getValue(),fecha);
             RedSocial web= new RedSocial(comboBoxWeb.getValue(), txtWebEmpresa.getText());
-            String Empresa= "";
+          
             
-            Contacto people1= new Contacto(nombre,apellido,Tel,di,em,fech);
-            Contacto camposAdicion1= new Contacto(nombre,apellido, per,web,Empresa);
+            Contacto person= new Contacto(nombre,apellido,Tel,di,em,fech);
+            Contacto camposAdicion2= new Contacto(nombre,apellido, per,web,Empresa);
             Foto ft= new Foto(nombre,apellido,ni);
             lstfotoPerfiles.add(ft);
-            listaContactos.add(people1);
-            lstCamposAdicionales.add(camposAdicion1);
+            listaContactos.add(person);
+            lstCamposAdicionales.add(camposAdicion2);
             EscribirEmpresaContactosTxt();
             EscribirEmpresaCamposAdicionalesTxt();
 
@@ -313,13 +313,13 @@ public class CreacionContactosController implements Initializable {
             l2.setFont(new Font(15));
             l3.setFont(new Font(15));
             hbpercontacto.getChildren().addAll(l1,tperContacto,c1);
-            hbpercontacto.setSpacing(20);
+            hbpercontacto.setSpacing(20);//20
             hbsitioweb.getChildren().addAll(l2,tsitioweb,c2);
-            hbsitioweb.setSpacing(30);
-            l2.setMaxHeight(27);
-            l2.setMaxWidth(150);
+            hbsitioweb.setSpacing(30);//30
+            l2.setMaxHeight(27);//27
+            l2.setMaxWidth(150);//150
             hbempresa.getChildren().addAll(l3,tempresa);
-            hbempresa.setSpacing(75);
+            hbempresa.setSpacing(75);//75
             hbempresa.setPadding(new Insets(10, 0, 0, 10));
           
             
@@ -361,7 +361,7 @@ public class CreacionContactosController implements Initializable {
         etiqueta6.add("Sede Central"); etiqueta6.add("Direccion");etiqueta6.add("Sucursal");
         etiqueta7.add("Telefono Convencional"); etiqueta7.add("Atencion al cliente"); etiqueta7.add("Soporte");
         etiqueta8.add("Atencion al cliente"); etiqueta8.add("Consultas"); etiqueta8.add("Recursos Humanos");
-        etiqueta9.add("Fundacion"); etiqueta8.add("Ventas especiales");
+        etiqueta9.add("Fundacion");etiqueta9.add("Aniversario Empresarial"); etiqueta8.add("Ventas especiales");
         etiqueta10.add("Director"); etiqueta10.add("Ventas"); etiqueta10.add("Coordinacion");
         etiqueta11.add("Facebook"); etiqueta11.add("Instagram"); etiqueta11.add("Twitter");
         etiqueta11.add("TikTok"); etiqueta11.add("Web"); 
@@ -520,10 +520,10 @@ public class CreacionContactosController implements Initializable {
     public void EscribirEmpresaCamposAdicionalesTxt(){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt",true))) {
             String nombre =txtNombreEmpresa.getText();
-            String apellido = "";
-            String contactoAdicional = txtContactoAsoEmpresa.getText();
-            String web = txtWebEmpresa.getText();
-            String empresa="";
+            String apellido = null;
+            String contactoAdicional = txtContactoAsoEmpresa.getText()+" - "+ comboBoxContAso.getValue();
+            String web = txtWebEmpresa.getText()+" - "+ comboBoxWeb.getValue();
+            String empresa=null;
             
             writer.write(nombre+","+apellido+","+contactoAdicional+","+web+","+empresa);
             System.out.println("Se escribieron campos adicionales exitosamenteeeeee.......");
