@@ -1,0 +1,8 @@
+nombre: Dennis Rodman
+Telefono: Movil - 123654789
+Correo: rodman@nike.com - Trabajo
+Fecha especial: 04-11-2016 - Aniversario
+Contacto adicional: Rebeca Martins - Madre
+Red Social: Twitter - dRodman
+Direccion: Casa - EEUU
+
