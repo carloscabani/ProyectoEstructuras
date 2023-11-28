@@ -1,0 +1,5 @@
+Isagui,Yoichi,letraI.png,persona1a.jpg,persona1b.jpg
+Rin,Itoshi,letraR.jpg,persona2a.jpg,persona2b.jpg
+Alex,Benites,letraA.jpg,persona3a.jpg,persona3b.jpg
+Nike,,letraN.jpg,empresa1a.jpg,empresa1b.jpg
+Dennis,Rodman,letraD.jpg,persona4a.jpg,persona4b.jpg

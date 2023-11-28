@@ -111,7 +111,7 @@ public class PerfilContactoController implements Initializable {
     
     private String imagenPersonaActual;
     
-    private Contacto contactoActual;
+    public static Contacto contactoActual;
     
     @FXML
     private Button deleteButton;
@@ -134,7 +134,7 @@ public class PerfilContactoController implements Initializable {
         if(!listaContactos.isEmpty()){
             mostrarPersonaActual();
         }
-    }    
+    }
 
     @FXML
     private void mostrarAnterior(ActionEvent event) {
@@ -537,6 +537,11 @@ public class PerfilContactoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }        
+    }
+
+    @FXML
+    private void ventanaVisualizarFotos(MouseEvent event) throws IOException {
+        App.setRoot("ImagenesAsociadas");
     }
     
     
