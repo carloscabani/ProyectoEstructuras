@@ -1,6 +1,0 @@
-.circular-image {
-    -fx-border-radius: 50%;
-    -fx-background-radius: 50%;
-    -fx-border-color: black; /* Puedes cambiar el color del borde si lo deseas */
-    -fx-border-width: 2;
-}

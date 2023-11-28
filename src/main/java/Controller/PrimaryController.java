@@ -9,8 +9,6 @@ public class PrimaryController {
 
     @FXML
     private Button primaryButton;
-    @FXML
-    private ImageView imagenTlf;
 
     @FXML
     private void switchToSecondary() throws IOException {

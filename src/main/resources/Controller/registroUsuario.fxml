@@ -7,43 +7,45 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="paneRegistro" onMouseClicked="#validarCasillaUltimaLlena" prefHeight="600.0" prefWidth="462.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.RegistroUsuarioController">
+<AnchorPane id="AnchorPane" fx:id="paneRegistro" onMouseClicked="#validarCasillaUltimaLlena" prefHeight="600.0" prefWidth="462.0" styleClass="fondoRegistrer" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RegistroUsuarioController">
    <children>
-      <Button fx:id="btAceptar" layoutX="218.0" layoutY="465.0" mnemonicParsing="false" onAction="#registrarUsuario" text="Aceptar" />
-      <Label layoutX="155.0" layoutY="130.0" text="Ingrese un usuario:">
+      <Button fx:id="btAceptar" layoutX="202.0" layoutY="548.0" mnemonicParsing="false" onAction="#registrarUsuario" styleClass="confirmarRegistro" stylesheets="@../icons/StylesButtonAndPanes.css" text="Aceptar" />
+      <Label layoutX="149.0" layoutY="233.0" text="Ingrese un usuario:" textFill="#dfbd00">
          <font>
-            <Font size="18.0" />
+            <Font name="Microsoft PhagsPa Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="222.0" text="Ingrese una contraseña:">
+      <Label layoutX="131.0" layoutY="332.0" text="Ingrese una contraseña:" textFill="#fac800">
          <font>
-            <Font size="18.0" />
+            <Font name="Microsoft PhagsPa Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="101.0" layoutY="313.0" prefHeight="27.0" prefWidth="306.0" text="Ingrese nuevamente la contraseña:">
+      <Label alignment="CENTER" layoutX="72.0" layoutY="422.0" prefHeight="27.0" prefWidth="306.0" text="Ingrese nuevamente la contraseña:" textFill="#ffbf00">
          <font>
-            <Font size="18.0" />
+            <Font name="Microsoft PhagsPa Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txusuarioNuevo" layoutX="139.0" layoutY="175.0">
+      <TextField fx:id="txusuarioNuevo" layoutX="138.0" layoutY="285.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txcontrasenia" layoutX="139.0" layoutY="270.0" onMouseClicked="#validarCasillasUsuarioLlena">
+      <TextField fx:id="txcontrasenia" layoutX="138.0" layoutY="383.0" onMouseClicked="#validarCasillasUsuarioLlena">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="txconfirmacionContra" layoutX="139.0" layoutY="358.0" onMouseClicked="#validarCasillasContraLlena">
+      <TextField fx:id="txconfirmacionContra" layoutX="139.0" layoutY="467.0" onMouseClicked="#validarCasillasContraLlena">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label fx:id="lberror" layoutX="40.0" layoutY="417.0" text="Error: el usuario ingresado ya ha sido registrado, ingrese un usuario diferente" />
-      <ImageView fx:id="imgvisto1" fitHeight="30.0" fitWidth="39.0" layoutX="325.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imgvisto2" fitHeight="30.0" fitWidth="39.0" layoutX="325.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imgvisto3" fitHeight="30.0" fitWidth="39.0" layoutX="325.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="lberror" layoutX="14.0" layoutY="514.0" text="Error: el usuario ingresado ya ha sido registrado, ingrese un usuario diferente" textFill="#fcfcfc">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <ImageView fx:id="imgvisto1" fitHeight="30.0" fitWidth="39.0" layoutX="320.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgvisto2" fitHeight="30.0" fitWidth="39.0" layoutX="320.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgvisto3" fitHeight="30.0" fitWidth="39.0" layoutX="320.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

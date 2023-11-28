@@ -7,40 +7,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="462.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="Controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="462.0" styleClass="FondoLogin" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <Label fx:id="lbusuario" layoutX="76.0" layoutY="173.0" text="Usuario:">
+      <Label fx:id="lbusuario" layoutX="183.0" layoutY="264.0" text="Usuario:" textFill="#fcfafa">
          <font>
-            <Font name="Sitka Text Italic" size="24.0" />
+            <Font name="Microsoft PhagsPa Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lcconrasenia" layoutX="76.0" layoutY="246.0" text="Contraseña:">
+      <Label fx:id="lcconrasenia" layoutX="164.0" layoutY="348.0" text="Contraseña:" textFill="#faf8f8">
          <font>
-            <Font name="Sitka Text Italic" size="24.0" />
+            <Font name="Microsoft PhagsPa Bold" size="24.0" />
          </font>
       </Label>
-      <PasswordField fx:id="txcontra" layoutX="221.0" layoutY="247.0">
+      <PasswordField fx:id="txcontra" layoutX="144.0" layoutY="386.0">
          <font>
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="txuser" layoutX="221.0" layoutY="172.0">
+      <TextField fx:id="txuser" layoutX="144.0" layoutY="300.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btlogin" layoutX="158.0" layoutY="371.0" mnemonicParsing="false" onAction="#abrirVentanaPrincipal" text="Login">
+      <Button fx:id="btlogin" layoutX="135.0" layoutY="491.0" mnemonicParsing="false" onAction="#abrirVentanaPrincipal" prefHeight="30.0" prefWidth="96.0" styleClass="login" stylesheets="@../icons/StylesButtonAndPanes.css" text="Login">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btregistrer" layoutX="242.0" layoutY="371.0" mnemonicParsing="false" onAction="#abrirVentanaRegistrer" text="Registarse">
+      <Button fx:id="btregistrer" layoutX="254.0" layoutY="491.0" mnemonicParsing="false" onAction="#abrirVentanaRegistrer" styleClass="registrer" stylesheets="@../icons/StylesButtonAndPanes.css" text="Registarse">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lbsms" alignment="CENTER" layoutX="85.0" layoutY="311.0" prefHeight="27.0" prefWidth="314.0">
+      <Label fx:id="lbsms" alignment="CENTER" layoutX="74.0" layoutY="430.0" prefHeight="27.0" prefWidth="314.0" textFill="#df02ba">
          <font>
             <Font size="14.0" />
          </font>

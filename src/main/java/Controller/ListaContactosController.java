@@ -131,9 +131,9 @@ public class ListaContactosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        //mostrarBusquedaAvanzada();
+        listViewContactos.getStyleClass().add("list-view");
         
-        //listContactosSettings();
+
         listViewContactos.setOnMouseClicked(this::listContactosSettings);
         viewContactosCopia.setOnMouseClicked(this::listContactosCopiaSettings);
         

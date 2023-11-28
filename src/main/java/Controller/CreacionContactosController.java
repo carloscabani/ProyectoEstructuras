@@ -155,6 +155,12 @@ public class CreacionContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tperContacto.getStyleClass().add("txfield");
+        tempresa.getStyleClass().add("txfield");
+        tsitioweb.getStyleClass().add("txfield");
+        c1.getStyleClass().add("combo");
+        c2.getStyleClass().add("combo");
+        
         if (etiqueta1.isEmpty() && etiqueta2.isEmpty() && etiqueta3.isEmpty() && etiqueta3.isEmpty() && etiqueta4.isEmpty() && etiqueta5.isEmpty() && 
                 etiqueta6.isEmpty() && etiqueta7.isEmpty() && etiqueta8.isEmpty() && etiqueta9.isEmpty() && etiqueta10.isEmpty() && etiqueta11.isEmpty()){
             cargarEtiquetas();
