@@ -13,7 +13,11 @@ import Clases.PersonaAdiconal;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
+import static Controller.EditarContactoController.DatosAdicionales;
 import static Controller.EditarContactoController.contactoEditado;
+import static Controller.EditarContactoController.deleteFromFileEditContact;
+import static Controller.EditarContactoController.newfoto;
+import static Controller.ImagenesAsociadasController.conseguirFotosAsociadas;
 import static Controller.ListaContactosController.apellidoSelected;
 import static Controller.ListaContactosController.cadicional;
 import static Controller.ListaContactosController.contactoSelected;
@@ -23,6 +27,7 @@ import static Controller.ListaContactosController.nombreSelected;
 import static Controller.ListaContactosController.redsoc;
 import static Controller.ListaContactosController.typec;
 import static Controller.ListaContactosController.typered;
+import ListTDA.LLDouble;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,6 +39,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -242,7 +248,7 @@ public class EditarEmpresaController implements Initializable {
     }
 
     @FXML
-    private void guararEmpresaEditada(MouseEvent event) throws IOException{
+    private void guardarEmpresaEditada(MouseEvent event) throws IOException{
         for (Contacto cte: listaContactos){
             if(cte.getNombre().equals(nombreSelected) && cte.getApellido().equals(apellidoSelected)){
                 listaContactos.remove(cte);
@@ -308,6 +314,14 @@ public class EditarEmpresaController implements Initializable {
             EscribirArchivoCamposAdEditados();
             
             
+            
+            String nombreSelected = contactoSelected.getNombre();
+            String apellidoSelected = "";
+            LLDouble resultEmpresaPictures = conseguirFotosAsociadas(nombreSelected, apellidoSelected);
+            
+            deleteFromFileEditContact(nombreSelected, apellidoSelected, "src/main/resources/archivos/ImagenesAsociadas.txt");
+            
+            
             deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/FotosPerfil.txt");
             
             if(newFotoEmpresa != null){  
@@ -316,6 +330,8 @@ public class EditarEmpresaController implements Initializable {
                 Foto im= new Foto(nombre, apellido, newFotoEmpresa);
                 lstfotoPerfiles.add(im);
                 escribirArchivosImagenesPersonaEditada(newFotoEmpresa);
+                escribirArchivoImagenEmpresaAsociada(newFotoEmpresa, resultEmpresaPictures);
+                
             }
             
             App.setRoot("ListaContactos");
@@ -327,6 +343,48 @@ public class EditarEmpresaController implements Initializable {
             }
     }
     
+    
+    public void escribirArchivoImagenEmpresaAsociada(String foto, LLDouble<String> lista) {
+        String nombre = contactoEditado.getNombre();
+        String apellido = "";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
+            StringBuilder fotos = new StringBuilder() ;
+            Iterator<String> iterator = lista.iterator();
+            while (iterator.hasNext()) {
+                fotos.append(iterator.next());
+                if (iterator.hasNext()) {
+                    fotos.append(",");
+            }
+        }
+            
+            String fotosAso = fotos.toString();
+            System.out.println("---------- -------- ----------- --------  -----");
+            System.out.println("Lista de fotos: "+fotosAso);
+            String cadena = nombre+","+apellido+","+foto+","+fotosAso;
+            writer.write(cadena);
+            writer.newLine();
+            System.out.println("Registro de imagen asociada a al persona editada EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void escribirArchivosImagenesPersonaEditada(String i) {
+        String nombre = DatosAdicionalesEmpresa.getNombre();
+        String apellido = "";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
+            String cadena = nombre+","+apellido+","+i;
+            writer.write(cadena);
+            writer.newLine();
+            
+            System.out.println("Registro de imagen asociada a al persona editada EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     public void escribirArchivoContactosEditado() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt", true))) {
@@ -378,18 +436,5 @@ public class EditarEmpresaController implements Initializable {
     }
     
     
-    public void escribirArchivosImagenesPersonaEditada(String i) {
-        String nombre = DatosAdicionalesEmpresa.getNombre();
-        String apellido = "";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
-            String cadena = nombre+","+apellido+","+i;
-            writer.write(cadena);
-            writer.newLine();
-            
-            System.out.println("Registro de imagen asociada a al persona editada EXITOsoooooooo.......");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
 }

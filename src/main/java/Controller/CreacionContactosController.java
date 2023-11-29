@@ -189,8 +189,8 @@ public class CreacionContactosController implements Initializable {
     private void enviarListaContactos(ActionEvent event) {
         btguardar.setOnAction((ActionEvent e) -> {
             String tipoPersonaContacto = (String) c1.getValue();
-            String Nombre = txnombre.getText();
-            String Apellido = txapellido.getText();
+            String nombre = txnombre.getText();
+            String apellido = txapellido.getText();
             Telefono Tel = new Telefono (txtelefono.getText(),cbtelefono.getValue());
             Direccion di = new Direccion(txdireccion.getText(),cbdireccion.getValue());
             Email em= new Email(cbemail.getValue(),txemail.getText());
@@ -201,9 +201,9 @@ public class CreacionContactosController implements Initializable {
             RedSocial web= new RedSocial((String) c2.getValue(), tsitioweb.getText());
             String Empresa= tempresa.getText();
             
-            Contacto people1= new Contacto(Nombre,Apellido,Tel,di,em,fech);
-            Contacto camposAdicion1= new Contacto(Nombre,Apellido,per,web,Empresa);
-            Foto ft= new Foto(Nombre,Apellido,ni);
+            Contacto people1= new Contacto(nombre,apellido,Tel,di,em,fech);
+            Contacto camposAdicion1= new Contacto(nombre,apellido,per,web,Empresa);
+            Foto ft= new Foto(nombre,apellido,ni);
             lstfotoPerfiles.add(ft);
             listaContactos.add(people1);
             lstCamposAdicionales.add(camposAdicion1);
@@ -214,7 +214,9 @@ public class CreacionContactosController implements Initializable {
             // con ese contacto
           
             escribirArchivosImagenes(ni);
-
+            //agregar esa imagen al Archivo ImagenesAsociadas
+            agregarAlArchivoImagenesAsociadas(ni);
+            
             try (FileInputStream input = new FileInputStream("src/main/resources/icons/logoAgregarImagen.png" )) {
 
                 Image image = new Image(input, 90, 100, true, false);
@@ -276,6 +278,8 @@ public class CreacionContactosController implements Initializable {
             // con ese contacto
           
             escribirEmpresaFotosPerfilTxt(ni);
+            
+            escribirEmpresaImagenesAsociadasTxt(ni);
 
             try (FileInputStream input = new FileInputStream("src/main/resources/icons/logoAgregarImagen.png" )) {
 
@@ -556,10 +560,42 @@ public class CreacionContactosController implements Initializable {
         }
     }
     
+    public void agregarAlArchivoImagenesAsociadas(String foto){
+        String nombre = txnombre.getText();
+        String apellido = txapellido.getText();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
+            String cadena = nombre+","+apellido+","+foto;
+            writer.write(cadena);
+            writer.newLine();
+            
+            System.out.println("Registro al archivo imagenes asociadas");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+    }
+    
     public void escribirEmpresaFotosPerfilTxt(String i) {
         String nombre = txtNombreEmpresa.getText();
         String apellido = "";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
+            String cadena = nombre+","+apellido+","+i;
+            writer.write(cadena);
+            writer.newLine();
+            
+            System.out.println("Registro EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void escribirEmpresaImagenesAsociadasTxt(String i) {
+        String nombre = txtNombreEmpresa.getText();
+        String apellido = "";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
             String cadena = nombre+","+apellido+","+i;
             writer.write(cadena);
             writer.newLine();
@@ -596,24 +632,7 @@ public class CreacionContactosController implements Initializable {
 
     @FXML
     private void elegirImagenEmpresa(MouseEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Seleccionar nueva imagen");
-//        
-//        File initialDirectory = new File("src/main/resources/pics");
-//        fileChooser.setInitialDirectory(initialDirectory);
-//
-//        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Archivos de imagen", "*.png", "*.jpg", "*.gif");
-//        fileChooser.getExtensionFilters().add(extFilter);
-//        Window stage = null;
-//
-//        
-//        File selectedFile = fileChooser.showOpenDialog(stage);
-//
-//        if (selectedFile != null) {
-//            
-//            changeImage(selectedFile);
-//
-//        }
+
 
         elegirImagenPerfil(fotoPerfilEmpresa);
 

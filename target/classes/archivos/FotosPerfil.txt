@@ -1,6 +1,6 @@
 ber,s,letraB.png
-Isagui,Yoichi,letraI.png
 Rin,Itoshi,letraR.jpg
 Alex,Benites,letraA.jpg
 Nike,,letraN.jpg
 Dennis,Rodman,letraD.jpg
+Adidas SA,,empresa4d.jpg

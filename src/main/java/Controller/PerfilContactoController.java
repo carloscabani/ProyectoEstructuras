@@ -366,7 +366,8 @@ public class PerfilContactoController implements Initializable {
             deleteFromFile(nombre, apellido, "src/main/resources/archivos/FotosPerfil.txt");
             //eliminar contacto en CamposAdicionales.txt
             deleteFromFile(nombre, apellido, "src/main/resources/archivos/CamposAdicionales.txt");
-            
+            //eliminar contacto de ImagenesAsociadas.txt
+            deleteFromFile(nombre, apellido,"src/main/resources/archivos/ImagenesAsociadas.txt");
             App.setRoot("ListaContactos");
             System.out.println("Lista actualizada: "+ listaContactos);
             

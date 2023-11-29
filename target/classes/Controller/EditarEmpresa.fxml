@@ -78,7 +78,7 @@
       </Label>
       <ImageView fx:id="imagenEmpresa" fitHeight="80.0" fitWidth="84.0" layoutX="345.0" layoutY="117.0" onMouseClicked="#cambiarImagenEmpresa" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="213.0" layoutY="556.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="46.0" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="221.0" layoutY="562.0" onMouseClicked="#guararEmpresaEditada" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="221.0" layoutY="562.0" onMouseClicked="#guardarEmpresaEditada" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/guardar.png" />
          </image>

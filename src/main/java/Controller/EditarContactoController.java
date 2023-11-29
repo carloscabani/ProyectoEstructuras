@@ -13,10 +13,12 @@ import Clases.PersonaAdiconal;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
+import static Controller.ImagenesAsociadasController.conseguirFotosAsociadas;
 import static Controller.ListaContactosController.*;
 import static Controller.ListaContactosController.contactoSelected;
 import static Controller.ListaContactosController.empre;
 import static Controller.ListaContactosController.redsoc;
+import ListTDA.LLDouble;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,7 +30,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -203,10 +204,7 @@ public class EditarContactoController implements Initializable {
         
     }
 
-//    @FXML
-//    private void guardarNewCambios(ActionEvent event) {
-//        
-//    }    
+
     public static void deleteFromFileEditContact (String name, String apellido, String archivoTxt){
         File archivo = new File(archivoTxt);
         File temporal = new File(archivo.getParent(),"temporal_"+archivo.getName());
@@ -305,6 +303,13 @@ public class EditarContactoController implements Initializable {
             lstCamposAdicionales.add(DatosAdicionales);
             EscribirArchivoCamposAdicionalesEditados();
             
+            String nombreSelected = contactoSelected.getNombre();
+            String apellidoSelected = contactoSelected.getApellido();
+            LLDouble resultado = conseguirFotosAsociadas(nombreSelected, apellidoSelected);
+            
+            deleteFromFileEditContact(nombreSelected, apellidoSelected, "src/main/resources/archivos/ImagenesAsociadas.txt");
+            
+            
             
             deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/FotosPerfil.txt");
             
@@ -314,6 +319,8 @@ public class EditarContactoController implements Initializable {
                 Foto im= new Foto(nombre, apellido, newfoto);
                 lstfotoPerfiles.add(im);
                 escribirArchivosImagenesPersonEdit(newfoto);
+                escribirArchivoImagenAsociada(newfoto, resultado);
+                
             }
             
             App.setRoot("ListaContactos");
@@ -324,6 +331,31 @@ public class EditarContactoController implements Initializable {
             
             }
             
+    }
+    
+    public void escribirArchivoImagenAsociada(String foto, LLDouble<String> lista) {
+        String nombre = DatosAdicionales.getNombre();
+        String apellido = DatosAdicionales.getApellido();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
+            StringBuilder fotos = new StringBuilder() ;
+            Iterator<String> iterator = lista.iterator();
+            while (iterator.hasNext()) {
+                fotos.append(iterator.next());
+                if (iterator.hasNext()) {
+                    fotos.append(",");
+            }
+        }
+            
+            String fotosAso = fotos.toString();
+            
+            String cadena = nombre+","+apellido+","+foto+","+fotosAso;
+            writer.write(cadena);
+            writer.newLine();
+            System.out.println("Registro de imagen asociada a al persona editada EXITOsoooooooo.......");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void EscribirArchivoContactosEditados() {
