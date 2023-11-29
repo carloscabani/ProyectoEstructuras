@@ -5,35 +5,40 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="630.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditarEmpresaController">
+<AnchorPane prefHeight="612.0" prefWidth="462.0" styleClass="fondoEmpresa" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditarEmpresaController">
    <children>
-      <Button layoutX="43.0" layoutY="26.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="45.0" />
-      <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="51.0" layoutY="32.0" onMouseClicked="#volverHome" pickOnBounds="true" preserveRatio="true">
+      <Button layoutX="31.0" layoutY="14.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="40.0" style="-fx-background-color: #90EE90;">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="39.0" layoutY="20.0" onMouseClicked="#volverHome" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/casa.png" />
          </image>
       </ImageView>
-      <Label layoutX="128.0" layoutY="29.0" text="Editor de Contacto">
+      <Label layoutX="135.0" layoutY="14.0" text="Editor de Contacto" textFill="#002bac">
          <font>
             <Font name="Comic Sans MS Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="87.0" text="Nombre: ">
+      <Label layoutX="67.0" layoutY="78.0" text="Nombre: ">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="67.0" layoutY="157.0" text="Telefono:">
+      <Label layoutX="67.0" layoutY="144.0" text="Telefono:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="78.0" layoutY="211.0" text="Fecha:">
+      <Label layoutX="77.0" layoutY="201.0" text="Fecha:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -58,27 +63,69 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="labelNombreEmpresa" layoutX="45.0" layoutY="114.0" prefHeight="26.0" prefWidth="115.0" />
-      <TextField fx:id="labelTlfEmpresa" layoutX="45.0" layoutY="177.0" prefHeight="26.0" prefWidth="115.0" />
-      <TextField fx:id="labelContactoEmpresa" layoutX="45.0" layoutY="290.0" prefHeight="26.0" prefWidth="115.0" />
-      <TextField fx:id="labelAddressEmpresa" layoutX="45.0" layoutY="352.0" prefHeight="26.0" prefWidth="115.0" />
-      <TextField fx:id="labelRedSocialEmpresa" layoutX="48.0" layoutY="416.0" prefHeight="26.0" prefWidth="115.0" />
-      <TextField fx:id="labelEmailEmpresa" layoutX="48.0" layoutY="478.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxTlfEmpresa" layoutX="188.0" layoutY="178.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxFechaEmpresa" layoutX="188.0" layoutY="238.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxContactoAd" layoutX="188.0" layoutY="291.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxDireccionEmpresa" layoutX="188.0" layoutY="353.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxRedSocialEmpresa" layoutX="188.0" layoutY="417.0" prefHeight="26.0" prefWidth="115.0" />
-      <ComboBox fx:id="comboBoxEmailEmpresa" layoutX="188.0" layoutY="479.0" prefHeight="26.0" prefWidth="115.0" />
-      <DatePicker fx:id="labelDateEmpresa" layoutX="42.0" layoutY="238.0" prefHeight="26.0" prefWidth="115.0" />
-      <Label layoutX="349.0" layoutY="88.0" text="Foto Perfil: ">
+      <TextField fx:id="labelNombreEmpresa" layoutX="42.0" layoutY="104.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField fx:id="labelTlfEmpresa" layoutX="48.0" layoutY="165.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField fx:id="labelContactoEmpresa" layoutX="45.0" layoutY="290.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField fx:id="labelAddressEmpresa" layoutX="45.0" layoutY="352.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField fx:id="labelRedSocialEmpresa" layoutX="48.0" layoutY="416.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField fx:id="labelEmailEmpresa" layoutX="48.0" layoutY="478.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <ComboBox fx:id="comboBoxTlfEmpresa" layoutX="187.0" layoutY="165.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <ComboBox fx:id="comboBoxFechaEmpresa" layoutX="188.0" layoutY="225.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <ComboBox fx:id="comboBoxContactoAd" layoutX="188.0" layoutY="291.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <ComboBox fx:id="comboBoxDireccionEmpresa" layoutX="188.0" layoutY="353.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <ComboBox fx:id="comboBoxRedSocialEmpresa" layoutX="188.0" layoutY="417.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <ComboBox fx:id="comboBoxEmailEmpresa" layoutX="188.0" layoutY="479.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #ADD8E6;">
+         <effect>
+            <InnerShadow />
+         </effect></ComboBox>
+      <DatePicker fx:id="labelDateEmpresa" layoutX="45.0" layoutY="225.0" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: FFEBCD;">
+         <effect>
+            <DropShadow />
+         </effect></DatePicker>
+      <Label layoutX="335.0" layoutY="78.0" text="Foto Perfil: ">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="imagenEmpresa" fitHeight="80.0" fitWidth="84.0" layoutX="345.0" layoutY="117.0" onMouseClicked="#cambiarImagenEmpresa" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="213.0" layoutY="556.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="46.0" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="221.0" layoutY="562.0" onMouseClicked="#guardarEmpresaEditada" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagenEmpresa" fitHeight="68.0" fitWidth="72.0" layoutX="337.0" layoutY="96.0" onMouseClicked="#cambiarImagenEmpresa" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="213.0" layoutY="540.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="46.0" style="-fx-background-color: #90EE90;">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="221.0" layoutY="546.0" onMouseClicked="#guardarEmpresaEditada" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/guardar.png" />
          </image>

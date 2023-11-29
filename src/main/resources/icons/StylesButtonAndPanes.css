@@ -99,3 +99,45 @@
     -fx-background-color: #F08080;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5); 
 }
+/*
+-------------------------------- Ventana Contacto Individual ---------------------------
+*/
+
+.fondoIndividualContacto{
+    -fx-background-image: url("FondoContactoIndividual.png");
+    -fx-background-size:462px 600px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+/*
+--------------------------------- Ventana Editar Contacto  -----------------------------
+*/
+
+.fondoEditar{
+    -fx-background-image: url("FondoEditar.png");
+    -fx-background-size:462px 600px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+/*
+-------------------------------- Ventana Editar Empresa ------------------------------
+*/
+.fondoEmpresa{
+    -fx-background-image: url("FondoEditar.png");
+    -fx-background-size:462px 600px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+/*
+-------------------------------- Ventana Visualizar  -----------------------------------
+*/
+.fondoVisualizar{
+    -fx-background-image: url("FondoVisualizar4.png");
+    -fx-background-size:462px 600px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
