@@ -210,11 +210,7 @@ public class CreacionContactosController implements Initializable {
             EscribirArchivoContactos();
             EscribirArchivoCamposAdicionales();
 
-            // esto es para obtener el nombre de la imagen que el usuario selecciono para asociarla 
-            // con ese contacto
-          
             escribirArchivosImagenes(ni);
-            //agregar esa imagen al Archivo ImagenesAsociadas
             agregarAlArchivoImagenesAsociadas(ni);
             
             try (FileInputStream input = new FileInputStream("src/main/resources/icons/logoAgregarImagen.png" )) {
@@ -273,9 +269,6 @@ public class CreacionContactosController implements Initializable {
             lstCamposAdicionales.add(camposAdicion2);
             EscribirEmpresaContactosTxt();
             EscribirEmpresaCamposAdicionalesTxt();
-
-            // esto es para obtener el nombre de la imagen que el usuario selecciono para asociarla 
-            // con ese contacto
           
             escribirEmpresaFotosPerfilTxt(ni);
             

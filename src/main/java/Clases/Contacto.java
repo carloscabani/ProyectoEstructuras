@@ -164,15 +164,5 @@ public class Contacto implements Comparable<Contacto>{
             return nombre.equals(otroContacto.nombre) && apellido.equals(otroContacto.apellido);
         }
     }
-//
-//    @Override
-//    public String toString() {
-//        return nombre +" "+apellido +" "+tlf +" "+dir +" "+email ;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return nombre +" "+apellido +" "+per +" "+redSocial +" "+empresa ;
-//    }
-//       
+   
 }

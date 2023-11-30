@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,14 +69,14 @@ public class RegistroUsuarioController implements Initializable {
     @FXML
     private void validarCasillasUsuarioLlena(MouseEvent event) {
         if (txusuarioNuevo.getText().equals("")) {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto.png")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto1.setImage(image);
             } catch (IOException exep) {
                 System.out.println("error");
             }
         } else {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto.jpg")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto1.setImage(image);
             } catch (IOException exep) {
@@ -89,14 +88,14 @@ public class RegistroUsuarioController implements Initializable {
     @FXML
     private void validarCasillasContraLlena(MouseEvent event) {
         if (txcontrasenia.getText().equals("")) {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto.png")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto2.setImage(image);
             } catch (IOException exep) {
                 System.out.println("error");
             }
         } else {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto.jpg")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto2.setImage(image);
             } catch (IOException exep) {
@@ -108,14 +107,14 @@ public class RegistroUsuarioController implements Initializable {
     @FXML
     private void validarCasillaUltimaLlena(MouseEvent event) {
         if (txconfirmacionContra.getText().equals("")) {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto.png")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/incorrecto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto3.setImage(image);
             } catch (IOException exep) {
                 System.out.println("error");
             }
         } else {
-            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto.jpg")) {
+            try (FileInputStream input = new FileInputStream("src/main/resources/icons/correcto1.png")) {
                 Image image = new Image(input, 80, 90, true, false);
                 imgvisto3.setImage(image);
             } catch (IOException exep) {

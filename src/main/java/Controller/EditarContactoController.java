@@ -118,8 +118,6 @@ public class EditarContactoController implements Initializable {
         
         newnombre.setText(contactoSelected.getNombre());
         newapellido.setText(contactoSelected.getApellido());
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        //String fechaComoString = contactoSelected.getFecha().getFecha().format(formatter);
         newfecha.setValue(contactoSelected.getFecha().getFecha());
         newdireccion.setText(contactoSelected.getDir().getUbicacion());
         newtelefono.setText(contactoSelected.getTlf().getTlf());
@@ -168,12 +166,8 @@ public class EditarContactoController implements Initializable {
             FileInputStream inputStream = new FileInputStream(newImageFile);
             Image newImage = new Image(inputStream);
 
-            // Actualizar la ImageView con la nueva imagen
             imgfActual.setImage(newImage);
 
-            // Puedes guardar la ruta de la nueva imagen en una variable si es necesario
-            // String newPath = newImageFile.getAbsolutePath();
-            // ...
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -261,7 +255,7 @@ public class EditarContactoController implements Initializable {
         String apellidoSeleccionado = contactoSelected.getApellido();
         
 
-//        listViewContactos.getItems().remove(4);
+
         
         Contacto people = new Contacto(newnombre.getText(),newapellido.getText(),new Telefono(bcell.getValue(), newtelefono.getText()),new Direccion(bdireccion.getValue(),newdireccion.getText()),
                           new Email(bemail.getValue(),newemail.getText()), new Fecha(bfecha.getValue(), newfecha.getValue()));
@@ -275,8 +269,7 @@ public class EditarContactoController implements Initializable {
         System.out.println(listaContactos);
         String nombre= contactoEditado.getNombre();
         String apellido = contactoEditado.getApellido();
-        //String fotoEdit= newfoto;
-        //Foto im= new Foto(nombre,apellido,fotoEdit);
+
         
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -285,20 +278,17 @@ public class EditarContactoController implements Initializable {
         alert.setContentText("¿Estas seguro de Guardar los cambios realizados?");
         alert.showAndWait();
             if(alert.getResult().equals(ButtonType.OK)){
-      
-            //listaContactos.remove(contactoEditado);
+
             System.out.println(listaContactos);
-            //lstCamposAdicionales.remove(DatosAdicionales);
-            //lstfotoPerfiles.remove(im);
+
          
             System.out.println("Entra para eliminar en CONTACTOS.TXT");
-            //eliminar contacto en Contactos.txt
             deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado,"src/main/resources/archivos/Contactos.txt");
             listaContactos.add(contactoEditado);
             EscribirArchivoContactosEditados();
             
             System.out.println("Entra para eliminar en CamposAdicionales.TXT");
-            //eliminar contacto en CamposAdicionales.txt
+            
             deleteFromFileEditContact(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/CamposAdicionales.txt");
             lstCamposAdicionales.add(DatosAdicionales);
             EscribirArchivoCamposAdicionalesEditados();
@@ -360,8 +350,6 @@ public class EditarContactoController implements Initializable {
     
     public void EscribirArchivoContactosEditados() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt", true))) {
-            //formato:
-            //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
             String nombre = contactoEditado.getNombre();
             String Apellido = contactoEditado.getApellido();
             String Telefono = contactoEditado.getTlf().getTipoTlf() + "-" + contactoEditado.getTlf().getTlf();

@@ -308,7 +308,7 @@ public class ImagenesAsociadasController implements Initializable {
                     for (int i = 3; i < contenido.length; i++) {
                         resultado.add(contenido[i].trim());
                     }
-                    break; // No necesitamos seguir buscando después de encontrar la línea correcta
+                    break;
                 }
             }
         } catch (IOException e) {

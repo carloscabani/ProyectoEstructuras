@@ -109,12 +109,6 @@ public class VistaContactoIndividualController implements Initializable {
         lcorre.setText(contactoSelected.getEmail().getCorreo() + " - " + contactoSelected.getEmail().getTipo());
         lbfe.setText(contactoSelected.getFecha().getTipoFecha() + " - " + contactoSelected.getFecha().getFecha());
         System.out.println(cadicional);
-        
-//        if(cadicional == null){
-//          lper.setText("ninguno");
-//        }else{
-//          lper.setText(cadicional+" - "+ typec);
-//        }
         lper.setText(cadicional+" - "+ typec);
         lred.setText(redsoc+" - "+typered);
         lbem.setText(empre);
@@ -141,14 +135,10 @@ public class VistaContactoIndividualController implements Initializable {
     }
     public void exportadoContactoIndividual() {
         Stage g = new Stage();
-        //g.initModality(Modality.APPLICATION_MODAL);
-        //g.setTitle("Etiquetas");
-
         Label label = new Label("¿Como desea exportar la informacion?");
         Button btguardar = new Button("Exportar");
         RadioButton rdImagen = new RadioButton ("Imagen");
         RadioButton rdArchivo = new RadioButton ("Archivo");
-        ComboBox <String>cbImagen = new ComboBox ();
         ComboBox <String>cbArchivo = new ComboBox ();
         ImageView imgEnviando = new ImageView();
         ToggleGroup EtiquetasContactos = new ToggleGroup();
@@ -242,10 +232,8 @@ public class VistaContactoIndividualController implements Initializable {
   
         btguardar.setOnAction(event -> {
             if (rdImagen.isSelected()) {
-                // Capturar la ventana como una imagen
                 WritableImage image = paneVistaContactoIndividual.snapshot(new SnapshotParameters(), null);
 
-                // Mostrar un cuadro de diálogo para seleccionar la ubicación de guardado
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG files (*.jpg)", "*.jpg"));
@@ -254,7 +242,6 @@ public class VistaContactoIndividualController implements Initializable {
 
                 if (file != null) {
                     try {
-                        // Convertir la imagen a un formato compatible con ImageIO
                         javax.imageio.ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
                         mostrarAlerta("Imagen guardada exitosamente", "La imagen se ha guardado en: " + file.getAbsolutePath());
                     } catch (IOException e) {

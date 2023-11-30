@@ -66,17 +66,17 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbcell" layoutX="140.0" layoutY="7.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbcell" layoutX="140.0" layoutY="7.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbcont" layoutX="140.0" layoutY="90.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbcont" layoutX="140.0" layoutY="90.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbpagina" layoutX="140.0" layoutY="121.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbpagina" layoutX="140.0" layoutY="121.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text" size="18.0" />
                      </font>
@@ -86,17 +86,17 @@
                         <Font name="Sitka Text" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbdireccion" layoutX="140.0" layoutY="148.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbdireccion" layoutX="140.0" layoutY="148.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbfecha" layoutX="140.0" layoutY="61.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbfecha" layoutX="140.0" layoutY="61.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbcorreo" layoutX="140.0" layoutY="34.0" prefHeight="27.0" prefWidth="258.0">
+                  <Label fx:id="lbcorreo" layoutX="140.0" layoutY="34.0" prefHeight="27.0" prefWidth="305.0">
                      <font>
                         <Font name="Sitka Text" size="18.0" />
                      </font>

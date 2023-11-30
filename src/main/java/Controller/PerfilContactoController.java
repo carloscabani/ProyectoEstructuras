@@ -24,8 +24,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -129,7 +127,6 @@ public class PerfilContactoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        RegresarHome();
         cargarListaPerfiles();
         if(!listaContactos.isEmpty()){
             mostrarPersonaActual();
@@ -172,8 +169,7 @@ public class PerfilContactoController implements Initializable {
 
     }
 
-    private void mostrarPersonaActual() {
-        // Generar un número aleatorio entre 1 y 20
+    public void mostrarPersonaActual() {
         Random random = new Random();
         int nAleatorio = random.nextInt(20) + 1;
 
@@ -249,8 +245,6 @@ public class PerfilContactoController implements Initializable {
         
     }
     
-    
-    // este es un metodo de prueba no esta en uso por el momento
     public String cargarListaPerfiles(String n, String ap) {
         String imagenAsociada = null;
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/archivos/FotosPerfil.txt", StandardCharsets.UTF_8))) {
@@ -259,7 +253,6 @@ public class PerfilContactoController implements Initializable {
                 String p[] = linea.split(",");
                 if(n.equals(p[0]) && ap.equals(p[1])){
                     imagenAsociada = p[2];
-                    //System.out.println(imagenAsociada);
                 }
                 linea= br.readLine();
 
@@ -300,7 +293,6 @@ public class PerfilContactoController implements Initializable {
     public void seleccionImagen(int index) {
         String num= String.valueOf(index);
         try (FileInputStream input = new FileInputStream("src/main/resources/ubicaciones/" + "ubicacion"+num+".png")) {
-            //System.out.println("src/main/resources/ubicaciones/" + "ubicacion"+num);
             Image image = new Image(input, 308, 137, true, false); 
             imgGPS.setImage(image);
 
@@ -383,14 +375,11 @@ public class PerfilContactoController implements Initializable {
 
     public void VentanaOpcionesExportado() {
         Stage g = new Stage();
-        //g.initModality(Modality.APPLICATION_MODAL);
-        //g.setTitle("Etiquetas");
-
         Label label = new Label("¿Como desea exportar la informacion?");
         Button btguardar = new Button("Exportar");
         RadioButton rdImagen = new RadioButton ("Imagen");
         RadioButton rdArchivo = new RadioButton ("Archivo");
-        ComboBox <String>cbImagen = new ComboBox ();
+        //ComboBox <String>cbImagen = new ComboBox ();
         ComboBox <String>cbArchivo = new ComboBox ();
         ImageView imgEnviando = new ImageView();
         ToggleGroup EtiquetasContactos = new ToggleGroup();
@@ -414,11 +403,14 @@ public class PerfilContactoController implements Initializable {
 
         VBox rootNuevo = new VBox();
         rootNuevo.getChildren().addAll(hcontenedor, hradioButtons, h1);
+        
+        rootNuevo.setStyle("-fx-background-color: #FFE4C4");
+        btguardar.setStyle("-fx-background-color: #FA8072; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
+        cbArchivo.setStyle("-fx-background-color: #87CEEB; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
 
         rdImagen.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                //cbImagen.setValue("");
                 if (h1.getChildren().isEmpty()) {
                     try (FileInputStream input = new FileInputStream("src/main/resources/icons/enviando.gif")) {
                         Image image = new Image(input, 250, 150, true, false);
@@ -484,10 +476,7 @@ public class PerfilContactoController implements Initializable {
   
         btguardar.setOnAction(event -> {
             if (rdImagen.isSelected()) {
-                // Capturar la ventana como una imagen
                 WritableImage image = paneContactosVisualizacion.snapshot(new SnapshotParameters(), null);
-
-                // Mostrar un cuadro de diálogo para seleccionar la ubicación de guardado
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG files (*.jpg)", "*.jpg"));
@@ -496,7 +485,6 @@ public class PerfilContactoController implements Initializable {
 
                 if (file != null) {
                     try {
-                        // Convertir la imagen a un formato compatible con ImageIO
                         javax.imageio.ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
                         mostrarAlerta("Imagen guardada exitosamente", "La imagen se ha guardado en: " + file.getAbsolutePath());
                     } catch (IOException e) {

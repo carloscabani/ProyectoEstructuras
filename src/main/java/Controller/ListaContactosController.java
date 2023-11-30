@@ -68,7 +68,6 @@ public class ListaContactosController implements Initializable {
     public static String empre;
     public static String typec;
     public static String typered;
-//    public static Stage g = new Stage();
     public static int selectedIndex;
     public static Map<String,String> etiquetasPersonas = new HashMap<>();
     public static ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
@@ -84,8 +83,6 @@ public class ListaContactosController implements Initializable {
     public static ComboBox<String> cbEContacto= new ComboBox();
     public static TextField txdatoAbuscar = new TextField();
     public static VBox ponertexto = new VBox();
-    //public static Button btconfirmar = new Button("Buscar");
-
 
     @FXML
     private HBox hbCabezera;
@@ -132,8 +129,6 @@ public class ListaContactosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         listViewContactos.getStyleClass().add("list-view");
-        
-
         listViewContactos.setOnMouseClicked(this::listContactosSettings);
         viewContactosCopia.setOnMouseClicked(this::listContactosCopiaSettings);
         
@@ -183,11 +178,9 @@ public class ListaContactosController implements Initializable {
     
     public void filtrarContactos(String filtro) {
         if (filtro == null || filtro.trim().isEmpty()) {
-            // Si el filtro está vacío, muestra todos los contactos
             vblista.getChildren().clear();
             cargarListView();
         } else {
-            // Filtra los contactos según el contenido del TextField
             Platform.runLater(() -> {
                 listViewContactos.getItems().clear();
                 NodeList<Contacto> nodoActual = listaContactos.getFirst();
@@ -215,23 +208,6 @@ public class ListaContactosController implements Initializable {
             contenedorList.getChildren().add(listViewContactos);
         }
         vblista.getChildren().add(contenedorList);
-
-//        Platform.runLater(() -> {
-//            if (listViewContactos != null) {
-//                listViewContactos.getItems().clear();
-//                NodeList<Contacto> nodoActual = listaContactos.getFirst();
-//                while (nodoActual != null) {
-//                    Contacto informacion = nodoActual.getContenido();
-//                    //listViewContactos.getItems().add(informacion.getNombre());
-//                    listViewContactos.getItems().add(informacion);
-//                    nodoActual = nodoActual.getSiguiente();
-//                }
-//            }
-//            if (!contenedorList.getChildren().contains(listViewContactos)) {
-//                contenedorList.getChildren().add(listViewContactos);
-//            }
-//            vblista.getChildren().add(contenedorList);
-//        });
     }
 
 
@@ -298,8 +274,6 @@ public class ListaContactosController implements Initializable {
             System.out.println("Datos leídos: " + datos);
             datos+=" ";
             String[] p = datos.split(",");
-
-            // Aseguramos que haya suficientes elementos antes de acceder a ellos
             if (p.length >= 5) {
                 String nombre = p[0].trim();
                 String apellido = p[1].trim();
@@ -335,8 +309,6 @@ public class ListaContactosController implements Initializable {
 
     }
     
-    
-    // Método para conseguir los datos de la cadena que se esta leyendo
     private String obtenerDato(String cadena, int indice) {
         String[] datos = cadena.split("-");
         return (datos.length > indice) ? datos[indice].trim() : "ninguno";
@@ -371,16 +343,13 @@ public class ListaContactosController implements Initializable {
     }
 
     public void listContactosSettings(MouseEvent event) {
-        // Verifica si el clic fue con el botón derecho
         if (event.getButton() == MouseButton.PRIMARY) {
             Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
 
             contactoSelected = selectedItem;
-            //System.out.println("este contacto es: "+contactoSelected+" y sus atributos son: "+ contactoSelected.getPer().getPersona()+" "+contactoSelected.getRedSocial().getUsername());
             nombreSelected = listViewContactos.getSelectionModel().getSelectedItem().getNombre();
             apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
             selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
-            //System.out.println(selectedIndex);
 
             for (Contacto cf : lstCamposAdicionales) {
                 if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
@@ -411,18 +380,13 @@ public class ListaContactosController implements Initializable {
     }
     
     public void listContactosCopiaSettings(MouseEvent event) {
-//        Contacto selectedItem = viewContactosCopia.getSelectionModel().getSelectedItem();
         if (event.getButton() == MouseButton.PRIMARY) {
-            // Con esto me jalo el contacto selesccionado en ese click Izquierdo
             Contacto selectedItem = viewContactosCopia.getSelectionModel().getSelectedItem();
-            // aqui lo guardo en una gruardo en una variable local creada arriba junto con sus respectivos atributos que estan mas
-            //abajo creados tambien en una variable local que esta definidas arriba
             contactoSelected = selectedItem;
             System.out.println("este contacto es: "+contactoSelected);
             nombreSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getNombre();
             apellidoSelected = viewContactosCopia.getSelectionModel().getSelectedItem().getApellido();
             selectedIndex = viewContactosCopia.getSelectionModel().getSelectedIndex();
-            //System.out.println(selectedIndex);
 
             for (Contacto cf : lstCamposAdicionales) {
                 if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
@@ -456,34 +420,6 @@ public class ListaContactosController implements Initializable {
         }
     }
     
-//    public void listContactosSettings(){
-//        listViewContactos.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                Contacto selectedItem = listViewContactos.getSelectionModel().getSelectedItem();
-//                
-//                contactoSelected = selectedItem;
-//                nombreSelected= listViewContactos.getSelectionModel().getSelectedItem().getNombre();
-//                apellidoSelected = listViewContactos.getSelectionModel().getSelectedItem().getApellido();
-//                selectedIndex = listViewContactos.getSelectionModel().getSelectedIndex();
-//                System.out.println(selectedIndex);   
-//                
-//                for(Contacto cf: lstCamposAdicionales){
-//                    if(selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())){
-//                        cadicional = cf.getPer().getPersona();
-//                        redsoc=cf.getRedSocial().getUsername();
-//                        empre = cf.getEmpresa();
-//                        typered= cf.getRedSocial().getTipoRedSocial();
-//                        typec= cf.getPer().getTipoPersona();
-//                    }
-//                }
-//                
-//                if (selectedItem != null) {
-//                    mostrarVentanaEmergente(selectedItem.getNombre()+" "+selectedItem.getApellido());
-//                }
-//            }
-//        });
-//    }
     
     public void mostrarVentanaEmergente(String selectedItem) {
         Stage ventanaEmergente = new Stage();
@@ -501,15 +437,15 @@ public class ListaContactosController implements Initializable {
                 try { 
                     System.out.println("Editar contacto: " + selectedItem);
                     String[] palabras = selectedItem.split("\\s+");
-                    //App.setRoot("EditarContacto");
+                    
                     
                     if (palabras.length == 1) {
                         System.out.println("Es una empresa: " + selectedItem);
-                        // Lógica para editar empresa
+                        
                         App.setRoot("EditarEmpresa");
                     } else {
                         System.out.println("Es una persona: " + selectedItem);
-                        // Lógica para editar contacto
+                        
                         App.setRoot("EditarContacto");
                     }
                     
@@ -525,7 +461,7 @@ public class ListaContactosController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    // Lógica para eliminar el contacto
+                    
                     App.setRoot("VistaContactoIndividual");
                 } catch (IOException ex) {
                     Logger.getLogger(ListaContactosController.class.getName()).log(Level.SEVERE, null, ex);
@@ -546,6 +482,11 @@ public class ListaContactosController implements Initializable {
         h1.setAlignment(Pos.CENTER);
         h1.setSpacing(30);
         vcontenedor.getChildren().addAll(hbox,h1);
+        
+        vcontenedor.setStyle("-fx-background-color: #FFE4C4");
+        btnverConta.setStyle("-fx-background-color: #FA8072; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
+        btnEditar.setStyle("-fx-background-color: #FA8072; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
+        
         Scene escena = new Scene(vcontenedor, 300, 150);
       
         ventanaEmergente.setScene(escena);
@@ -687,17 +628,14 @@ public class ListaContactosController implements Initializable {
         
         vbdatosbusqueda.getChildren().clear();
         option1.getSelectedToggle().setSelected(false);
-        contenedorList.getChildren().clear(); // pilas con esta linea
-        vblista.getChildren().clear();  // pilas con esta linea
+        contenedorList.getChildren().clear(); 
+        vblista.getChildren().clear();  
         
         cargarListView();
     }
     
     public void VentanaEtiquetas(Contacto co) {
         Stage g = new Stage();
-        //g.initModality(Modality.APPLICATION_MODAL);
-        //g.setTitle("Etiquetas");
-
         Label label = new Label("Seleccione una etiqueta para: "+co.getNombre()+" "+co.getApellido());
         Button btguardar = new Button("Aceptar");
         RadioButton rdfamilia = new RadioButton ("Familia");
@@ -858,12 +796,17 @@ public class ListaContactosController implements Initializable {
                 }
             }
 
-        });        
+        });  
+        
+        
+        rootNuevo.setStyle("-fx-background-color: #FFE4C4");
+        btguardar.setStyle("-fx-background-color: #FA8072; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
         
         Scene s = new Scene(rootNuevo, 500, 350);
 
+        
         g.setScene(s);
-        g.setTitle("Pedidos Generados");
+        g.setTitle("Etiquetas");
         g.show();
         
 
@@ -895,8 +838,6 @@ public class ListaContactosController implements Initializable {
     
     public void escribirArchivoEtiquetas(String name, String ape, String etique) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Etiquetas.txt", true))) {
-            //formato:
-            //writer.newLine();
             String cadena= name+","+ape+","+etique;
             writer.write(cadena);
             System.out.println("Se escribio la etiqueta del Contacto exitosamenteeeeee.......");
@@ -927,15 +868,12 @@ public class ListaContactosController implements Initializable {
     @FXML
     private void realizarBusquedaPersonalizada(ActionEvent event) {
         RadioButton selectedRadioButton = (RadioButton) option1.getSelectedToggle();
-        //System.out.println(selectedRadioButton);
         if (selectedRadioButton != null) {
             String tipoBusqueda = selectedRadioButton.getId();
 
-            // Obtener el texto del TextField o ComboBox
             String valorBusqueda = txdatoAbuscar.getText();
             String etiquetaBox = cbEContacto.getValue();
 
-            // Filtrar la lista según el tipo de búsqueda
             switch (tipoBusqueda) {
                 case "rdapellido":
                     filtrarPorApellido(valorBusqueda);
@@ -950,7 +888,6 @@ public class ListaContactosController implements Initializable {
                     filtrarPorEtiquetas(etiquetaBox);
                     break;                    
                 default:
-                    // Manejar otro caso si es necesario
                     break;
             }
         }
@@ -961,8 +898,6 @@ public class ListaContactosController implements Initializable {
 
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
-
-        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
         viewContactosCopia.getItems().clear();
 
         if (viewContactosCopia.getItems().isEmpty()) {
@@ -991,7 +926,6 @@ public class ListaContactosController implements Initializable {
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
         viewContactosCopia.getItems().clear();
-        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 
@@ -1020,7 +954,6 @@ public class ListaContactosController implements Initializable {
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
         viewContactosCopia.getItems().clear();
-        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 
@@ -1028,12 +961,10 @@ public class ListaContactosController implements Initializable {
                 if (contc.getPer().getPersona().equalsIgnoreCase(contactoAsociado)) {
                     for(Contacto contcoriginal:listaContactos ){
                         if(contc.getNombre().equals(contcoriginal.getNombre())&&contc.getApellido().equals(contcoriginal.getApellido())){
-                            //viewContactosCopia.getItems().add(contc);
                             viewContactosCopia.getItems().add(contcoriginal);
                         }
                     }
-                    
-                    //viewContactosCopia.getItems().add(contc);
+
                 }
 
             }
@@ -1052,7 +983,6 @@ public class ListaContactosController implements Initializable {
         contenedorList.getChildren().clear();
         vblista.getChildren().clear();
         viewContactosCopia.getItems().clear();
-        //ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
 
         if (viewContactosCopia.getItems().isEmpty()) {
 

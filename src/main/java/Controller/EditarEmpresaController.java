@@ -13,10 +13,8 @@ import Clases.PersonaAdiconal;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
-import static Controller.EditarContactoController.DatosAdicionales;
 import static Controller.EditarContactoController.contactoEditado;
 import static Controller.EditarContactoController.deleteFromFileEditContact;
-import static Controller.EditarContactoController.newfoto;
 import static Controller.ImagenesAsociadasController.conseguirFotosAsociadas;
 import static Controller.ListaContactosController.apellidoSelected;
 import static Controller.ListaContactosController.cadicional;
@@ -134,8 +132,6 @@ public class EditarEmpresaController implements Initializable {
     public void mostrarInformacion() {
         
         labelNombreEmpresa.setText(contactoSelected.getNombre());
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        //String fechaComoString = contactoSelected.getFecha().getFecha().format(formatter);
         labelDateEmpresa.setValue(contactoSelected.getFecha().getFecha());
         labelAddressEmpresa.setText(contactoSelected.getDir().getUbicacion());
         labelTlfEmpresa.setText(contactoSelected.getTlf().getTlf());
@@ -167,16 +163,12 @@ public class EditarEmpresaController implements Initializable {
 
         newFotoEmpresa = newImageFile.getName();
         try {
-            // Cargar la nueva imagen usando ImageIO
+
             FileInputStream inputStream = new FileInputStream(newImageFile);
             Image newImage = new Image(inputStream);
 
-            // Actualizar la ImageView con la nueva imagen
             imagenEmpresa.setImage(newImage);
 
-            // Puedes guardar la ruta de la nueva imagen en una variable si es necesario
-            // String newPath = newImageFile.getAbsolutePath();
-            // ...
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -271,7 +263,7 @@ public class EditarEmpresaController implements Initializable {
         String apellidoSeleccionado = contactoSelected.getApellido();
         
 
-//        listViewContactos.getItems().remove(4);
+
         
         Contacto people = new Contacto(labelNombreEmpresa.getText(),"",new Telefono(comboBoxTlfEmpresa.getValue(), labelTlfEmpresa.getText()),new Direccion(comboBoxDireccionEmpresa.getValue(),labelAddressEmpresa.getText()),
                           new Email(comboBoxEmailEmpresa.getValue(),labelEmailEmpresa.getText()), new Fecha(comboBoxFechaEmpresa.getValue(), labelDateEmpresa.getValue()));
@@ -285,8 +277,7 @@ public class EditarEmpresaController implements Initializable {
         System.out.println(listaContactos);
         String nombre= contactoEditado.getNombre();
         String apellido = contactoEditado.getApellido();
-        //String fotoEdit= newfoto;
-        //Foto im= new Foto(nombre,apellido,fotoEdit);
+
         
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -296,19 +287,18 @@ public class EditarEmpresaController implements Initializable {
         alert.showAndWait();
             if(alert.getResult().equals(ButtonType.OK)){
       
-            //listaContactos.remove(contactoEditado);
+
             System.out.println(listaContactos);
-            //lstCamposAdicionales.remove(DatosAdicionales);
-            //lstfotoPerfiles.remove(im);
+
          
             System.out.println("Entra para eliminar en CONTACTOS.TXT");
-            //eliminar contacto en Contactos.txt
+
             deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado,"src/main/resources/archivos/Contactos.txt");
             listaContactos.add(contactoEditado);
             escribirArchivoContactosEditado();
             
             System.out.println("Entra para eliminar en CamposAdicionales.TXT");
-            //eliminar contacto en CamposAdicionales.txt
+
             deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/CamposAdicionales.txt");
             lstCamposAdicionales.add(DatosAdicionalesEmpresa);
             EscribirArchivoCamposAdEditados();
@@ -325,7 +315,7 @@ public class EditarEmpresaController implements Initializable {
             deleteInfoFromFile(nombreSeleccionado, apellidoSeleccionado, "src/main/resources/archivos/FotosPerfil.txt");
             
             if(newFotoEmpresa != null){  
-                //eliminar contacto en FotosPerfil.txt
+
                 System.out.println("Entra para eliminar en Fotos.TXT");
                 Foto im= new Foto(nombre, apellido, newFotoEmpresa);
                 lstfotoPerfiles.add(im);
@@ -388,8 +378,6 @@ public class EditarEmpresaController implements Initializable {
     
     public void escribirArchivoContactosEditado() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt", true))) {
-            //formato:
-            //Nombre,Apellido,Telefono,Direccion,Email,Fecha pertinente,Persona Adiconal,Red social,Empresa
             String nombre = contactoEditado.getNombre();
             String Apellido = "";
             String Telefono = contactoEditado.getTlf().getTipoTlf() + "-" + contactoEditado.getTlf().getTlf();

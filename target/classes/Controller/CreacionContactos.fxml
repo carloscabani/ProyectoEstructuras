@@ -160,15 +160,21 @@
                                  <effect>
                                     <DropShadow />
                                  </effect></ComboBox>
-                              <Button fx:id="btcampos" centerShape="false" layoutX="14.0" layoutY="218.0" mnemonicParsing="false" text="Mas campos...">
+                              <Button fx:id="btcampos" centerShape="false" layoutX="14.0" layoutY="218.0" mnemonicParsing="false" style="-fx-background-color: #FFC0CB;" text="Mas campos...">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
-                              <Button fx:id="btocultar" layoutX="130.0" layoutY="218.0" mnemonicParsing="false" onAction="#ocultarCampos" text="Ocultar">
+                              <Button fx:id="btocultar" layoutX="130.0" layoutY="218.0" mnemonicParsing="false" onAction="#ocultarCampos" style="-fx-background-color: #FFC0CB;" text="Ocultar">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
                               </Button>
                               <VBox fx:id="vbcamposopcionales" layoutX="-2.0" layoutY="253.0" prefHeight="137.0" prefWidth="387.0">
                                  <children>

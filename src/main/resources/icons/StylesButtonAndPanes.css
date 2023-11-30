@@ -104,7 +104,7 @@
 */
 
 .fondoIndividualContacto{
-    -fx-background-image: url("FondoContactoIndividual.png");
+    -fx-background-image: url("FondoContactoIn.png");
     -fx-background-size:462px 600px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
@@ -136,6 +136,17 @@
 */
 .fondoVisualizar{
     -fx-background-image: url("FondoVisualizar4.png");
+    -fx-background-size:462px 600px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+/*
+-------------------------------- Ventana Imagen Asociada ----------------------------------
+*/
+
+.fondoImagenes{
+    -fx-background-image: url("FondoImgAsociado.png");
     -fx-background-size:462px 600px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;

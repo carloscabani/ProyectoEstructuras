@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
@@ -21,8 +23,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("ListaContactos"), 462, 600);
+        scene = new Scene(loadFXML("Login"), 462, 600);
         stage.setScene(scene);
+        stage.setTitle("LinkBook");
+        stage.getIcons().add(new Image("file:Image/IconApp.png"));
+        
         stage.show();
     }
 
@@ -37,21 +42,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-//        Class<?> claseActual = App.class;
-//
-//         Obtener el ClassLoader para cargar recursos
-//        ClassLoader classLoader = claseActual.getClassLoader();
-//
-//         Obtener la ruta del paquete
-//        String nombrePaquete = claseActual.getPackage().getName();
-//        String rutaPaquete = nombrePaquete.replace('.', '/');
-//
-//         Concatenar la ruta del paquete con el nombre del archivo
-//        String nombreArchivo = "archivo.txt";
-//        String rutaCompleta = rutaPaquete + "/" + nombreArchivo;
-//
-//         Imprimir la ruta completa
-//        System.out.println("Ruta del archivo: " + rutaCompleta);
 
     }
 
