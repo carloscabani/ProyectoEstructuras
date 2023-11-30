@@ -2,3 +2,7 @@ Armando10,Ar10do
 Jose2023,jose1
 leoMessi,lm10
 Alex1,benites1
+Cristiano,cr7
+Zlatan,z10
+Xavi,x7
+LuisSuarez,luis9

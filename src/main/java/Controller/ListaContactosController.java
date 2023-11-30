@@ -136,7 +136,7 @@ public class ListaContactosController implements Initializable {
             cargarMapaEtiquetas();
             System.out.println("Se cargo el mapa exitosamente............");
         }else{
-            System.out.println("El mapa ya esta cargado..........");
+            System.out.println("El mapa de etiquetas ya esta cargado..........");
         }
         
        

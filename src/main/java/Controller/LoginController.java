@@ -48,7 +48,13 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lbsms.setText("");
-        cargarMapaUsuarios();
+        if (mapaUsuarios.isEmpty()) {
+            cargarMapaUsuarios();
+            System.out.println("Tu Mapa ha sido llenado correctamente.");
+        } else {
+            System.out.println("Tu mapa ya esta lleno.");
+        }
+        
     }    
 
     @FXML

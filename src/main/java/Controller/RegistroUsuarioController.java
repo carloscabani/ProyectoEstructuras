@@ -62,6 +62,7 @@ public class RegistroUsuarioController implements Initializable {
             lberror.setVisible(true);
         } else {
             escribirEnArchivoLogin();
+            mapaUsuarios.put(txusuarioNuevo.getText(), txcontrasenia.getText());
             App.setRoot("Login");
         }
     }
