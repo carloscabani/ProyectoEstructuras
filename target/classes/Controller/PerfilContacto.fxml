@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panegeneral" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="462.0" styleClass="fondoVisualizar" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PerfilContactoController">
+<AnchorPane fx:id="panegeneral" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="462.0" styleClass="fondoVisualizar" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PerfilContactoController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="paneContactosVisualizacion" layoutY="63.0" prefHeight="511.0" prefWidth="462.0">
          <children>
@@ -101,6 +101,12 @@
                         <Font name="Sitka Text" size="18.0" />
                      </font>
                   </Label>
+                  <Button layoutX="18.0" layoutY="91.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="17.0" textFill="#0fcbcf" />
+                  <ImageView fitHeight="25.0" fitWidth="27.0" layoutX="14.0" layoutY="92.0" onMouseClicked="#mostrarContactoAsociado" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/vista.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane fx:id="paneTrabajoFoto" layoutY="387.0" prefHeight="150.0" prefWidth="462.0">

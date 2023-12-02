@@ -9,7 +9,7 @@ import Clases.Direccion;
 import Clases.Email;
 import Clases.Fecha;
 import Clases.Foto;
-import Clases.PersonaAdiconal;
+import Clases.PersonaAdicional;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
@@ -17,14 +17,10 @@ import static Controller.EditarContactoController.contactoEditado;
 import static Controller.EditarContactoController.deleteFromFileEditContact;
 import static Controller.ImagenesAsociadasController.conseguirFotosAsociadas;
 import static Controller.ListaContactosController.apellidoSelected;
-import static Controller.ListaContactosController.cadicional;
 import static Controller.ListaContactosController.contactoSelected;
 import static Controller.ListaContactosController.listaContactos;
 import static Controller.ListaContactosController.lstCamposAdicionales;
 import static Controller.ListaContactosController.nombreSelected;
-import static Controller.ListaContactosController.redsoc;
-import static Controller.ListaContactosController.typec;
-import static Controller.ListaContactosController.typered;
 import ListTDA.LLDouble;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -51,6 +47,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import static Controller.ListaContactosController.contAdicional;
+import static Controller.ListaContactosController.redSoc;
+import static Controller.ListaContactosController.typeRedSocial;
+import static Controller.ListaContactosController.typeContactAdicional;
 
 /**
  * FXML Controller class
@@ -135,15 +135,15 @@ public class EditarEmpresaController implements Initializable {
         labelDateEmpresa.setValue(contactoSelected.getFecha().getFecha());
         labelAddressEmpresa.setText(contactoSelected.getDir().getUbicacion());
         labelTlfEmpresa.setText(contactoSelected.getTlf().getTlf());
-        labelContactoEmpresa.setText(cadicional);
-        labelRedSocialEmpresa.setText(redsoc);
+        labelContactoEmpresa.setText(contAdicional);
+        labelRedSocialEmpresa.setText(redSoc);
         
         labelEmailEmpresa.setText(contactoSelected.getEmail().getTipo());
         comboBoxTlfEmpresa.setValue(contactoSelected.getTlf().getTipoTlf());
         comboBoxDireccionEmpresa.setValue(contactoSelected.getDir().getTipoDireccion());
         comboBoxFechaEmpresa.setValue(contactoSelected.getFecha().getTipoFecha());
-        comboBoxContactoAd.setValue(typec);
-        comboBoxRedSocialEmpresa.setValue(typered);
+        comboBoxContactoAd.setValue(typeContactAdicional);
+        comboBoxRedSocialEmpresa.setValue(typeRedSocial);
         comboBoxEmailEmpresa.setValue(contactoSelected.getEmail().getCorreo());
         ponerimagenAsociadaEmpresa();
     }
@@ -267,7 +267,7 @@ public class EditarEmpresaController implements Initializable {
         
         Contacto people = new Contacto(labelNombreEmpresa.getText(),"",new Telefono(comboBoxTlfEmpresa.getValue(), labelTlfEmpresa.getText()),new Direccion(comboBoxDireccionEmpresa.getValue(),labelAddressEmpresa.getText()),
                           new Email(comboBoxEmailEmpresa.getValue(),labelEmailEmpresa.getText()), new Fecha(comboBoxFechaEmpresa.getValue(), labelDateEmpresa.getValue()));
-        Contacto dateperson= new Contacto(labelNombreEmpresa.getText(),"",new PersonaAdiconal(labelContactoEmpresa.getText(), comboBoxContactoAd.getValue()), new RedSocial(comboBoxRedSocialEmpresa.getValue(), labelRedSocialEmpresa.getText()), "");
+        Contacto dateperson= new Contacto(labelNombreEmpresa.getText(),"",new PersonaAdicional(labelContactoEmpresa.getText(), comboBoxContactoAd.getValue()), new RedSocial(comboBoxRedSocialEmpresa.getValue(), labelRedSocialEmpresa.getText()), "");
         
         
         contactoEditado = people;

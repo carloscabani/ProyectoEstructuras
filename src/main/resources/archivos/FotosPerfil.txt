@@ -2,5 +2,5 @@ ber,s,letraB.png
 Rin,Itoshi,letraR.jpg
 Alex,Benites,letraA.jpg
 Nike,,letraN.jpg
-Dennis,Rodman,letraD.jpg
-Adidas SA,,empresa4d.jpg
+Dennis,Rodman,persona7a.jpg
+Alberto,Manrique,persona4a.jpg

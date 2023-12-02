@@ -23,7 +23,7 @@ public class Contacto implements Comparable<Contacto>{
     
     private Email email;
     
-    private PersonaAdiconal per; 
+    private PersonaAdicional per; 
 
     
     private Fecha fecha;
@@ -43,7 +43,7 @@ public class Contacto implements Comparable<Contacto>{
         this.fecha = fecha;
     }
 
-    public Contacto(String n, String ape, PersonaAdiconal personaAd, RedSocial redSocial, String empresa) {
+    public Contacto(String n, String ape, PersonaAdicional personaAd, RedSocial redSocial, String empresa) {
         this.nombre = n;
         this.apellido = ape;
         this.per = personaAd;
@@ -65,11 +65,11 @@ public class Contacto implements Comparable<Contacto>{
     }
     
     
-    public PersonaAdiconal getPer() {
+    public PersonaAdicional getPer() {
         return per;
     }
 
-    public void setPer(PersonaAdiconal per) {
+    public void setPer(PersonaAdicional per) {
         this.per = per;
     }
 

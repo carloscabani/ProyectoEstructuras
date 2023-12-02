@@ -12,6 +12,7 @@ Controller\LoginController.class
 ListTDA\ListGroup9.class
 ListTDA\ArrayG9$1.class
 Controller\ListaContactosController$9.class
+Clases\PersonaAdicional.class
 Clases\Foto.class
 Controller\App.class
 Controller\PatronContraseniaController.class
@@ -32,7 +33,6 @@ ListTDA\LLDouble.class
 Controller\PerfilContactoController$2.class
 Controller\ListaContactosController$1.class
 Controller\ImagenesAsociadasController.class
-Clases\PersonaAdiconal.class
 ListTDA\LLDouble$2.class
 Controller\CreacionContactosController.class
 Clases\Email.class

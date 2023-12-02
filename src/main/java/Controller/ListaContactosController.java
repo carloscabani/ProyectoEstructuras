@@ -16,18 +16,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -46,7 +42,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -63,11 +58,11 @@ public class ListaContactosController implements Initializable {
     public static Contacto contactoSelected; 
     public static String nombreSelected;
     public static String apellidoSelected;
-    public static String cadicional;
-    public static String redsoc;
-    public static String empre;
-    public static String typec;
-    public static String typered;
+    public static String contAdicional;
+    public static String redSoc;
+    public static String empresa;
+    public static String typeContactAdicional;
+    public static String typeRedSocial;
     public static int selectedIndex;
     public static Map<String,String> etiquetasPersonas = new HashMap<>();
     public static ListView<Contacto> viewContactosCopia = new ListView<Contacto>();
@@ -288,7 +283,7 @@ public class ListaContactosController implements Initializable {
                 System.out.println("Empresa: " + empresa);
                 System.out.println("////////////");
 
-                Contacto camposCont1 = new Contacto(nombre, apellido, new PersonaAdiconal(PerContac, tipoPer), new RedSocial(tipoRed, userRed), empresa);
+                Contacto camposCont1 = new Contacto(nombre, apellido, new PersonaAdicional(PerContac, tipoPer), new RedSocial(tipoRed, userRed), empresa);
 
                 System.out.println("YA SE CARGO CAMPO Adicional con exito........");
                 lstCamposAdicionales.add(camposCont1);
@@ -353,11 +348,11 @@ public class ListaContactosController implements Initializable {
 
             for (Contacto cf : lstCamposAdicionales) {
                 if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
-                    cadicional = cf.getPer().getPersona();
-                    redsoc = cf.getRedSocial().getUsername();
-                    empre = cf.getEmpresa();
-                    typered = cf.getRedSocial().getTipoRedSocial();
-                    typec = cf.getPer().getTipoPersona();
+                    contAdicional = cf.getPer().getPersona();
+                    redSoc = cf.getRedSocial().getUsername();
+                    empresa = cf.getEmpresa();
+                    typeRedSocial = cf.getRedSocial().getTipoRedSocial();
+                    typeContactAdicional = cf.getPer().getTipoPersona();
                 }
             }
 
@@ -390,11 +385,11 @@ public class ListaContactosController implements Initializable {
 
             for (Contacto cf : lstCamposAdicionales) {
                 if (selectedItem.getNombre().equals(cf.getNombre()) && selectedItem.getApellido().equals(cf.getApellido())) {
-                    cadicional = cf.getPer().getPersona();
-                    redsoc = cf.getRedSocial().getUsername();
-                    empre = cf.getEmpresa();
-                    typered = cf.getRedSocial().getTipoRedSocial();
-                    typec = cf.getPer().getTipoPersona();
+                    contAdicional = cf.getPer().getPersona();
+                    redSoc = cf.getRedSocial().getUsername();
+                    empresa = cf.getEmpresa();
+                    typeRedSocial = cf.getRedSocial().getTipoRedSocial();
+                    typeContactAdicional = cf.getPer().getTipoPersona();
                 }
             }
 

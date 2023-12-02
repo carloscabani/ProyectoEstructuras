@@ -108,10 +108,10 @@ public class VistaContactoIndividualController implements Initializable {
         lce.setText(contactoSelected.getTlf().getTlf() + " - " + contactoSelected);
         lcorre.setText(contactoSelected.getEmail().getCorreo() + " - " + contactoSelected.getEmail().getTipo());
         lbfe.setText(contactoSelected.getFecha().getTipoFecha() + " - " + contactoSelected.getFecha().getFecha());
-        System.out.println(cadicional);
-        lper.setText(cadicional+" - "+ typec);
-        lred.setText(redsoc+" - "+typered);
-        lbem.setText(empre);
+        System.out.println(contAdicional);
+        lper.setText(contAdicional+" - "+ typeContactAdicional);
+        lred.setText(redSoc+" - "+typeRedSocial);
+        lbem.setText(empresa);
 
         lbdir.setText(contactoSelected.getDir().getUbicacion() + " - " + contactoSelected.getDir().getTipoDireccion());
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package Controller;
 
 import Clases.Contacto;
@@ -9,15 +6,13 @@ import Clases.Direccion;
 import Clases.Email;
 import Clases.Fecha;
 import Clases.Foto;
-import Clases.PersonaAdiconal;
+import Clases.PersonaAdicional;
 import Clases.RedSocial;
 import Clases.Telefono;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
 import static Controller.ImagenesAsociadasController.conseguirFotosAsociadas;
 import static Controller.ListaContactosController.*;
 import static Controller.ListaContactosController.contactoSelected;
-import static Controller.ListaContactosController.empre;
-import static Controller.ListaContactosController.redsoc;
 import ListTDA.LLDouble;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -47,6 +42,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import static Controller.ListaContactosController.redSoc;
+import static Controller.ListaContactosController.empresa;
 
 /**
  * FXML Controller class
@@ -121,15 +118,15 @@ public class EditarContactoController implements Initializable {
         newfecha.setValue(contactoSelected.getFecha().getFecha());
         newdireccion.setText(contactoSelected.getDir().getUbicacion());
         newtelefono.setText(contactoSelected.getTlf().getTlf());
-        newcontacto.setText(cadicional);
-        newred.setText(redsoc);
-        newempresa.setText(empre);
+        newcontacto.setText(contAdicional);
+        newred.setText(redSoc);
+        newempresa.setText(empresa);
         newemail.setText(contactoSelected.getEmail().getTipo());
         bcell.setValue(contactoSelected.getTlf().getTipoTlf());
         bdireccion.setValue(contactoSelected.getDir().getTipoDireccion());
         bfecha.setValue(contactoSelected.getFecha().getTipoFecha());
-        badicional.setValue(typec);
-        bred.setValue(typered);
+        badicional.setValue(typeContactAdicional);
+        bred.setValue(typeRedSocial);
         bemail.setValue(contactoSelected.getEmail().getCorreo());
         ponerimagenAsociada();
     }
@@ -259,7 +256,7 @@ public class EditarContactoController implements Initializable {
         
         Contacto people = new Contacto(newnombre.getText(),newapellido.getText(),new Telefono(bcell.getValue(), newtelefono.getText()),new Direccion(bdireccion.getValue(),newdireccion.getText()),
                           new Email(bemail.getValue(),newemail.getText()), new Fecha(bfecha.getValue(), newfecha.getValue()));
-        Contacto dateperson= new Contacto(newnombre.getText(),newapellido.getText(),new PersonaAdiconal(newcontacto.getText(), badicional.getValue()), new RedSocial(bred.getValue(), newred.getText()), newempresa.getText());
+        Contacto dateperson= new Contacto(newnombre.getText(),newapellido.getText(),new PersonaAdicional(newcontacto.getText(), badicional.getValue()), new RedSocial(bred.getValue(), newred.getText()), newempresa.getText());
         
         
         contactoEditado = people;

@@ -1,5 +1,5 @@
 Rin,Itoshi,letraR.jpg,persona2a.jpg,persona2b.jpg
 Alex,Benites,letraA.jpg,persona3a.jpg,persona3b.jpg
 Nike,,letraN.jpg,empresa1a.jpg,empresa1b.jpg
-Dennis,Rodman,letraD.jpg,persona4a.jpg,,empresa1a.jpg
-Adidas SA,,empresa4d.jpg,empresa4b.jpg,empresa4c.jpg
+Dennis,Rodman,persona7a.jpg
+Alberto,Manrique,persona4a.jpg

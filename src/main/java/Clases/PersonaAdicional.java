@@ -8,11 +8,11 @@ package Clases;
  *
  * @author Abeni
  */
-public class PersonaAdiconal {
+public class PersonaAdicional {
     private String nombreCompleto;
     private String tipo;
 
-    public PersonaAdiconal(String nombre, String tipo) {
+    public PersonaAdicional(String nombre, String tipo) {
         this.nombreCompleto = nombre;
         this.tipo = tipo;
     }

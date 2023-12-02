@@ -7,21 +7,14 @@ package Controller;
 import Clases.*;
 import static Controller.ListaContactosController.*;
 import ListTDA.ArrayG9;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import javax.imageio.ImageIO;
 
 
 /**
@@ -72,7 +64,7 @@ public class CreacionContactosController implements Initializable {
     Label l1 = new Label("Persona Contacto:");
     Label l2 = new Label("Red Social:      ");
     Label l3 = new Label("Empresa:");
-    TextField tperContacto = new TextField();
+    TextField contAsociado = new TextField();
     TextField tempresa = new TextField();
     TextField tsitioweb = new TextField();
     Image img ;
@@ -155,7 +147,7 @@ public class CreacionContactosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tperContacto.getStyleClass().add("txfield");
+        contAsociado.getStyleClass().add("txfield");
         tempresa.getStyleClass().add("txfield");
         tsitioweb.getStyleClass().add("txfield");
         c1.getStyleClass().add("combo");
@@ -188,13 +180,13 @@ public class CreacionContactosController implements Initializable {
     @FXML
     private void enviarListaContactos(ActionEvent event) {
         btguardar.setOnAction((ActionEvent e) -> {
-            String tipoPersonaContacto = (String) c1.getValue();
+            String typePersonaContacto = (String) c1.getValue();
             String nombre = txnombre.getText();
             String apellido = txapellido.getText();
             Telefono Tel = new Telefono (txtelefono.getText(),cbtelefono.getValue());
             Direccion di = new Direccion(txdireccion.getText(),cbdireccion.getValue());
             Email em= new Email(cbemail.getValue(),txemail.getText());
-            PersonaAdiconal per=new PersonaAdiconal(tipoPersonaContacto,tperContacto.getText());
+            PersonaAdicional per=new PersonaAdicional(contAsociado.getText(), typePersonaContacto);
             
             LocalDate fecha = txcalendario.getValue();
             Fecha fech= new Fecha(cbfecha.getValue(),fecha);
@@ -227,7 +219,7 @@ public class CreacionContactosController implements Initializable {
             txtelefono.clear();
             txdireccion.clear();
             txemail.clear();
-            tperContacto.clear();
+            contAsociado.clear();
             tempresa.clear();
             tsitioweb.clear();
             c1.setValue("");
@@ -254,7 +246,7 @@ public class CreacionContactosController implements Initializable {
             Telefono Tel = new Telefono (txtTelefonoEmpresa.getText(),comboBoxTlf.getValue());
             Direccion di = new Direccion(txtDireccionEmpresa.getText(),comboBoxDir.getValue());
             Email em= new Email(comboBoxEmail.getValue(),txtEmailEmpresa.getText());
-            PersonaAdiconal per=new PersonaAdiconal(txtContactoAsoEmpresa.getText(),comboBoxContAso.getValue());
+            PersonaAdicional per=new PersonaAdicional(txtContactoAsoEmpresa.getText(),comboBoxContAso.getValue());
             
             LocalDate fecha = txtFechaEmpresa.getValue();
             Fecha fech= new Fecha(comboBoxFecha.getValue(),fecha);
@@ -315,7 +307,7 @@ public class CreacionContactosController implements Initializable {
             l1.setFont(new Font(15));
             l2.setFont(new Font(15));
             l3.setFont(new Font(15));
-            hbpercontacto.getChildren().addAll(l1,tperContacto,c1);
+            hbpercontacto.getChildren().addAll(l1,contAsociado,c1);
             hbpercontacto.setSpacing(20);//20
             hbsitioweb.getChildren().addAll(l2,tsitioweb,c2);
             hbsitioweb.setSpacing(30);//30
@@ -494,10 +486,10 @@ public class CreacionContactosController implements Initializable {
             String conAdicon = "ninguno";
             String red = "ninguno";
             String empresa="ninguno";
-            if (tperContacto.getText().equals("")) {
+            if (contAsociado.getText().equals("")) {
                 conAdicon = "ninguno-ninguno";
             } else {
-                conAdicon = tperContacto.getText() + "-" +c1.getValue();
+                conAdicon = contAsociado.getText() + "-" +c1.getValue();
             }
             if (tsitioweb.getText().equals("")) {
                 red = "ninguno-ninguno";

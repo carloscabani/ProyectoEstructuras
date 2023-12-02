@@ -1,5 +1,5 @@
 Rin,Itoshi,Shidou-Amigo,Rin10-Instagram,ninguno
 Alex,Benites,Sebastian-Amigo,Axel10-Instagram,LabFarmac
 Nike,,Nike-Ventas,amazon-Instagram,
-Dennis,Rodman,Rebeca Martins-Madre,dRodman-Twitter,Nike
-Adidas SA,,jsjjajsa-Director,adidas_us-Instagram,
+Dennis,Rodman,Nike-Jefe,d11_rodman-Instagram,Nicovita
+Alberto,Manrique,Dennis Rodman-Jefe,alberto_-Instagram,Nicovita

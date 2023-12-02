@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package Controller;
 
 import Clases.Contacto;
 import Clases.Foto;
-//import static Controller.CreacionContactosController.lstfotoPerfiles;
 import static Controller.ListaContactosController.*;
 import ListTDA.ArrayG9;
 import java.io.BufferedReader;
@@ -50,7 +46,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -62,7 +57,9 @@ public class PerfilContactoController implements Initializable {
     
     public int indiceActual = 0;
     public static ArrayG9 <Foto> lstfotoPerfiles = new ArrayG9<>();
-
+    private String imagenPersonaActual;
+    public static Contacto contactoActual;
+    public static String contactoActualAdicional;
 
 
     @FXML
@@ -106,10 +103,6 @@ public class PerfilContactoController implements Initializable {
     
     @FXML
     private ImageView imgGPS;
-    
-    private String imagenPersonaActual;
-    
-    public static Contacto contactoActual;
     
     @FXML
     private Button deleteButton;
@@ -199,6 +192,7 @@ public class PerfilContactoController implements Initializable {
                 System.out.println(camp.getNombre());
 
                 String personaAdicional = camp.getPer().getPersona();
+                contactoActualAdicional = personaAdicional;
                 String tipoPersona = camp.getPer().getTipoPersona();
                 String tipoRedSocial = camp.getRedSocial().getTipoRedSocial();
                 String username = camp.getRedSocial().getUsername();
@@ -532,6 +526,70 @@ public class PerfilContactoController implements Initializable {
     private void ventanaVisualizarFotos(MouseEvent event) throws IOException {
         App.setRoot("ImagenesAsociadas");
     }
-    
-    
+
+    @FXML
+    private void mostrarContactoAsociado(MouseEvent event) throws IOException {
+        String personAsociada = contactoActualAdicional;
+        System.out.println(personAsociada);
+        String[] contenido = personAsociada.split(" ");
+        contactoSelected = null;
+        String nombre = contenido[0].trim();
+        String apell;
+        if(contenido.length>1){
+            apell = contenido[1].trim();
+            for(Contacto cont : listaContactos){
+                if(cont.getApellido().equals(apell) && cont.getNombre().equals(nombre)){
+                    System.out.println("1 Contacto asociado SI está registrado");
+                    contactoSelected = cont;
+                    for(Contacto person : lstCamposAdicionales){
+                        if(person.getNombre().equals(nombre) && person.getApellido().equals(apell)){
+                            contAdicional = person.getPer().getPersona();
+                            typeContactAdicional = person.getPer().getTipoPersona();
+                            redSoc = person.getRedSocial().getUsername();
+                            typeRedSocial = person.getRedSocial().getTipoRedSocial();
+                            empresa = person.getEmpresa();
+                    
+                        }
+                    }
+                    
+                    
+                }
+                
+            }
+            
+            
+           
+        }else if(contenido.length==1){
+            
+            for(Contacto contact : listaContactos){
+                if(contact.getNombre().equals(nombre)){
+                    System.out.println("3 Contacto asociado SI está registrado");
+                    contactoSelected = contact;
+                    for(Contacto person : lstCamposAdicionales){
+                        if(person.getNombre().equals(nombre)){
+                            contAdicional = person.getPer().getPersona();
+                            typeContactAdicional = person.getPer().getTipoPersona();
+                            redSoc = person.getRedSocial().getUsername();
+                            typeRedSocial = person.getRedSocial().getTipoRedSocial();
+                            empresa = person.getEmpresa();
+                    
+                        }
+                    }
+                
+                }
+        
+            }
+            
+        
+        }
+        
+        if(contactoSelected==null){
+            System.out.println("4 Contacto asociado NO está registrado");
+            mostrarAlerta("Lo sentimos", "El usuario no esta registrado en la App");
+        }else{
+        
+            App.setRoot("VistaContactoIndividual");
+        }
+        
+    }
 }
