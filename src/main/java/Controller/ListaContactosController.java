@@ -438,7 +438,9 @@ public class ListaContactosController implements Initializable {
                         System.out.println("Es una empresa: " + selectedItem);
                         
                         App.setRoot("EditarEmpresa");
+                        contenedorList.getChildren().clear();
                     } else {
+                        contenedorList.getChildren().clear();
                         System.out.println("Es una persona: " + selectedItem);
                         
                         App.setRoot("EditarContacto");

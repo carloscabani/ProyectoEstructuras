@@ -7,6 +7,8 @@ package Controller;
 import Clases.Foto;
 import static Controller.CreacionContactosController.lstfotoPerfiles;
 import static Controller.ListaContactosController.*;
+import static Controller.PerfilContactoController.contactoActualAdicional;
+import static Controller.PerfilContactoController.showInfo;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -163,6 +165,10 @@ public class VistaContactoIndividualController implements Initializable {
         VBox rootNuevo = new VBox();
         rootNuevo.getChildren().addAll(hcontenedor, hradioButtons, h1);
 
+        rootNuevo.setStyle("-fx-background-color: #FFE4C4");
+        btguardar.setStyle("-fx-background-color: #FA8072; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");        
+        cbArchivo.setStyle("-fx-background-color: #87CEEB; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 5, 5);");
+        
         rdImagen.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
@@ -284,4 +290,10 @@ public class VistaContactoIndividualController implements Initializable {
             e.printStackTrace();
         }        
     }    
+
+    @FXML
+    private void showInfoContactAdicional(MouseEvent event) throws IOException {
+        
+        showInfo(contactoActualAdicional);
+    }
 }

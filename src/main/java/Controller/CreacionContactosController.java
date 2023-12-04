@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package Controller;
 
 import Clases.*;
@@ -184,7 +181,7 @@ public class CreacionContactosController implements Initializable {
             String nombre = txnombre.getText();
             String apellido = txapellido.getText();
             Telefono Tel = new Telefono (txtelefono.getText(),cbtelefono.getValue());
-            Direccion di = new Direccion(txdireccion.getText(),cbdireccion.getValue());
+            Direccion di = new Direccion(cbdireccion.getValue(), txdireccion.getText());
             Email em= new Email(cbemail.getValue(),txemail.getText());
             PersonaAdicional per=new PersonaAdicional(contAsociado.getText(), typePersonaContacto);
             
@@ -244,7 +241,7 @@ public class CreacionContactosController implements Initializable {
             String apellido = "";
             String Empresa= "";
             Telefono Tel = new Telefono (txtTelefonoEmpresa.getText(),comboBoxTlf.getValue());
-            Direccion di = new Direccion(txtDireccionEmpresa.getText(),comboBoxDir.getValue());
+            Direccion di = new Direccion(comboBoxDir.getValue(), txtDireccionEmpresa.getText());
             Email em= new Email(comboBoxEmail.getValue(),txtEmailEmpresa.getText());
             PersonaAdicional per=new PersonaAdicional(txtContactoAsoEmpresa.getText(),comboBoxContAso.getValue());
             
@@ -515,10 +512,10 @@ public class CreacionContactosController implements Initializable {
     public void EscribirEmpresaCamposAdicionalesTxt(){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt",true))) {
             String nombre =txtNombreEmpresa.getText();
-            String apellido = null;
+            String apellido = "";
             String contactoAdicional = txtContactoAsoEmpresa.getText()+" - "+ comboBoxContAso.getValue();
             String web = txtWebEmpresa.getText()+" - "+ comboBoxWeb.getValue();
-            String empresa=null;
+            String empresa="";
             
             writer.write(nombre+","+apellido+","+contactoAdicional+","+web+","+empresa);
             System.out.println("Se escribieron campos adicionales exitosamenteeeeee.......");

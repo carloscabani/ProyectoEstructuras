@@ -1,4 +1,14 @@
 Rin,Itoshi,Shidou-Amigo,Rin10-Instagram,ninguno
 Alex,Benites,Sebastian-Amigo,Axel10-Instagram,LabFarmac
-Nike,,Nike-Ventas,amazon-Instagram,
 Dennis,Rodman,Nike-Jefe,d11_rodman-Instagram,Nicovita
+Alberto,Manrique,Dennis Rodman-Jefe,alberto_-Instagram,Nicovita
+Gabriela,Viteri,Agripac-Jefe,viteriGab7-Facebook,La Favorita
+Agripac,,Charles Darwin - Director,agripac_ec - Twitter,
+Aaron,Garcia,Alex Benites-Amigo,aaron99_-Instagram,El Rosado
+Patricio,Gutierrez,Ivan Hurtado-Amigo,pguti123-Instagram,AV25
+Silvia,Gonzalez,Charles Darwin-Jefe,gonzasilvia_-Twitter,Agripac
+Tijerazos,,Romina Bastidas - Ventas,tijerazos_ec - Facebook,
+Romina,Bastidas,Lesly Bastidas-Madre,rominaBast20-Instagram,Tijerazos
+EASport,,Nike - Director,easport - Facebook,
+Manuel,Silamon,Fernando Estrada-Hermano,manuelT-Instagram,Cambridge
+Nike,,Romina Bastidas - Ventas,nike_us - Facebook,

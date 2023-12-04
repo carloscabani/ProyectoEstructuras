@@ -1,5 +1,13 @@
 Rin,Itoshi,letraR.jpg,persona2a.jpg,persona2b.jpg
 Alex,Benites,letraA.jpg,persona3a.jpg,persona3b.jpg
-Nike,,letraN.jpg,empresa1a.jpg,empresa1b.jpg
 Dennis,Rodman,persona7a.jpg
 Alberto,Manrique,persona4a.jpg
+Gabriela,Viteri,persona5a.jpg
+Agripac,,empresa5a.jpg
+Aaron,Garcia,persona1a.jpg
+Patricio,Gutierrez,persona6a.jpg,persona6b.jpg
+Silvia,Gonzalez,persona8a.jpg
+Tijerazos,,empresa2a.jpg
+Romina,Bastidas,persona9a.jpg
+Manuel,Silamon,persona10a.jpg,
+Nike,,empresa1a.jpg

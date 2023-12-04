@@ -1,4 +1,13 @@
 Rin,Itoshi,Movil-12555555,Otro-BlueLock Jpon,Casa-rin10@gmail.com,Aniversario-2023-11-09
 Alex,Benites,Trabajo-77777777,Trabajo-Guayaquil,Trabajo-Alex154@hmial.ec,Cumplea?os-2023-11-01
-Nike,,099658731-Telefono Convencional,EEUU-Direccion,amazon@prime.com-Ventas especiales,Aniversario Empresarial-2012-11-09
 Dennis,Rodman,Movil-6123658974,Trabajo-EEUU,Trabajo-dRodman@gmail.com,Aniversario-2005-03-30
+Alberto,Manrique,Casa-098636341,Casa-EEUU,Trabajo-manrique@gmail.com,Aniversario-2009-05-22
+Gabriela,Viteri,Movil-0987414222,Casa-Daule,Trabajo-gviteri@gmail.com,Aniversario-2007-04-05
+Agripac,,Telefono Convencional-2560400,Direccion-Guayaquil,Atencion al cliente-info@agripac.com.ec,Aniversario Empresarial-2007-03-06
+Aaron,Garcia,Movil-0986367254,Casa-Daule,Trabajo-garcia77@hotmail.com,Cumplea?os-2024-08-14
+Patricio,Gutierrez,Casa-0978475444,Casa-Milagro,Trabajo-pguti@espol.edu.ec,Aniversario-2017-08-08
+Silvia,Gonzalez,Principal-099986475,Casa-Milagro,Trabajo-sgonza@yahoo.com,Cumplea?os-2023-12-31
+Tijerazos,,Telefono Convencional-2465799,Sede Central-Guayaquil,Consultas-tijerazos@gmail.com,Aniversario Empresarial-2019-05-08
+Romina,Bastidas,Principal-0983674989,Casa-Quito,Trabajo-romi@icloud.com,Aniversario-2006-04-07
+Manuel,Silamon,Casa-593646578,Otro-Milagro,Casa-manuel@gmail.com,Otro-2019-11-19
+Nike,,Atencion al cliente-16003265478,Sede Central-EEUU,Atencion al cliente-nike@company.com,Aniversario Empresarial-2020-07-07

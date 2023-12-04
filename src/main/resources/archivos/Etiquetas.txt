@@ -1,6 +1,4 @@
 Isagui,Yoichi,Amigos
-Xiomara,Avila,Amigos
 Rin,Itoshi,Universidad
 Alex,Benites,Familia
-Cristiano,Ronaldo,Trabajo
 Dennis,Rodman,Trabajo

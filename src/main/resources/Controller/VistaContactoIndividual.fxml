@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="paneVistaContactoIndividual" prefHeight="600.0" prefWidth="462.0" styleClass="fondoIndividualContacto" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VistaContactoIndividualController">
+<AnchorPane id="AnchorPane" fx:id="paneVistaContactoIndividual" prefHeight="600.0" prefWidth="462.0" styleClass="fondoIndividualContacto" stylesheets="@../icons/StylesButtonAndPanes.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VistaContactoIndividualController">
    <children>
       <VBox fx:id="vbportada" alignment="CENTER" layoutX="163.0" layoutY="6.0" prefHeight="118.0" prefWidth="151.0">
          <children>
@@ -115,6 +115,12 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
+            <Button layoutX="21.0" layoutY="155.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="22.0" />
+            <ImageView fitHeight="21.0" fitWidth="22.0" layoutX="21.0" layoutY="157.0" onMouseClicked="#showInfoContactAdicional" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/vista.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Button fx:id="btinicio" layoutX="200.0" layoutY="559.0" mnemonicParsing="false" onAction="#volverListaContactos" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #FFE4C4;" text="inicio">

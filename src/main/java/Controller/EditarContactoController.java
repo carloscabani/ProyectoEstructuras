@@ -324,15 +324,16 @@ public class EditarContactoController implements Initializable {
         String nombre = DatosAdicionales.getNombre();
         String apellido = DatosAdicionales.getApellido();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
-            StringBuilder fotos = new StringBuilder() ;
+            StringBuilder fotos = new StringBuilder();
             Iterator<String> iterator = lista.iterator();
-            while (iterator.hasNext()) {
-                fotos.append(iterator.next());
-                if (iterator.hasNext()) {
-                    fotos.append(",");
+            if(iterator!=null){
+                while (iterator.hasNext()) {
+                    fotos.append(iterator.next());
+                    if (iterator.hasNext()) {
+                        fotos.append(",");
+                }
             }
-        }
-            
+            }  
             String fotosAso = fotos.toString();
             
             String cadena = nombre+","+apellido+","+foto+","+fotosAso;
