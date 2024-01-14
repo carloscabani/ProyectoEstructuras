@@ -59,82 +59,39 @@ public class PatronContraseniaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       txpasword.setText("");
-       aceptar();
-       borrardigito();
-       escrbir1();
-       escrbir2();
-       escrbir3();
-       escrbir4();
-       escrbir5();
-       escrbir6();
-       escrbir7();
-       escrbir8();
-       escrbir9();
-       escrbir0();
-       
-    }    
+        txpasword.setText("");
+        asignarEventoBotonesNumericos();
+        borrardigito();
+        aceptar();
+    }
     
-    public void escrbir1() {
-        bt1.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"1";
-            txpasword.setText(tex);
-        });     
-    }    
-    public void escrbir2() {
-        bt2.setOnAction((ActionEvent e) -> {
-                        String tex = txpasword.getText()+"2";
-            txpasword.setText(tex);
-        });
+    public void escribirDigito(String digito) {
+        String tex = txpasword.getText() + digito;
+        txpasword.setText(tex);
     }
-    public void escrbir3() {    
-        bt3.setOnAction((ActionEvent e) -> {
-                        String tex = txpasword.getText()+"3";
-            txpasword.setText(tex);
-        });
+    private void asignarEventoBotonesNumericos() {
+        for (int i = 0; i <= 9; i++) {
+            Button btn = obtenerBotonPorNumero(i);
+            btn.setOnAction(e -> escribirDigito(String.valueOf(i)));
+        }
     }
-    public void escrbir4() {
-        bt4.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"4";
-            txpasword.setText(tex);
-        });
+
+    private Button obtenerBotonPorNumero(int numero) {
+        switch (numero) {
+            case 1: return bt1;
+            case 2: return bt2;
+            case 3: return bt3;
+            case 4: return bt4;
+            case 5: return bt5;
+            case 6: return bt6;
+            case 7: return bt7;
+            case 8: return bt8;
+            case 9: return bt9;
+            case 0: return bt10;
+            default: return null;
+        }
     }
-    public void escrbir5() {    
-        bt5.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"5";
-            txpasword.setText(tex);
-        });
-    }
-    public void escrbir6() {
-        bt6.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"6";
-            txpasword.setText(tex);
-        });
-    }
-    public void escrbir7() {    
-        bt7.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"7";
-            txpasword.setText(tex);
-        });
-    }
-    public void escrbir8() {    
-        bt8.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"8";
-            txpasword.setText(tex);
-        });
-    }
-    public void escrbir9() {
-        bt9.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"9";
-            txpasword.setText(tex);
-        });
-    }
-    public void escrbir0() {    
-        bt10.setOnAction((ActionEvent e) -> {
-            String tex = txpasword.getText()+"0";
-            txpasword.setText(tex);
-        });
-    } 
+        
     public void borrardigito() {
         btborrar.setOnAction((ActionEvent e) -> {
             String currentText = txpasword.getText();

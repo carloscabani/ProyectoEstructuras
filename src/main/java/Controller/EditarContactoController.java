@@ -111,7 +111,7 @@ public class EditarContactoController implements Initializable {
         System.out.println(newfoto);
     }   
     
-    public void mostrarInfor() {
+    private void mostrarInfor() {
         
         newnombre.setText(contactoSelected.getNombre());
         newapellido.setText(contactoSelected.getApellido());
@@ -131,7 +131,7 @@ public class EditarContactoController implements Initializable {
         ponerimagenAsociada();
     }
     
-    public void anadirComboBox(){
+    private void anadirComboBox(){
         bcell.getItems().addAll("Movil","Trabajo","Casa","Principal","Fax del Trabajo");
         bdireccion.getItems().addAll("Trabajo","Casa","Otro");
         bemail.getItems().addAll("Trabajo","Casa","Otro");
@@ -140,7 +140,7 @@ public class EditarContactoController implements Initializable {
         bred.getItems().addAll("Facebook","Instagram","Tik Tok","Twitter");
     }
     
-    public void ponerimagenAsociada(){
+    private void ponerimagenAsociada(){
         for(Foto f : lstfotoPerfiles){
             if(contactoSelected.getNombre().equals(f.getNombre())&& contactoSelected.getApellido().equals(f.getApellido())){
                 try (FileInputStream input = new FileInputStream("src/main/resources/pics/"+f.getImagen() )) {
@@ -155,7 +155,7 @@ public class EditarContactoController implements Initializable {
         }
     }
 
-    public void changeImage(File newImageFile) {
+    private void changeImage(File newImageFile) {
 
         newfoto = newImageFile.getName();
         try {
@@ -320,7 +320,7 @@ public class EditarContactoController implements Initializable {
             
     }
     
-    public void escribirArchivoImagenAsociada(String foto, LLDouble<String> lista) {
+    private void escribirArchivoImagenAsociada(String foto, LLDouble<String> lista) {
         String nombre = DatosAdicionales.getNombre();
         String apellido = DatosAdicionales.getApellido();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "ImagenesAsociadas.txt",true))) {
@@ -346,7 +346,7 @@ public class EditarContactoController implements Initializable {
         }
     }
     
-    public void EscribirArchivoContactosEditados() {
+    private void EscribirArchivoContactosEditados() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/Contactos.txt", true))) {
             String nombre = contactoEditado.getNombre();
             String Apellido = contactoEditado.getApellido();
@@ -364,7 +364,7 @@ public class EditarContactoController implements Initializable {
         }
     }
 
-    public void EscribirArchivoCamposAdicionalesEditados() {
+    private void EscribirArchivoCamposAdicionalesEditados() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/archivos/CamposAdicionales.txt", true))) {
             String nombre = DatosAdicionales.getNombre();
             String apellido = DatosAdicionales.getApellido();
@@ -396,7 +396,7 @@ public class EditarContactoController implements Initializable {
         }
     }
     
-    public void escribirArchivosImagenesPersonEdit(String i) {
+    private void escribirArchivosImagenesPersonEdit(String i) {
         String nombre = DatosAdicionales.getNombre();
         String apellido = DatosAdicionales.getApellido();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(App.pathFiles + "FotosPerfil.txt",true))) {
@@ -418,3 +418,4 @@ public class EditarContactoController implements Initializable {
     
 
 }
+
