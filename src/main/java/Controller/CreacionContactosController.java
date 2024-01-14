@@ -177,27 +177,16 @@ public class CreacionContactosController implements Initializable {
     @FXML
     private void enviarListaContactos(ActionEvent event) {
         btguardar.setOnAction((ActionEvent e) -> {
-            String typePersonaContacto = (String) c1.getValue();
-            String nombre = txnombre.getText();
-            String apellido = txapellido.getText();
-            Telefono Tel = new Telefono (txtelefono.getText(),cbtelefono.getValue());
-            Direccion di = new Direccion(cbdireccion.getValue(), txdireccion.getText());
-            Email em= new Email(cbemail.getValue(),txemail.getText());
-            PersonaAdicional per=new PersonaAdicional(contAsociado.getText(), typePersonaContacto);
-            
-            LocalDate fecha = txcalendario.getValue();
-            Fecha fech= new Fecha(cbfecha.getValue(),fecha);
-            RedSocial web= new RedSocial((String) c2.getValue(), tsitioweb.getText());
-            String Empresa= tempresa.getText();
-            
-            Contacto people1= new Contacto(nombre,apellido,Tel,di,em,fech);
-            Contacto camposAdicion1= new Contacto(nombre,apellido,per,web,Empresa);
-            Foto ft= new Foto(nombre,apellido,ni);
+            Contacto people1 = new Contacto(nombre, apellido, Tel, di, em, fech);
+            Contacto camposAdicion1 = new Contacto(nombre, apellido, per, web, Empresa);
+            Foto ft = new Foto(nombre, apellido, ni);
             lstfotoPerfiles.add(ft);
             listaContactos.add(people1);
             lstCamposAdicionales.add(camposAdicion1);
-            EscribirArchivoContactos();
-            EscribirArchivoCamposAdicionales();
+            FileManager.writeContactToFile("src/main/resources/archivos/Contactos.txt", people1);
+            FileManager.writeAdditionalFieldsToFile("src/main/resources/archivos/CamposAdicionales.txt", camposAdicion1);
+            escribirArchivosImagenes(ni);
+            agregarAlArchivoImagenesAsociadas(ni);
 
             escribirArchivosImagenes(ni);
             agregarAlArchivoImagenesAsociadas(ni);
@@ -643,7 +632,6 @@ public class CreacionContactosController implements Initializable {
     }
 
 }    
-    
     
 
     
