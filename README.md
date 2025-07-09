@@ -13,9 +13,9 @@ Aplicación de escritorio desarrollada en Java con JavaFX y Scene Builder que pe
 ##🚀 ¿Cómo ejecutar el proyecto?
 
 - Clona el repositorio
-'''bash 
+```bash 
 git clone https://github.com/tuusuario/gestor-contactos.git
-
+```
 - Abre el proyecto en el IDE NetBeans (recomendación).
 
 - Asegúrate de tener configurado JavaFX y Scene Builder correctamente.
