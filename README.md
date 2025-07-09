@@ -10,7 +10,7 @@ Aplicación de escritorio desarrollada en Java con JavaFX y Scene Builder que pe
 - 🔁 Navegación entre fotos usando listas enlazadas (`LinkedList`)
 - 💻 Interfaz gráfica intuitiva creada con Scene Builder
 
-##🚀 ¿Cómo ejecutar el proyecto?
+## 🚀 ¿Cómo ejecutar el proyecto?
 
 - Clona el repositorio
 ```bash 
