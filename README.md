@@ -14,7 +14,7 @@ Aplicación de escritorio desarrollada en Java con JavaFX y Scene Builder que pe
 
 - Clona el repositorio
 ```bash 
-git clone https://github.com/tuusuario/gestor-contactos.git
+git clone https://github.com/carloscabani/ProyectoEstructuras
 ```
 - Abre el proyecto en el IDE NetBeans (recomendación).
 
